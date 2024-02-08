@@ -1,0 +1,90 @@
+
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+
+
+
+.import-button {
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  background-color: var(--highlight-color);
+  opacity: .75;
+  display: inline-block;
+  padding: 10px;
+  /* border-radius: 5px; */
+  transition-duration: .3s;
+	cursor: pointer; /* "hand" cursor */
+  display: flex;
+  align-items: center;
+  border-radius:  0 4px 4px 0 ;
+}
+.import-button-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  background-color: white;
+  opacity: .75;
+  display: inline-block;
+  padding-right: 10px;
+  /* border-radius: 5px; */
+  transition-duration: .3s;
+	cursor: pointer; /* "hand" cursor */
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--highlight-color);
+  border-radius: 4px 0 0 4px;
+}
+.pad{
+  margin-top: 4px;
+  margin-left: 3px;
+  
+}
+
+.import-section{
+  display: flex;
+  flex-direction: row;
+}
+
+.file-input{
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  transition-duration: .3s;
+
+  opacity: 1;
+}
+
+
+
+
+.button{
+ /* cursor: pointer; */
+  border: none;
+  /* color: var(--dark-text); */
+  font-size: 1rem;
+  font-weight: 700;
+  margin-left: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  transition-duration: .3s;
+}
+
+.button:enabled{
+  color: var(--dark-text);
+  cursor: pointer;
+
+}

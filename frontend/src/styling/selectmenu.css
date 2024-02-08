@@ -1,0 +1,19 @@
+
+.custom-select {
+  /* appearance: none; */
+  /*  safari  */
+  /* -webkit-appearance: none; */
+  /*  other styles for aesthetics */
+  /* width: 100%; */
+  font-size: 1.15rem;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid var(--highlight-color);
+  border-radius: 4px;
+  color: #000;
+  cursor: pointer;
+  margin-left: 20px;
+  outline: none;
+}
+
+

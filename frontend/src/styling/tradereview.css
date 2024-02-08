@@ -1,0 +1,54 @@
+.trade-intro{
+  margin: 30px 0;
+  text-align: center;
+}
+
+.trade-intro-span{
+  margin-right: 15px;
+  text-transform: uppercase;
+}
+
+.order-breakdown{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 40px;
+}
+.orders-placed{
+  width: fit-content;
+  /* margin: 50px auto; */
+}
+.order-detail{
+  /* margin: 0 20px 20px 0; */
+  padding: 8px 12px;
+  /* background-color: rgb(160, 197, 241); */
+  /* border: 2px solid rgb(60, 60, 137); */
+  /* font-weight: bold; */
+  text-transform: uppercase;
+  border-radius: 1px;
+}
+.order-breakdown:nth-child(even){
+  background-color: rgb(242, 242, 242);
+}
+
+
+.candles-and-price{
+  max-height: 300px;
+  display: flex;
+  flex-wrap: nowrap;
+  /* background-color: blue; */
+}
+/* canvas{
+  margin: 0;
+  padding: 0;
+} */
+.rotate-canvas{
+  transform: rotate(180deg) scaleX(-1);
+}
+
+.trade-info-board{
+  display: flex;
+  flex-wrap: row;
+  justify-content: center;
+  margin-bottom: 30px;
+}

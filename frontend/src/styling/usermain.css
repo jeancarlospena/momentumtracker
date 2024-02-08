@@ -1,0 +1,18 @@
+.main-display, .top-heading{
+  display: flex;
+  flex-direction: row;
+
+}
+
+.top-heading{
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+
+.left-intro{
+  display: flex;
+  align-items: center;
+  /* flex-direction: column; */
+}

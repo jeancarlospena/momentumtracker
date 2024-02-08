@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Candlestick Chart</title>
+    <style>
+      canvas {
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="candlestickChart" width="800" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("candlestickChart");
+      const ctx = canvas.getContext("2d");
+
+      // Sample data for candlestick chart
+      const data = [
+        { open: 50, close: 70, high: 80, low: 40 },
+        { open: 60, close: 50, high: 70, low: 45 },
+        // Add more data as needed
+      ];
+
+      // Function to draw a candlestick
+      function drawCandlestick(x, open, close, high, low) {
+        const candleWidth = 10;
+        const lineWidth = 1;
+
+        // Draw candle body
+        ctx.beginPath();
+        ctx.moveTo(x, Math.max(open, close));
+        ctx.lineTo(x, Math.min(open, close));
+        ctx.lineWidth = lineWidth;
+        ctx.strokeStyle = open > close ? "red" : "green";
+        ctx.stroke();
+
+        // Draw candle wick
+        ctx.beginPath();
+        ctx.moveTo(x, high);
+        ctx.lineTo(x, low);
+        ctx.strokeStyle = "#000";
+        ctx.stroke();
+      }
+
+      // Function to draw the entire candlestick chart
+      function drawCandlestickChart(data) {
+        const chartWidth = canvas.width;
+        const chartHeight = canvas.height;
+
+        // Clear previous drawings
+        ctx.clearRect(0, 0, chartWidth, chartHeight);
+
+        const candleSpacing = chartWidth / (data.length + 1);
+
+        data.forEach((candle, index) => {
+          const x = (index + 1) * candleSpacing;
+          drawCandlestick(
+            x,
+            candle.open,
+            candle.close,
+            candle.high,
+            candle.low
+          );
+        });
+      }
+
+      // Call the function to draw the initial chart
+      drawCandlestickChart(data);
+    </script>
+  </body>
+</html>

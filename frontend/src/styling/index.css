@@ -1,0 +1,39 @@
+:root{
+  --dark-text: rgb(43, 39, 39);
+  --nav-text: rgb(81, 80, 80);
+  --highlight-color: #2e820a;
+  --outline-green: rgb(91, 131, 91);
+  --background-green: #a8f985;
+  --outline-red: rgb(105, 69, 69);
+  --background-red: #f28181;
+  /* --highlight-color: #ae1bd7; */
+  font-size: 15px;
+}
+
+/* #e0e3eb */
+body{
+
+  color: rgb(29, 28, 28);
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.container{
+  max-width: 1000px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.global-padding{
+  padding: 0 10px ;
+}
+
+.error-span{
+  color: rgb(235, 59, 59);
+}
+
+
+
+
+
+

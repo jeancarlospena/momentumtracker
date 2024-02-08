@@ -1,0 +1,38 @@
+form{
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 45px auto;
+}
+
+.input{
+  margin: 10px 0;
+  font-size: 1rem;
+  padding: 10px 5px;
+
+}
+
+.submit-form{
+  margin-top: 10px;
+  font-size: 1rem;
+  padding: 12px 40px;
+  color: rgb(252, 247, 247);
+  border-color: var(--highlight-color);
+  background-color: var(--highlight-color);
+  border-radius: 5px;
+  border: none;
+  opacity: .75;
+}
+
+.required{
+  color: red;
+}
+
+.submit-form:hover{
+  background-color: var(--highlight-color);
+  color: rgb(252, 247, 247);
+
+  transition-duration: .3s;
+  opacity: 1;
+  cursor: pointer;
+}
