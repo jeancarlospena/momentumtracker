@@ -17,9 +17,6 @@ app.use(cookieParser())
 app.use(cors())
 
 
-
-
-
 const logRequestStart = (req, res, next) => {
   console.info(`${req.method} ${req.originalUrl}`)
   next()
@@ -39,9 +36,8 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 
 const __dirname2 = path.resolve()
 
-
+console.log(process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
-  console.log('triggered')
   // set react dist folder
   app.use(express.static(path.join(__dirname2, '/frontend/dist')))
 
