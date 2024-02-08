@@ -28,31 +28,24 @@ app.use(logRequestStart)
 app.use('/api/user', userRoutes)
 app.use('/api/stocks', stockDataRoutes)
 
-mongoose.connect(process.env.MONGO_URI).then(() => {
-  app.listen(port, () => { console.log(`server running on port ${port}`) })
-}).catch((error) => {
-  console.log(error)
-})
 
 const __dirname2 = path.resolve()
 
-console.log(process.env.NODE_ENV)
-if (process.env.NODE_ENV === 'production') {
-  // set react dist folder
-  app.use(express.static(path.join(__dirname2, '/frontend/dist')))
 
-  // redirect non /api routes to index.html
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname2, 'frontend', 'dist', 'index.html'))
-  })
-} else {
-  app.get('/', (req, res) => {
-    res.send('API is running....')
-  })
+// set react dist folder
+app.use(express.static(path.join(__dirname2, '/frontend/dist')))
 
-}
+// redirect non /api routes to index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname2, 'frontend', 'dist', 'index.html'))
+})
 
 
 
 app.use(errorHandler)
 
+mongoose.connect(process.env.MONGO_URI).then(() => {
+  app.listen(port, () => { console.log(`server running on port ${port}`) })
+}).catch((error) => {
+  console.log(error)
+})
