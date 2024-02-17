@@ -4,7 +4,7 @@ const StatsDisplay = () => {
   const { user, loggedIn } = useAuthContext();
   return (
     <>
-      {user && (
+      {user && user?.imports?.metrics && (
         <div className="global-padding">
           <h2 className="stats-title">stats</h2>
           <div className="stats-display">

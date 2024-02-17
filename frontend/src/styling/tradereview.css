@@ -31,9 +31,12 @@
   background-color: rgb(242, 242, 242);
 }
 
+.chart-table{
+  margin-bottom: 100px;
+}
 
 .candles-and-price{
-  max-height: 300px;
+  /* max-height: 300px; */
   display: flex;
   flex-wrap: nowrap;
   /* background-color: blue; */

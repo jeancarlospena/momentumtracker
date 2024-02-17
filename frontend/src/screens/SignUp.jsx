@@ -16,21 +16,24 @@ const SignUp = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
-    axios({
-      url: "/api/user/signup",
-      method: "post",
-      data: {
-        firstName,
-        email,
-        password,
-      },
-    })
-      .then((response) => {
-        dispatch({ type: "LOGIN", payload: response.data });
-        navigate("/dashboard");
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+    } else {
+      axios({
+        url: "/api/user/signup",
+        method: "post",
+        data: {
+          firstName,
+          email,
+          password,
+        },
       })
-      .catch((error) => setError(error.response.data.error));
+        .then((response) => {
+          dispatch({ type: "LOGIN", payload: response.data });
+          navigate("/dashboard");
+        })
+        .catch((error) => setError(error.response.data.error));
+    }
   };
   return (
     <form onSubmit={submitHandler}>

@@ -10,7 +10,13 @@ const saveData = asyncHandler(async (req, res) => {
 const getData = asyncHandler(async (req, res) => {
   const { ticker } = req.params
   const foundData = await Stock.findOne({ ticker: ticker })
-  res.status(200).json(foundData)
+  if (foundData) {
+    res.status(200).json(foundData)
+
+  }
+  else {
+    throw new Error('Stock data not found')
+  }
 })
 
 module.exports = { saveData, getData }
