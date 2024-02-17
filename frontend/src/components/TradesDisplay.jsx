@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const TradesDisplay = () => {
   const { user } = useAuthContext();
-  console.log(user.imports.ordersWithMetrics.toReversed());
+  // console.log(user.imports.ordersWithMetrics.toReversed());
   return (
     <>
       {user?.imports?.ordersWithMetrics && (
