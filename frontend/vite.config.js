@@ -6,8 +6,8 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   server: {
     proxy: {
-      // "/api": "http://localhost:3000",
-      "/api": "https://momentumtracker.onrender.com",
+      "/api": "http://localhost:3000",
+      // "/api": "https://momentumtracker.onrender.com",
     }
   },
   plugins: [react()],

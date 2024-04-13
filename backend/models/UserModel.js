@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
+const starterImportsData = require('../utils/starterImportsData.js')
 
 const UserSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
@@ -13,9 +14,13 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  imports: {},
-  accounts: []
-})
+  primaryAccount: {
+    type: String,
+    required: true,
+    default: "Sample Account"
+  },
+  importAccounts: {}
+}, { timestamps: true })
 
 UserSchema.statics.signup = async function (firstName, email, password) {
   if (!email || !password || !firstName) {
@@ -31,7 +36,7 @@ UserSchema.statics.signup = async function (firstName, email, password) {
   const salt = await bcrypt.genSalt(11);
   const hash = await bcrypt.hash(password, salt)
 
-  const createdUser = await this.create({ firstName, email: email.toLowerCase(), password: hash })
+  const createdUser = await this.create({ firstName, email: email.toLowerCase(), password: hash, importAccounts: { "Sample Account": { ...starterImportsData } } })
 
 
 
@@ -56,5 +61,7 @@ UserSchema.statics.login = async function (email, password) {
   }
   return user
 }
+
+
 
 module.exports = mongoose.model('User', UserSchema)

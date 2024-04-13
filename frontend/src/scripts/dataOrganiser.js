@@ -1,16 +1,50 @@
 import { useState } from "react"
 
+export const newTradesDatesChecker = (latestCurrentDate, newTrades) => {
+  console.log(latestCurrentDate, newTrades)
+}
 
+
+export const openTradesCloser = (oldTrades, newTrades) => {
+
+
+  const ignoreNewTradesIndex = []
+
+  for (let i = oldTrades.oldestOpenTradeIndex; i < oldTrades.ordersWithMetrics.length; i++) {
+    let orderClosed = false
+    if (oldTrades.ordersWithMetrics[i].outStandingPosition !== 0) {
+      newTrades.orders.map((trade, newTradeIndex) => {
+        if (oldTrades.ordersWithMetrics[i].ticker === trade.ticker && !ignoreNewTradesIndex.includes(newTradeIndex) && !orderClosed) {
+          // START HERE
+          if (trade.positionEffect === "TO OPEN") {
+            oldTrades.ordersWithMetrics[i].orders.push({ action: "increased", date: trade.orderPlaced, price: trade.price, sharesQty: trade.sharesQty })
+            oldTrades.ordersWithMetrics[i].outStandingPosition += trade.sharesQty
+            ignoreNewTradesIndex.push(newTradeIndex)
+          } else if (trade.positionEffect === "TO CLOSE") {
+            oldTrades.ordersWithMetrics[i].outStandingPosition += trade.sharesQty
+            let addOrClose = oldTrades.ordersWithMetrics[i].outStandingPosition === 0 ? "closed" : "lowered";
+            oldTrades.ordersWithMetrics[i].orders.push({ action: addOrClose, date: trade.orderPlaced, price: trade.price, sharesQty: trade.sharesQty })
+            ignoreNewTradesIndex.push(newTradeIndex)
+            if (addOrClose === 'closed') {
+              orderClosed = true
+
+            }
+          }
+        }
+      })
+
+    }
+  }
+  return { oldTrades, ignoreNewTradesIndex }
+  // console.log(oldTrades)
+  // console.log(ignoreNewTradesIndex)
+}
 
 export const ordersIntoJSON = (arr) => {
   const arrCopy = [...arr]
   let orders = []
-  let ordersAreInOrder = true
 
-  arrCopy.map((order, index) => {
-
-
-
+  arrCopy.map((order) => {
 
     if (order[8] === "STOCK" || order[8] === "ETF") {
       let dummyObject = {}
@@ -24,6 +58,7 @@ export const ordersIntoJSON = (arr) => {
       dummyObject.orderPlaced = order[0]
       dummyObject.sharesQty = parseInt(order[3])
       dummyObject.price = parseFloat(order[9])
+      dummyObject.investmentType = order[8]
       orders.push(dummyObject)
     }
 
@@ -34,15 +69,16 @@ export const ordersIntoJSON = (arr) => {
 }
 
 // get orders into opening, added, lowered positions, and closed order
-export const ordersIntoCompleteOrders = (orders) => {
+export const ordersIntoCompleteOrders = (orders, skipIndex = []) => {
   // when orders are closed they are added here
   const completeOrder = []
   // skip these orders. already been processed
-  const skipIndex = []
+  // const skipIndex = []
   orders.map((primaryOrder, mainIndex) => {
     // verify this order was not already processed yet
     if (!skipIndex.includes(mainIndex)) {
       // immediately push order into being processed
+
       skipIndex.push(mainIndex)
       // check if this is an opening order to start looking for more orders and closing order
       if (primaryOrder.positionEffect === "TO OPEN") {
@@ -57,6 +93,7 @@ export const ordersIntoCompleteOrders = (orders) => {
         }
         // once order is closed it's turned into true so the map function skips all the logic
         let orderClosed = false
+        const toBeSkipped = []
         orders.map((comparedToOrder, secondaryIndex) => {
 
           if (comparedToOrder.ticker === primaryOrder.ticker && !orderClosed && !skipIndex.includes(secondaryIndex)) {
@@ -64,20 +101,27 @@ export const ordersIntoCompleteOrders = (orders) => {
             if (comparedToOrder.positionEffect === "TO OPEN") {
               orderCycle.orders.push({ action: "increased", date: comparedToOrder.orderPlaced, price: comparedToOrder.price, sharesQty: comparedToOrder.sharesQty })
               orderCycle.outStandingPosition += comparedToOrder.sharesQty
-              skipIndex.push(secondaryIndex)
+              toBeSkipped.push(secondaryIndex)
             } else if (comparedToOrder.positionEffect === "TO CLOSE") {
               orderCycle.outStandingPosition += comparedToOrder.sharesQty
               let addOrClose = orderCycle.outStandingPosition === 0 ? "closed" : "lowered";
               orderCycle.orders.push({ action: addOrClose, date: comparedToOrder.orderPlaced, price: comparedToOrder.price, sharesQty: comparedToOrder.sharesQty })
-              skipIndex.push(secondaryIndex)
+              toBeSkipped.push(secondaryIndex)
               if (addOrClose === 'closed') {
                 orderClosed = true
+
               }
             }
           }
         })
-        if (orderClosed) {
+        const openOrderLong = orderCycle.position === 'long' && orderCycle.outStandingPosition > 0
+        const openOrderShort = orderCycle.position === 'short' && orderCycle.outStandingPosition < 0
+
+        if (orderClosed || openOrderLong || openOrderShort) {
           completeOrder.push(orderCycle)
+          toBeSkipped.map((ind) => {
+            skipIndex.push(ind)
+          })
         }
       }
     }
@@ -115,11 +159,25 @@ export const incorporateNewImports = (currentOrders, newOrders) => {
 export const metricsCalculator = (orders) => {
   // p&l win %
   let comulativePNL = 0
+  let oldestOpenTradeIndex = 0
+  let searchingOldestOpenTradeIndex = true
+  console.log(orders)
   const winLossPercentage = { wins: 0, losses: 0 }
   const gains = []
   const losses = []
   const ordersWithMetrics = []
-  orders.map((completeOrder) => {
+  orders.map((completeOrder, index) => {
+
+    if (completeOrder.outStandingPosition > 0 || completeOrder.outStandingPosition < 0) {
+      ordersWithMetrics.push({ PNL: 0, ...completeOrder, tradeIndex: index })
+
+      if (searchingOldestOpenTradeIndex) {
+        oldestOpenTradeIndex = index
+        searchingOldestOpenTradeIndex = false
+      }
+      return
+    }
+
     let spent = 0
     let sold = 0
     completeOrder.orders.map((singleOrder) => {
@@ -129,6 +187,7 @@ export const metricsCalculator = (orders) => {
         sold += singleOrder.price * singleOrder.sharesQty
       }
     })
+
     const resultingGainLoss = roundNumber((spent + sold) * -1)
     comulativePNL += resultingGainLoss
     if (resultingGainLoss > 0) {
@@ -138,14 +197,19 @@ export const metricsCalculator = (orders) => {
       winLossPercentage.losses += 1
       losses.push(resultingGainLoss)
     }
+    // if (completeOrder.ticker === 'NVDA') {
+    //   console.log(resultingGainLoss)
+    //   console.log(completeOrder)
+    // }
 
-    ordersWithMetrics.push({ PNL: resultingGainLoss, ...completeOrder })
+    ordersWithMetrics.push({ ...completeOrder, PNL: resultingGainLoss, tradeIndex: index })
   })
   const averageLosses = roundNumber(getTheAverage(losses))
   const averageGains = roundNumber(getTheAverage(gains))
   const winPercentage = roundNumber((winLossPercentage.wins * 100) / (winLossPercentage.wins + winLossPercentage.losses))
   comulativePNL = roundNumber(comulativePNL)
-  return { ordersWithMetrics, metrics: { winPercentage, comulativePNL, averageGains, averageLosses, wins: winLossPercentage.wins, losses: winLossPercentage.losses } }
+  console.log(ordersWithMetrics)
+  return { ordersWithMetrics, oldestOpenTradeIndex: searchingOldestOpenTradeIndex ? "none" : oldestOpenTradeIndex, metrics: { winPercentage, comulativePNL, averageGains, averageLosses, wins: winLossPercentage.wins, losses: winLossPercentage.losses } }
 }
 
 const getTheAverage = (arr) => {

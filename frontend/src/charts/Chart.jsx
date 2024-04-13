@@ -21,57 +21,67 @@ const Chart = ({ ticker }) => {
   const [load, setLoad] = useState(false);
   useEffect(() => {
     getData();
-
     // clickHandler();
-    if (!user.imports.ordersWithMetrics[index]) {
+    if (!user.importAccounts[user.activeAccount].ordersWithMetrics[index]) {
       console.log("trigger");
       navigate("/dashboard");
     }
-  }, []);
+  }, [index]);
 
   const clickHandler = () => {
+    setLoad(false);
     axios
       .get(
         `https://www.alphavantage.co/query?symbol=${ticker}&RANGE=2023-01-01&RANGE=2024-01-30&outputsize=full&function=TIME_SERIES_DAILY&apikey=9ZJBUTMKMTOL2LTK`
       )
       .then((response) => {
-        const orders = user.imports.ordersWithMetrics[index].orders;
+        const orders =
+          user.importAccounts[user.activeAccount].ordersWithMetrics[index]
+            .orders;
         let data = response.data["Time Series (Daily)"];
 
-        let low = 99999999;
-        let high = 0;
-        const dateKeys = Object.keys(data);
+        // let low = 99999999;
+        // let high = 0;
+        // const dateKeys = Object.keys(data);
 
-        const openDate = dateToStringDate(new Date(orders[0].date));
-        const closeDate = dateToStringDate(
-          new Date(orders[orders.length - 1].date)
+        // const openDate = dateToStringDate(new Date(orders[0].date));
+        // const closeDate = dateToStringDate(
+        //   new Date(orders[orders.length - 1].date)
+        // );
+        // const inbetweenDate =
+        //   dateKeys.indexOf(openDate) -
+        //   (dateKeys.indexOf(openDate) - dateKeys.indexOf(closeDate)) / 2;
+        // let dataKeysArray = [];
+        // if (inbetweenDate > 100) {
+        //   dataKeysArray = dateKeys.splice(inbetweenDate - 100, 180);
+        // } else {
+        //   dataKeysArray = dateKeys.splice(0, 180);
+        // }
+
+        // let compressed = {};
+        // dataKeysArray.map((date) => {
+        //   const datesLow = parseFloat(data[`${date}`]["3. low"]);
+        //   const datesHigh = parseFloat(data[`${date}`]["2. high"]);
+        //   compressed[date] = data[date];
+        //   if (datesLow < low) {
+        //     low = datesLow;
+        //   }
+        //   if (datesHigh > high) {
+        //     high = datesHigh;
+        //   }
+        // });
+        // =====================================
+
+        setTickerData(data);
+        const renderedData = dataRenderer(data, orders);
+        // ===================================
+        setOrdersMarker(
+          user.importAccounts[user.activeAccount].ordersWithMetrics[index]
+            .orders
         );
-        const inbetweenDate =
-          dateKeys.indexOf(openDate) -
-          (dateKeys.indexOf(openDate) - dateKeys.indexOf(closeDate)) / 2;
-        let dataKeysArray = [];
-        if (inbetweenDate > 100) {
-          dataKeysArray = dateKeys.splice(inbetweenDate - 100, 180);
-        } else {
-          dataKeysArray = dateKeys.splice(0, 180);
-        }
-
-        let compressed = {};
-        dataKeysArray.map((date) => {
-          const datesLow = parseFloat(data[`${date}`]["3. low"]);
-          const datesHigh = parseFloat(data[`${date}`]["2. high"]);
-          compressed[date] = data[date];
-          if (datesLow < low) {
-            low = datesLow;
-          }
-          if (datesHigh > high) {
-            high = datesHigh;
-          }
-        });
-        setOrdersMarker(user.imports.ordersWithMetrics[index].orders);
-        setH(high);
-        setL(low);
-        setStockData(data);
+        setH(renderedData.high);
+        setL(renderedData.low);
+        setStockData(renderedData.compressed);
         setLoad(true);
       });
   };
@@ -88,10 +98,13 @@ const Chart = ({ ticker }) => {
   };
 
   const getData = () => {
+    setLoad(false);
     axios
       .get(`/api/stocks/${ticker}`)
       .then((response) => {
-        const orders = user.imports.ordersWithMetrics[index].orders;
+        const orders =
+          user.importAccounts[user.activeAccount].ordersWithMetrics[index]
+            .orders;
         let data = response.data.candles[0];
         setTickerData(data);
         // let low = 99999999;
@@ -125,18 +138,24 @@ const Chart = ({ ticker }) => {
         //   }
         // });
         const renderedData = dataRenderer(data, orders);
-        setOrdersMarker(user.imports.ordersWithMetrics[index].orders);
+        setOrdersMarker(
+          user.importAccounts[user.activeAccount].ordersWithMetrics[index]
+            .orders
+        );
         setH(renderedData.high);
         setL(renderedData.low);
         setStockData(renderedData.compressed);
         setLoad(true);
-        // setOrdersMarker(user.imports.ordersWithMetrics[index].orders);
+        // setOrdersMarker(user.importAccounts[user.activeAccount].ordersWithMetrics[index].orders);
         // setH(high);
         // setL(low);
         // setStockData(compressed);
         // setLoad(true);
       })
-      .catch((error) => console.log("NOT ABLE TO DISPLAY CHART"));
+      .catch((error) => {
+        console.log("NOT ABLE TO DISPLAY CHART");
+        setLoad(false);
+      });
   };
 
   return (

@@ -44,6 +44,12 @@ table{
   /* border: 2px solid var(--outline-red); */
   border-radius: 1px;
 }
+.open{
+  padding: 4px 12px;
+  background-color: rgb(252, 252, 125);
+  /* border: 2px solid var(--outline-red); */
+  border-radius: 1px;
+}
 
 
 
@@ -70,4 +76,8 @@ a.table-row{
   font-weight: bold;
   text-transform: uppercase;
   font-size: .9rem;
+}
+.table-body{
+  display: flex;
+  flex-direction: column-reverse;
 }

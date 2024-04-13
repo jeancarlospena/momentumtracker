@@ -1,27 +1,7 @@
 const User = require('../models/UserModel.js')
-const generateToken = require('../utils/generateToken.js')
 const asyncHandler = require("../middleware/asyncHandler.js")
 
-const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body
-  const user = await User.login(email, password)
-  generateToken(res, user._id)
-  res.status(200).json({ firstName: user.firstName, email: user.email, imports: user.imports, importAccounts: user.importAccounts, primaryAccount: user.primaryAccount })
-})
 
-const signupUser = asyncHandler(async (req, res) => {
-  const { firstName, email, password } = req.body
-  const user = await User.signup(firstName, email, password)
-
-  // console.log(user)
-  generateToken(res, user._id)
-  res.status(200).json({ firstName: user.firstName, email: user.email, importAccounts: user.importAccounts, primaryAccount: user.primaryAccount })
-})
-
-const logoutUser = (req, res) => {
-  res.cookie('jwt', '', { httpOnly: true, expiresIn: new Date(0) })
-  res.status(200).json({ message: 'Logout successful' })
-}
 
 const updateImportsData = asyncHandler(async (req, res) => {
   const { importData, primaryAccount } = req.body
@@ -59,14 +39,19 @@ const changePrimaryAccount = asyncHandler(async (req, res) => {
   res.status(200).json(newPrimaryAccount)
 })
 
-const verifyUser = (req, res) => {
-  res.status(200).json(req.user)
-}
+const renameAccount = asyncHandler(async (req, res) => {
+  const nameToEdit = req.body.editName
+  const currentDataValue = req.user.importAccounts[nameToEdit]
+  const currentImportsData = req.user.importAccounts
+  delete currentImportsData[nameToEdit]
+  const primaryAccountNameChecked = req.user.primaryAccount === nameToEdit ? req.body.updatedAccountName : req.user.primaryAccount
 
-const testingScript = async (req, res) => {
-  const foundUser = await User.findById(req.user._id)
-  // console.log(foundUser)
-  res.status(200).json(foundUser)
-}
 
-module.exports = { loginUser, signupUser, logoutUser, verifyUser, updateImportsData, createImportAccount, testingScript, deleteImportAccount, changePrimaryAccount }
+  const updated = await User.findByIdAndUpdate(req.user._id, { primaryAccount: primaryAccountNameChecked, importAccounts: { [req.body.updatedAccountName]: currentDataValue, ...currentImportsData, } }, { new: true })
+
+
+  res.status(200).json(updated)
+})
+
+
+module.exports = { updateImportsData, createImportAccount, deleteImportAccount, changePrimaryAccount, renameAccount }

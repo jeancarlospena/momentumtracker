@@ -8,7 +8,7 @@ const Header = () => {
 
   const logOutHandler = () => {
     axios({
-      url: "/api/user/logout",
+      url: "/api/auth/logout",
       method: "post",
     })
       .then((response) => {
@@ -22,7 +22,7 @@ const Header = () => {
       <header>
         <div className="left-nav">
           <h1>
-            <Link to="/">
+            <Link to="/profile">
               <img className="logo" src="../images/new-logo.png" alt="" />
             </Link>
           </h1>
@@ -30,6 +30,9 @@ const Header = () => {
         <div className="right-nav">
           {authLoaded && user && (
             <ul className="nav-menu">
+              <li className="nav-link">
+                <Link to={"/profile"}>profile</Link>
+              </li>
               <li className="nav-link">
                 <Link to={"/dashboard"}>dashboard</Link>
               </li>

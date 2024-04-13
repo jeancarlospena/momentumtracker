@@ -2,7 +2,7 @@ import { useState } from "react";
 import Papa from "papaparse";
 import {
   ordersIntoJSON,
-  incorporateNewImports,
+  openTradesCloser,
   ordersIntoCompleteOrders,
   metricsCalculator,
 } from "../scripts/dataOrganiser.js";
@@ -11,8 +11,8 @@ import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
 
 const ImportTrades = () => {
-  const { dispatch } = useAuthContext();
-
+  const { user, dispatch } = useAuthContext();
+  // console.log(user.primaryAccount);
   const [importedTrades, setImportedTrades] = useState([]);
   const [disabledButton, setDisabledButton] = useState(true);
   const [fileName, setFileName] = useState("");
@@ -39,25 +39,53 @@ const ImportTrades = () => {
       },
     });
   };
-
+  // console.log(user.importAccounts.sdfg.oldestOpenTradeIndex);
   const handleClick = () => {
-    // console.log(importedTrades);
-    const completeOrders = ordersIntoCompleteOrders(importedTrades.orders);
+    let completeOrders;
+
+    if (user.importAccounts[user.activeAccount].empty) {
+      completeOrders = ordersIntoCompleteOrders(importedTrades.orders);
+    } else {
+      if (
+        user.importAccounts[user.activeAccount].oldestOpenTradeIndex !== "none"
+      ) {
+        const tradesMerged = openTradesCloser(
+          JSON.parse(JSON.stringify(user.importAccounts[user.activeAccount])),
+          importedTrades
+        );
+        const completeNewOrders = ordersIntoCompleteOrders(
+          importedTrades.orders,
+          tradesMerged.ignoreNewTradesIndex
+        );
+
+        completeOrders = [
+          ...tradesMerged.oldTrades.ordersWithMetrics,
+          ...completeNewOrders,
+        ];
+      }
+    }
     const ordersWithMetrics = metricsCalculator(completeOrders);
+    // console.log(ordersWithMetrics);
     const completeData = {
       ...ordersWithMetrics,
-      earliestDate: importedTrades.earliestDate,
+      earliestDate: user.importAccounts[user.activeAccount].empty
+        ? importedTrades.earliestDate
+        : user.importAccounts[user.activeAccount].earliestDate,
       latestDate: importedTrades.latestDate,
     };
     axios({
-      url: "/api/user/import",
+      url: "/api/accounts/import",
       method: "post",
       data: {
         importData: completeData,
+        primaryAccount: user.activeAccount,
       },
     })
       .then((response) => {
-        dispatch({ type: "LOGIN", payload: response.data });
+        dispatch({ type: "IMPORT_TRADES", payload: completeData });
+        setFileName("");
+        // setImportedTrades([]);
+        // setDisabledButton(true);
       })
       .catch((error) => console.log(error));
   };
@@ -81,7 +109,6 @@ const ImportTrades = () => {
           <span className="pad">Select file...</span>
         </label>
       </div>
-
       <button
         disabled={disabledButton}
         className="button"

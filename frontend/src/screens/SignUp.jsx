@@ -20,7 +20,7 @@ const SignUp = () => {
       setError("Passwords do not match");
     } else {
       axios({
-        url: "/api/user/signup",
+        url: "/api/auth/signup",
         method: "post",
         data: {
           firstName,
@@ -36,7 +36,7 @@ const SignUp = () => {
     }
   };
   return (
-    <form onSubmit={submitHandler}>
+    <form className="log-form" onSubmit={submitHandler}>
       <label>
         First Name <span className="required">*</span>
       </label>

@@ -44,6 +44,7 @@ export const lowestAndHighestPoint = (topPrice, minPrice, height) => {
 }
 
 export const dataRenderer = (data, orders, drag = 0) => {
+
   const renderNewCandlesByDrag = Math.floor(drag / 80) * 16
   const screenSection = Math.floor(drag / 80) * -80
   let low = 99999999;
@@ -57,16 +58,19 @@ export const dataRenderer = (data, orders, drag = 0) => {
     Math.floor(dateKeys.indexOf(openDate) -
       (dateKeys.indexOf(openDate) - dateKeys.indexOf(closeDate)) / 2);
   let dataKeysArray = [];
-  if (inbetweenDate > 100) {
-    const startSliceCalc = inbetweenDate - 100 + renderNewCandlesByDrag
-    const startSlice = startSliceCalc >= 0 ? startSliceCalc : 0
-    dataKeysArray = dateKeys.slice(startSlice, inbetweenDate + 93 + renderNewCandlesByDrag);
-  } else {
-    dataKeysArray = dateKeys.slice(0, 170);
-
-
-  }
+  // i tried adding   drag or screenSection < 0
+  // if (inbetweenDate > 100) {
+  const startSliceCalc = inbetweenDate - 100 + renderNewCandlesByDrag
+  const startSlice = startSliceCalc >= 0 ? startSliceCalc : 0
+  dataKeysArray = dateKeys.slice(startSlice, inbetweenDate + 93 + renderNewCandlesByDrag);
+  // } else {
+  //   dataKeysArray = dateKeys.slice(0, 170);
+  // }
   // console.log(dataKeysArray)
+  // console.log(data[`${dateKeys[0]}`])
+
+
+  // console.log(data['2024-03-01'])
   let compressed = {};
   dataKeysArray.map((date) => {
     const datesLow = parseFloat(data[`${date}`]["3. low"]);
@@ -79,6 +83,7 @@ export const dataRenderer = (data, orders, drag = 0) => {
       high = datesHigh;
     }
   });
-
+  // console.log(compressed)
+  // console.log(data)
   return { compressed, high, low, screenSection }
 }

@@ -25,11 +25,11 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
 
   const draw = (canvas, context) => {
     let width = 960;
-    let globalHeightDivider = 6;
     // window.devicePixelRatio = 1;
     let screenSection = 0;
     let drag = 0;
     let lastDrag = 0;
+
     const drawCandles = () => {
       let currentDate = drag + lastDrag;
       Object.keys(data)
@@ -83,22 +83,14 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
         });
       }
     };
-
-    // default values
-    let isDragging = false;
-    let startX;
-    const mouseDown = () => {
-      event.preventDefault();
-      isDragging = true;
-      startX = parseInt(event.offsetX);
-    };
-    const mouseUp = () => {
+    const reRenderFunction = () => {
       event.preventDefault();
       isDragging = false;
       context.clearRect(0, 0, width, height);
       let reRender = dataRenderer(tickerData, ordersMarker, drag + lastDrag);
       setPassScreenSection(reRender.screenSection);
       screenSection = reRender.screenSection;
+      // CHANGED ==========================
       data = reRender.compressed;
       board = lowestAndHighestPoint(reRender.high, reRender.low, height);
       setPassLow(reRender.low);
@@ -115,22 +107,23 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
       setPassLastDrag(lastDrag);
       setPassDrag(0);
     };
+    // default values
+    let isDragging = false;
+    let startX;
+    const mouseDown = () => {
+      event.preventDefault();
+      isDragging = true;
+      startX = parseInt(event.offsetX);
+    };
+    const mouseUp = () => {
+      reRenderFunction();
+    };
     const mouseOut = (event) => {
       event.preventDefault();
       if (!isDragging) {
         return;
       }
-      isDragging = false;
-      context.clearRect(0, 0, width, height);
-
-      drawVerticalLines(context, height, data, drag + lastDrag, lastDrag);
-      drawHorizontalLines(context, width, board);
-      drawCandles();
-      drawTriangles();
-      lastDrag += drag;
-      drag = 0;
-      setPassLastDrag(lastDrag);
-      setPassDrag(0);
+      reRenderFunction();
     };
 
     const mouseMove = () => {
@@ -171,7 +164,7 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
     canvas.width = width;
     canvas.height = height;
     context.imageSmoothingEnabled = false;
-    canvas.style.background = "white";
+    // canvas.style.background = "yellow";
 
     graphicsOptimizer(canvas, context);
 
@@ -230,16 +223,17 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
         } else {
           context.strokeStyle = "grey";
           context.fillStyle = "grey";
-          context.rect(this.date, this.open - 1, 2, 1);
+          // context.rect(this.date, this.open - 1, 2, 1);
           context.rect(this.date, this.open, 2, this.close - this.open);
         }
         context.stroke();
         context.fill();
         context.closePath();
+        context.lineWidth = 1;
 
         context.beginPath();
-        context.moveTo(this.date + 1, this.high);
-        context.lineTo(this.date + 1, this.low);
+        context.moveTo(this.date + 1.5, this.high);
+        context.lineTo(this.date + 1.5, this.low);
         context.stroke();
         context.closePath();
       }

@@ -10,7 +10,7 @@ const ChartDates = ({ data, drag, lastDrag, screenSection }) => {
     canvas.width = width2;
     canvas.height = height;
 
-    graphicsOptimizer(canvas, context);
+    // graphicsOptimizer(canvas, context);
 
     const datesInArray = Object.keys(data).reverse();
 

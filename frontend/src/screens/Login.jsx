@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
 
     axios({
-      url: "/api/user/login",
+      url: "/api/auth/login",
       method: "post",
       data: {
         email,
@@ -30,7 +30,7 @@ const Login = () => {
       .catch((error) => setError(error.response.data.error));
   };
   return (
-    <form onSubmit={submitHandler}>
+    <form className="log-form" onSubmit={submitHandler}>
       <label>
         Email <span className="required">*</span>
       </label>

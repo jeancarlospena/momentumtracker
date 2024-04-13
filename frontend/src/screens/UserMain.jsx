@@ -5,31 +5,49 @@ import TradesDisplay from "../components/TradesDisplay.jsx";
 import StatsDisplay from "../components/StatsDisplay.jsx";
 
 const UserMain = () => {
-  const { user } = useAuthContext();
-
+  const { user, dispatch } = useAuthContext();
+  const accountChange = (e) => {
+    dispatch({ type: "SWAP_ACCOUNT", payload: e.target.value });
+  };
   return (
     <>
       <div className="global-padding">
         <div className="top-heading ">
-          {user && (
+          {user && !user.activeAccount?.unAveilable && (
             <div className="left-intro">
-              <h2 className="stats-title">Account : </h2>
-              <select className="custom-select" name="" id="">
-                <option>momentum swing trad...</option>
-                {/* <option>swing trading</option>
-                <option>day trading trading</option> */}
-              </select>
+              <div className="account-selection">
+                <h2 className="basic-title">Account :</h2>
+                <select
+                  defaultValue={user.activeAccount}
+                  onChange={accountChange}
+                  className="custom-select"
+                  name=""
+                  id=""
+                >
+                  {Object.keys(user.importAccounts).map((accountName, ind) => {
+                    return <option key={ind}>{accountName}</option>;
+                  })}
+                </select>
+              </div>
+
+              <ImportTrades></ImportTrades>
             </div>
           )}
 
-          <ImportTrades></ImportTrades>
+          <StatsDisplay></StatsDisplay>
         </div>
       </div>
-      {user && (
+      {user && !user?.importAccounts?.[user.activeAccount]?.empty ? (
         <>
-          <StatsDisplay></StatsDisplay>
           <TradesDisplay></TradesDisplay>
         </>
+      ) : (
+        <div className="global-padding">
+          <h2 className="basic-title">
+            No trades have been imported into this account. Import your CSV
+            files from the "Think Or Swim" platform.
+          </h2>
+        </div>
       )}
     </>
   );

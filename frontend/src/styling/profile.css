@@ -1,0 +1,142 @@
+.account-btn-regular{
+  /* font-size: .75rem; */
+  padding: 4px 0;
+  background-color: white;
+  border: none;
+  /* background-color: rgb(239, 237, 254); */
+  border-radius: 2px;
+  /* font-weight: bold; */
+  color: rgb(41, 118, 242);
+  transition: .2s;
+  cursor: pointer;
+ /* margin-bottom: 20px; */
+ font-size: 1rem;
+}
+.account-btn-disabled{
+  color: rgb(124, 138, 160);
+cursor: default;
+}
+.bottom-margin{
+  margin-bottom: 15px;
+}
+.btn-spacing{
+  margin-left: 20px;
+
+}
+.trades-navigator{
+  display: flex;
+justify-content: space-between;
+  width: 340px;
+  margin: 20px auto 50px;
+}
+/* .blue-btn:hover{
+  background-color: rgb(201, 231, 249);
+}
+.red-btn:hover{
+  background-color: rgb(252, 189, 189);
+} */
+.star-btn{
+  background-color: transparent;
+  border: none;
+  margin: 2px  12px 0 0;
+  padding: 0;
+  /* opacity: .5; */
+  height: fit-content;
+}
+.star-opacity{
+  opacity: .5;
+  transition: .2s;
+
+}
+.star-opacity:hover, .star-btn:hover{
+  opacity: 1;
+  cursor: pointer;
+}
+
+.star-icon{
+  display: block;
+  margin: 0 auto;
+  /* background-color: blue; */
+}
+.account-display{
+  font-size: 1rem;
+  /* padding: 5px 20px; */
+  
+  /* background-color: rgb(237, 234, 237); */
+  min-width: 250px;
+  
+  block-size: fit-content;
+  border-radius: 2px;
+  display: flex;
+/* background-color: rgb(219, 219, 8); */
+}
+
+.input-small{
+  font-size: 1rem;
+}
+
+.submit-form-small{
+  margin-top: 10px;
+  font-size: 1rem;
+  padding: 8px 30px;
+  color: rgb(252, 247, 247);
+  border-color: var(--highlight-color);
+  background-color: var(--highlight-color);
+  border-radius: 5px;
+  border: none;
+  opacity: .75;
+}
+
+
+
+.submit-form-small:hover{
+  background-color: var(--highlight-color);
+  color: rgb(252, 247, 247);
+
+  transition-duration: .3s;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.profile-sections{
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+}
+.displayed-section{
+  margin: 0 auto;
+}
+.profile-nav{
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  min-width: 170px;
+  padding-bottom: 22px;
+  /* background-color: rgb(176, 176, 211); */
+  border-right: 1px solid rgb(209, 201, 201);
+}
+.profile-nav > h2{
+  text-align: center;
+}
+.add-account{
+  margin-bottom: 30px;
+}
+.profile-nav-button{
+  padding: 10px 0 10px 20px;
+  margin-top: 5px;
+cursor: pointer;
+transition: .3s
+}
+.profile-nav-button:hover{
+  background-color: rgb(236, 231, 231);
+}
+
+.selected-profile-nav{
+  border-left: 1px solid rgb(58, 225, 66);
+  color: 1px solid rgb(58, 225, 66);
+}
+.right-buttons{
+  margin-left: auto;
+  margin-right: 0;
+  color: yellow !important;
+}

@@ -1,11 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import CandlestickChart from "../charts/CandlestickChart.jsx";
-import ChartPriceLevels from "../charts/ChartPriceLevels.jsx";
-import ChartDates from "../charts/ChartDates.jsx";
+
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
 import { useParams, useNavigate } from "react-router-dom";
-import { dateToStringDate } from "../scripts/dateScripts.js";
 
 import Chart from "../charts/Chart.jsx";
 
@@ -15,47 +11,66 @@ const TradeReview = ({ ticker }) => {
   const { index } = useParams();
 
   useEffect(() => {
-    if (!user.imports.ordersWithMetrics[index]) {
+    if (!user.importAccounts[user.activeAccount].ordersWithMetrics[index]) {
       navigate("/dashboard");
     }
   }, []);
-
   return (
     <div>
-      {user && user.imports.ordersWithMetrics[index] && (
-        <>
-          <div className="trade-info-board">
-            <div>
-              <h2 className="stats-title">position</h2>
+      {user &&
+        user.importAccounts[user.activeAccount].ordersWithMetrics[index] && (
+          <>
+            <div></div>
+            <div className="trade-info-board">
+              <div>
+                <h2 className="stats-title">position</h2>
 
-              <div className="trade-intro">
-                <span className="trade-intro-span">
-                  {user.imports.ordersWithMetrics[index].ticker}{" "}
-                </span>
-                <span className="trade-intro-span">
-                  {user.imports.ordersWithMetrics[index].PNL < 0 ? (
-                    <span className="loss">
-                      LOSS -$
-                      {(user.imports.ordersWithMetrics[index].PNL * -1).toFixed(
-                        2
-                      )}
-                    </span>
-                  ) : (
-                    <span className="won">
-                      WON $
-                      {user.imports.ordersWithMetrics[index].PNL.toFixed(2)}
-                    </span>
-                  )}
-                </span>
-                <span className="trade-intro-span">
-                  {user.imports.ordersWithMetrics[index].position} position
-                </span>
+                <div className="trade-intro">
+                  <span className="trade-intro-span">
+                    {
+                      user.importAccounts[user.activeAccount].ordersWithMetrics[
+                        index
+                      ].ticker
+                    }{" "}
+                  </span>
+                  <span className="trade-intro-span">
+                    {user.importAccounts[user.activeAccount].ordersWithMetrics[
+                      index
+                    ].outStandingPosition !== 0 ? (
+                      <span className="open">OPEN</span>
+                    ) : user.importAccounts[user.activeAccount]
+                        .ordersWithMetrics[index].PNL < 0 ? (
+                      <span className="loss">
+                        LOSS -$
+                        {(
+                          user.importAccounts[user.activeAccount]
+                            .ordersWithMetrics[index].PNL * -1
+                        ).toFixed(2)}
+                      </span>
+                    ) : (
+                      <span className="won">
+                        WON $
+                        {user.importAccounts[
+                          user.activeAccount
+                        ].ordersWithMetrics[index].PNL.toFixed(2)}
+                      </span>
+                    )}
+                  </span>
+                  <span className="trade-intro-span">
+                    {
+                      user.importAccounts[user.activeAccount].ordersWithMetrics[
+                        index
+                      ].position
+                    }{" "}
+                    position
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="orders-placed">
-              <h2 className="stats-title">trades</h2>
-              {user.imports.ordersWithMetrics[index].orders.map(
-                (order, ind) => {
+              <div className="orders-placed">
+                <h2 className="stats-title">trades</h2>
+                {user.importAccounts[user.activeAccount].ordersWithMetrics[
+                  index
+                ].orders.map((order, ind) => {
                   return (
                     <div key={ind} className="order-breakdown">
                       <div className="order-detail">
@@ -66,13 +81,12 @@ const TradeReview = ({ ticker }) => {
                       </div>
                     </div>
                   );
-                }
-              )}
+                })}
+              </div>
             </div>
-          </div>
-          <Chart ticker={ticker}></Chart>
-        </>
-      )}
+            <Chart ticker={ticker}></Chart>
+          </>
+        )}
     </div>
   );
 };

@@ -12,6 +12,7 @@ import "./styling/statsdisplay.css";
 import "./styling/importfiles.css";
 import "./styling/tradereview.css";
 import "./styling/selectmenu.css";
+import "./styling/profile.css";
 
 // import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
