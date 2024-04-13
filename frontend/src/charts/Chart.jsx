@@ -160,7 +160,7 @@ const Chart = ({ ticker }) => {
 
   return (
     <div>
-      <button onClick={saveDataInTheBackend}>SAVE DATA</button>
+      {/* <button onClick={saveDataInTheBackend}>SAVE DATA</button> */}
 
       {load && (
         <>
