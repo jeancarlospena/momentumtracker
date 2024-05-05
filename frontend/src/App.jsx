@@ -11,6 +11,8 @@ import UserMain from "./screens/UserMain.jsx";
 import OrderBreakdown from "./screens/OrderBreakdown.jsx";
 import Blanc from "./components/Blanc.jsx";
 import Profile from "./screens/Profile.jsx";
+import Calendar from "./screens/Calendar.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,31 +22,38 @@ function App() {
     <>
       <BrowserRouter>
         <div className="container">
-          <Header />
-          <Routes>
-            {user && (
-              <>
-                {!user.activeAccount?.unAveilable && (
-                  <>
-                    {" "}
-                    <Route path="/order/:index" element={<OrderBreakdown />} />
-                    <Route path="/order/:index" element={<OrderBreakdown />} />
-                    <Route path="/dashboard" element={<UserMain />} />
-                  </>
-                )}
+          <div>
+            <Header />
+            <Routes>
+              {user && (
+                <>
+                  {!user.activeAccount?.unAveilable && (
+                    <>
+                      {" "}
+                      <Route
+                        path="/order/:index"
+                        element={<OrderBreakdown />}
+                      />
+                      <Route path="/dashboard" element={<UserMain />} />
+                      <Route path="/calendar" element={<Calendar />} />
+                    </>
+                  )}
 
-                <Route path="*" element={<Profile />} />
-              </>
-            )}
-            {!user && authLoaded && (
-              <>
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="*" element={<Home />} />
-              </>
-            )}
-            <Route path="*" element={<Blanc />} />
-          </Routes>
+                  <Route path="*" element={<Profile />} />
+                </>
+              )}
+              {!user && authLoaded && (
+                <>
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="*" element={<Home />} />
+                </>
+              )}
+              <Route path="*" element={<Blanc />} />
+            </Routes>
+          </div>
+
+          <Footer />
         </div>
       </BrowserRouter>
     </>

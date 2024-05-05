@@ -3,7 +3,8 @@ const router = express.Router()
 
 const { requireAuth, requireAdmin } = require('../middleware/requireAuth.js')
 
-const { loginUser, signupUser, logoutUser, verifyUser } = require('../controllers/userController.js')
+// const { loginUser, signupUser, logoutUser, verifyUser } = require('../controllers/authController.js')
+const { loginUser, signupUser, logoutUser, verifyUser } = require('../controllers/authController.js')
 
 router.post('/login', loginUser)
 

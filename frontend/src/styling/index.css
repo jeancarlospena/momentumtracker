@@ -1,6 +1,7 @@
 :root{
   --dark-text: rgb(43, 39, 39);
   --nav-text: rgb(81, 80, 80);
+  --box-outline: rgb(126, 126, 126);
   --highlight-color: #2e820a;
   --outline-green: rgb(91, 131, 91);
   --background-green: #a8f985;
@@ -12,7 +13,7 @@
 
 /* #e0e3eb */
 body{
-
+  /* display: flex; */
   color: rgb(29, 28, 28);
   /* background-color: blue; */
   margin: 0;
@@ -23,6 +24,10 @@ body{
   max-width: 1000px;
   width: 90%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
 }
 
 .global-padding{

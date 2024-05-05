@@ -20,7 +20,7 @@ const UserMain = () => {
                 <select
                   defaultValue={user.activeAccount}
                   onChange={accountChange}
-                  className="custom-select"
+                  className="custom-select "
                   name=""
                   id=""
                 >

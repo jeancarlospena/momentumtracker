@@ -8,7 +8,6 @@ const AccountsManager = () => {
   const [newAccountName, setNewAccountName] = useState("");
   const [editing, setEditing] = useState(false);
   const [editName, setEditName] = useState("");
-  console.log(user);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -28,7 +27,6 @@ const AccountsManager = () => {
       });
   };
   const changePrimaryAccount = (name) => {
-    console.log(name);
     axios
       .post("api/accounts/changePrimaryAccount", { accountName: name })
       .then((response) => {

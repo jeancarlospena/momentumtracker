@@ -5,12 +5,13 @@ const asyncHandler = require("../middleware/asyncHandler.js")
 
 const updateImportsData = asyncHandler(async (req, res) => {
   const { importData, primaryAccount } = req.body
+  console.log(importData)
   if (!importData) {
     throw new Error('No data to import')
   }
   const updatedImport = await User.findByIdAndUpdate(req.user._id, { importAccounts: { ...req.user.importAccounts, [primaryAccount]: importData } }, { new: true }).select('-password')
-  console.log(updatedImport)
-  res.status(200).json(updatedImport)
+
+  res.status(200).json(updatedImport.importAccounts[primaryAccount])
 })
 
 const createImportAccount = asyncHandler(async (req, res) => {

@@ -8,8 +8,7 @@ const cookieParser = require('cookie-parser')
 
 const errorHandler = require('./middleware/errorHandler.js')
 const tradesRoutes = require("./routes/tradesRoutes.js")
-// jeje
-const userRoutes = require('./routes/userRoutes.js')
+
 
 const accountsRoutes = require('./routes/accountsRoutes.js')
 const profileRoutes = require('./routes/profileRoutes.js')
@@ -29,8 +28,7 @@ const logRequestStart = (req, res, next) => {
 
 app.use(logRequestStart)
 
-// app.use('/api/trades', tradesRoutes)
-// app.use('/api/user', userRoutes)
+
 app.use('/api/accounts', accountsRoutes)
 app.use('/api/profile', profileRoutes)
 app.use('/api/auth', authRoutes)

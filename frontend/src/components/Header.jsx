@@ -37,6 +37,9 @@ const Header = () => {
                 <Link to={"/dashboard"}>dashboard</Link>
               </li>
               <li className="nav-link">
+                <Link to={"/calendar"}>calendar</Link>
+              </li>
+              <li className="nav-link">
                 <Link onClick={logOutHandler}>Log Out</Link>
               </li>
             </ul>

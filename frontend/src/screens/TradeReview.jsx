@@ -74,7 +74,7 @@ const TradeReview = ({ ticker }) => {
                   return (
                     <div key={ind} className="order-breakdown">
                       <div className="order-detail">
-                        {order.action} {order.date}
+                        {order.action} {order.date.split("T")[0]}
                       </div>
                       <div className="order-detail">
                         {order.sharesQty} @ ${order.price.toFixed(2)}

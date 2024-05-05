@@ -16,8 +16,10 @@ const ImportTrades = () => {
   const [importedTrades, setImportedTrades] = useState([]);
   const [disabledButton, setDisabledButton] = useState(true);
   const [fileName, setFileName] = useState("");
+  const [importFileError, setImportFileError] = useState("");
 
   const handleFile = (event) => {
+    setImportFileError("");
     Papa.parse(event.target.files[0], {
       header: true,
       skipEmptyLines: true,
@@ -31,6 +33,27 @@ const ImportTrades = () => {
         trades.shift();
         trades.reverse();
         const tradesJSON = ordersIntoJSON(trades);
+
+        // This section makes sure to not double import data
+        const currentTradesLatestDate = new Date(
+          user.importAccounts[user.activeAccount].latestDate
+        );
+        if (tradesJSON.latestDate <= currentTradesLatestDate) {
+          setImportFileError("No new trades to import");
+          return;
+        }
+        console.log("went through");
+        if (tradesJSON.earliestDate < currentTradesLatestDate) {
+          const filteredJSONTrades = [];
+          tradesJSON.orders.map((trade) => {
+            const orderPlacedDate = new Date(trade.orderPlaced);
+            if (orderPlacedDate > currentTradesLatestDate) {
+              filteredJSONTrades.push(trade);
+            }
+          });
+          tradesJSON.orders = filteredJSONTrades;
+        }
+
         setFileName(`${event.target.files[0].name.match(/.{1,11}/g)[0]}...`);
         setImportedTrades(tradesJSON);
         if (tradesJSON.orders.length > 0) {
@@ -82,13 +105,20 @@ const ImportTrades = () => {
       },
     })
       .then((response) => {
-        dispatch({ type: "IMPORT_TRADES", payload: completeData });
+        console.log(response);
+
+        dispatch({ type: "IMPORT_TRADES", payload: response.data });
         setFileName("");
         // setImportedTrades([]);
         // setDisabledButton(true);
       })
       .catch((error) => console.log(error));
   };
+  // console.log(user);
+  // console.log(
+  //   user.importAccounts["Sample Account"].earliestDate <
+  //     user.importAccounts["Sample Account"].latestDate
+  // );
   return (
     <div className="import-section">
       <div className="file-input">
@@ -109,6 +139,10 @@ const ImportTrades = () => {
           <span className="pad">Select file...</span>
         </label>
       </div>
+      {importFileError && (
+        <span className="error-span">{importFileError} *</span>
+      )}
+
       <button
         disabled={disabledButton}
         className="button"

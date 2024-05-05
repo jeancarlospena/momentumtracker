@@ -55,7 +55,8 @@ export const ordersIntoJSON = (arr) => {
       } else {
         dummyObject.position = "short"
       }
-      dummyObject.orderPlaced = order[0]
+      // dummyObject.orderPlaced = order[0]
+      dummyObject.orderPlaced = new Date(order[0])
       dummyObject.sharesQty = parseInt(order[3])
       dummyObject.price = parseFloat(order[9])
       dummyObject.investmentType = order[8]
@@ -63,6 +64,7 @@ export const ordersIntoJSON = (arr) => {
     }
 
   })
+  console.log(orders)
   const importedData = { orders: orders, earliestDate: new Date(orders[0].orderPlaced), latestDate: new Date(orders[orders.length - 1].orderPlaced) }
 
   return importedData

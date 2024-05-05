@@ -1,0 +1,90 @@
+.calendar-box{
+  /* background-color: yellow; */
+  /* border: 1px solid var(--box-outline); */
+  border-radius: 5px;
+padding: 2px 10px ;
+background-color: rgb(253, 253, 253);
+/* color:var(--box-outline); */
+}
+.calendar-weekdays{
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}
+.days-of-week-names{
+  margin-bottom: 4px;
+}
+.calendar-single-weekday{
+
+padding: 12px 10px;
+margin: 2px;
+border: 1px solid var(--box-outline);
+border-radius: 4px;
+width: 100%;
+text-align: center;
+background-color: white;
+}
+.calendar-single-weekday-data{
+text-align: right;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+height: 80px;
+}
+.trade-data{
+display: flex;
+flex-direction: column;
+margin-bottom: 0;
+}
+.bolded-money-ammount{
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.small-font{
+  font-size: .96rem;
+}
+.select-bottom-margin{
+  margin-bottom: 10px;
+ 
+}
+.calendar-month-selector{
+  display: flex;
+  margin: 20px auto;
+align-items: center;
+justify-content: space-between;
+width: 340px;
+font-size: 1.2rem;
+/* background-color: blue; */
+}
+.year-input{
+  font-size: 1.2rem;
+  text-align: center;
+  width: 110px;
+}
+.body-navigator:hover{
+ cursor: pointer;
+}
+.date-on-display{
+  display: flex;
+  justify-content: space-between;
+  width: fit-content;
+  font-size: 1.2rem;
+  margin: 20px auto;
+}
+.calendar-box + .calendar-box{
+  margin-top: 20px
+}
+.month-selected{
+  display: flex;
+  justify-content: space-between;
+  text-align: right;
+}
+.selected-dot{
+  height: 10px;
+  width: 10px;
+  background-color: rgb(93, 222, 93);
+  border-radius: 50%;
+}
+.month-selector{
+  cursor: pointer;
+}

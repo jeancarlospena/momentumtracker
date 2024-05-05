@@ -19,7 +19,7 @@ const TradesDisplay = () => {
                 <div className="table-cell">Open Date</div>
                 <div className="table-cell">Side</div>
                 <div className="table-cell">Return</div>
-                <div className="table-cell">Setup</div>
+                {/* <div className="table-cell">Setup</div> */}
               </div>
               <div className="table-body">
                 {user.importAccounts?.[
@@ -44,7 +44,7 @@ const TradesDisplay = () => {
                         {orderWithMetrics.ticker}
                       </div>
                       <div className="table-cell">
-                        {orderWithMetrics.orders[0].date.split(" ")[0]}
+                        {orderWithMetrics.orders[0].date.split("T")[0]}
                       </div>
                       <div className="table-cell">
                         {orderWithMetrics.position.toUpperCase()}
@@ -55,9 +55,9 @@ const TradesDisplay = () => {
                           : "$" + orderWithMetrics.PNL.toFixed(2)}
                       </div>
 
-                      <div className="table-cell">
+                      {/* <div className="table-cell">
                         {orderWithMetrics.stup ? "setup" : "None"}
-                      </div>
+                      </div> */}
                     </Link>
                   );
                 })}

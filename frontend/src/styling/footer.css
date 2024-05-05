@@ -1,0 +1,8 @@
+.footer-section{
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto 0;
+text-align: center;
+padding: 20px;
+
+}
