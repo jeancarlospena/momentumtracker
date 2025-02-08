@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
 import axios from "axios";
 
@@ -22,8 +22,8 @@ const Header = () => {
       <header>
         <div className="left-nav">
           <h1>
-            <Link to="/profile">
-              <img className="logo" src="../images/new-logo.png" alt="" />
+            <Link to={authLoaded && user ? "/dashboard" : "/"}>
+              <img className="logo" src="../images/pricelogo.png" alt="" />
             </Link>
           </h1>
         </div>
@@ -31,13 +31,13 @@ const Header = () => {
           {authLoaded && user && (
             <ul className="nav-menu">
               <li className="nav-link">
-                <Link to={"/profile"}>profile</Link>
+                <NavLink to={"/profile"}>profile</NavLink>
               </li>
               <li className="nav-link">
-                <Link to={"/dashboard"}>dashboard</Link>
+                <NavLink to={"/dashboard"}>dashboard</NavLink>
               </li>
               <li className="nav-link">
-                <Link to={"/calendar"}>calendar</Link>
+                <NavLink to={"/calendar"}>calendar</NavLink>
               </li>
               <li className="nav-link">
                 <Link onClick={logOutHandler}>Log Out</Link>
@@ -47,7 +47,7 @@ const Header = () => {
           {authLoaded && !user && (
             <ul className="nav-menu">
               <li className="nav-link">
-                <Link to="/">Home</Link>
+                <NavLink to="/">Home</NavLink>
               </li>
               <li className="nav-link ">
                 <Link className="link-btn highlight-btn" to="/signup">

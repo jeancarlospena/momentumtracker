@@ -13,6 +13,9 @@ import Blanc from "./components/Blanc.jsx";
 import Profile from "./screens/Profile.jsx";
 import Calendar from "./screens/Calendar.jsx";
 import Footer from "./components/Footer.jsx";
+import TradesInDay from "./screens/TradesInDay.jsx";
+import AccountSubscription from "./screens/AccountSubscription.jsx";
+import Chart2 from "./charts2/Chart2.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -36,6 +39,15 @@ function App() {
                       />
                       <Route path="/dashboard" element={<UserMain />} />
                       <Route path="/calendar" element={<Calendar />} />
+                      <Route
+                        path="/tradesinday/:date"
+                        element={<TradesInDay />}
+                      />
+                      <Route
+                        path="/subscription"
+                        element={<AccountSubscription />}
+                      />
+                      <Route path="/c2" element={<Chart2 />} />
                     </>
                   )}
 
@@ -53,7 +65,7 @@ function App() {
             </Routes>
           </div>
 
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </BrowserRouter>
     </>

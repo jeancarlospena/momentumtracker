@@ -3,7 +3,7 @@ header{
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* margin-top: 40px; */
+  margin: 20px 0 35px;
 }
 
 .nav-menu{
@@ -19,9 +19,13 @@ header{
 }
 .nav-link > a{
   text-decoration: none;
-  color: black;
+  color: var(--dak-text);
 
   opacity: .7;
+}
+.nav-link > a.active{
+  color: black;
+  opacity: 1;
 }
 a{
   text-decoration: none;
@@ -36,7 +40,6 @@ a{
  .nav-link > a{
   /* padding: 2px;  */
   text-decoration: none;
-
 }
 /* 
 a:hover{
@@ -71,5 +74,6 @@ h1{
   color: rgb(252, 247, 247);
 }
 .logo{
-  width: 200px;
+  height: 25px;
 }
+

@@ -1,17 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
 import ImportTrades from "../components/ImportTrades.jsx";
 import TradesDisplay from "../components/TradesDisplay.jsx";
 import StatsDisplay from "../components/StatsDisplay.jsx";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 const UserMain = () => {
   const { user, dispatch } = useAuthContext();
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [displayOrderResult, setDisplayOrderResult] = useState("");
   const accountChange = (e) => {
     dispatch({ type: "SWAP_ACCOUNT", payload: e.target.value });
   };
+
+  const orderResultDisplayHandler = (resultType) => {
+    if (displayOrderResult === resultType) {
+      setDisplayOrderResult("");
+    } else {
+      setDisplayOrderResult(resultType);
+    }
+  };
+
+  useEffect(() => {
+    if (!user?.importAccounts?.[user.activeAccount]?.empty) {
+      setStartDate(
+        new Date(user.importAccounts?.[user.activeAccount]?.earliestDate)
+      );
+    }
+  }, [user.activeAccount]);
+
   return (
     <>
       <div className="global-padding">
+        <div id="paypal"></div>
         <div className="top-heading ">
           {user && !user.activeAccount?.unAveilable && (
             <div className="left-intro">
@@ -39,7 +63,56 @@ const UserMain = () => {
       </div>
       {user && !user?.importAccounts?.[user.activeAccount]?.empty ? (
         <>
-          <TradesDisplay></TradesDisplay>
+          <div className="filters-area global-padding">
+            <div className="filter-section">
+              <span className="filter-tag">Display:</span>
+
+              <span
+                onClick={() => orderResultDisplayHandler("won")}
+                className={`status-tag ${
+                  displayOrderResult === "won" ? "won" : "inactive-tag"
+                }`}
+              >
+                WON
+              </span>
+              <span
+                onClick={() => orderResultDisplayHandler("loss")}
+                className={`status-tag ${
+                  displayOrderResult === "loss" ? "loss" : "inactive-tag"
+                }`}
+              >
+                LOSS
+              </span>
+              <span
+                onClick={() => orderResultDisplayHandler("open")}
+                className={`status-tag ${
+                  displayOrderResult === "open" ? "open" : "inactive-tag"
+                }`}
+              >
+                OPEN
+              </span>
+            </div>
+            <div className="filter-section">
+              <span className="filter-tag">Date range:</span>
+              <DatePicker
+                className="date-picker"
+                type="date"
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+              />
+              <DatePicker
+                className="date-picker"
+                type="date"
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+              />
+            </div>
+          </div>
+          <TradesDisplay
+            startDate={startDate}
+            endDate={endDate}
+            displayOrderResult={displayOrderResult}
+          ></TradesDisplay>
         </>
       ) : (
         <div className="global-padding">

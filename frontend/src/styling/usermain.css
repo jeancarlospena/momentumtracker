@@ -25,3 +25,35 @@
   flex-direction: column;
   margin-top: 36px;
 }
+
+.filters-area{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.inactive-tag{
+  /* border: 1px solid black; */
+  background-color: rgb(240, 239, 239);
+}
+
+.filter-section{
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.filter-tag{
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.filter-section > .status-tag{
+  margin: 5px;
+}
+
+.date-picker{
+  margin: 5px;
+}

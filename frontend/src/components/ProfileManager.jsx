@@ -1,6 +1,7 @@
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ProfileManager = () => {
   const [updatingProfile, setUpdatingProfile] = useState(false);
@@ -39,7 +40,10 @@ const ProfileManager = () => {
         <span>Name: {user.firstName}</span>
       </div>
       <div className="bottom-margin">
-        <span>email: {user.email}</span>
+        <span>Email: {user.email}</span>
+      </div>
+      <div className="bottom-margin">
+        <Link to={"/subscription"}>Subscription</Link>
       </div>
       <span>
         <button

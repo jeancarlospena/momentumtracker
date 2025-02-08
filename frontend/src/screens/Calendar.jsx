@@ -1,4 +1,5 @@
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import YearlyCalendarDisplay from "../components/YearlyCalendarDisplay.jsx";
@@ -131,7 +132,14 @@ const Calendar = () => {
         for (let i = 0; i < 7; i++) {
           const validDate = currentDay > 0 && currentDay < numberOfDays + 1;
           dailyElements.push(
-            <div
+            <Link
+              to={
+                tradesDataToDisplay[currentDay.toString().padStart(2, "0")]
+                  ? `/tradesinday/${year}-${month}-${currentDay
+                      .toString()
+                      .padStart(2, "0")}`
+                  : "#"
+              }
               key={`day${currentDay}`}
               className="calendar-single-weekday calendar-single-weekday-data"
             >
@@ -164,7 +172,7 @@ const Calendar = () => {
                   )}
                 </div>
               )}
-            </div>
+            </Link>
           );
 
           currentDay++;

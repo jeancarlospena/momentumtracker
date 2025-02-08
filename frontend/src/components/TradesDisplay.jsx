@@ -1,17 +1,16 @@
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const TradesDisplay = () => {
+const TradesDisplay = ({ startDate, endDate, displayOrderResult }) => {
   const { user } = useAuthContext();
-  // console.log(user.imports.ordersWithMetrics.toReversed())
-  // console.log(user.importAccounts.sdfg);
+
   return (
     <div className="global-padding">
       {!user.activeAccount.unAveilable &&
         user?.importAccounts[user.activeAccount] && (
           <>
             <h2 className="stats-title">trades</h2>
-
             <div className="table">
               <div className="table-heading">
                 <div className="table-cell">Status</div>
@@ -25,6 +24,27 @@ const TradesDisplay = () => {
                 {user.importAccounts?.[
                   user.activeAccount
                 ]?.ordersWithMetrics.map((orderWithMetrics) => {
+                  const orderOpenDate = new Date(
+                    orderWithMetrics.orders[0].date
+                  );
+                  const orderStatus =
+                    orderWithMetrics.outStandingPosition !== 0
+                      ? "open"
+                      : orderWithMetrics.PNL < 0
+                      ? "loss"
+                      : "won";
+                  if (
+                    displayOrderResult !== "" &&
+                    orderStatus !== displayOrderResult
+                  ) {
+                    return;
+                  }
+                  // if (orderOpenDate < startDate) {
+                  //   return;
+                  // }
+                  const dateFormated = orderWithMetrics.orders[0].date
+                    .split("T")[0]
+                    .split("-");
                   return (
                     <Link
                       key={orderWithMetrics.tradeIndex}
@@ -33,18 +53,19 @@ const TradesDisplay = () => {
                     >
                       <div className="table-cell">
                         {orderWithMetrics.outStandingPosition !== 0 ? (
-                          <span className="open">OPEN</span>
+                          <span className="status-tag open">OPEN</span>
                         ) : orderWithMetrics.PNL < 0 ? (
-                          <span className="loss">LOSS</span>
+                          <span className="status-tag loss">LOSS</span>
                         ) : (
-                          <span className="won">WON</span>
+                          <span className="status-tag won">WON</span>
                         )}
                       </div>
                       <div className="table-cell">
+                        {/* {orderWithMetrics.tradeIndex} */}
                         {orderWithMetrics.ticker}
                       </div>
                       <div className="table-cell">
-                        {orderWithMetrics.orders[0].date.split("T")[0]}
+                        {`${dateFormated[1]}/${dateFormated[2]}/${dateFormated[0]}`}
                       </div>
                       <div className="table-cell">
                         {orderWithMetrics.position.toUpperCase()}

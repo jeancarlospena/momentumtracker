@@ -39,7 +39,10 @@
   /* max-height: 300px; */
   display: flex;
   flex-wrap: nowrap;
+  /* justify-content: space-between; */
   /* background-color: blue; */
+  /* width: 100%; */
+ /* width: auto; */
 }
 /* canvas{
   margin: 0;
@@ -54,4 +57,13 @@
   flex-wrap: row;
   justify-content: center;
   margin-bottom: 30px;
+}
+
+.chart-tables{
+  width: 100%;
+}
+
+.tester{
+  background-color: yellow;
+  width: 100%;
 }

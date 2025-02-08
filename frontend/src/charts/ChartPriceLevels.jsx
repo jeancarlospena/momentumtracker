@@ -2,36 +2,35 @@ import { useRef, useEffect } from "react";
 import { graphicsOptimizer, lowestAndHighestPoint } from "./chartScripts.js";
 
 const ChartPriceLevels = ({ l, h, height }) => {
-  const ref = useRef();
-  const draw = (canvas, context) => {
+  const priceRef = useRef();
+  const draw = (priceCanvas, priceContext) => {
     const board = lowestAndHighestPoint(h, l, height);
     let width = 40;
-    canvas.width = width;
-    canvas.height = height;
+    priceCanvas.width = width;
+    priceCanvas.height = height;
 
-    graphicsOptimizer(canvas, context);
-
-    // canvas.style.background = "#F1EFED";
+    graphicsOptimizer(priceCanvas, priceContext);
 
     let topMoney = board.top;
     let topPixel = board.pixelConversion;
     let topCopy = topPixel;
     for (let i = 1; i < board.numberOfLines; i += 1) {
       topMoney -= board.textIncrement;
-      context.textAlign = "center";
-      context.font = "12px Arial";
-      context.fillText(topMoney, width / 2, topPixel + 3);
+      priceContext.textAlign = "center";
+      priceContext.font = "12px Arial";
+      priceContext.fillText(topMoney, width / 2, topPixel + 3);
       topPixel += topCopy;
     }
   };
   // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   useEffect(() => {
-    const canvas = ref.current;
-    const context = canvas.getContext("2d");
-    draw(canvas, context);
+    const priceCanvas = priceRef.current;
+    const priceContext = priceCanvas.getContext("2d");
+    draw(priceCanvas, priceContext);
   }, [h, l]);
 
-  return <canvas ref={ref}></canvas>;
+  return <canvas ref={priceRef}></canvas>;
 };
 
 export default ChartPriceLevels;
+// canvas.style.background = "#F1EFED";

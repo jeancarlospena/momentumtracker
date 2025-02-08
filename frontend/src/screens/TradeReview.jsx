@@ -16,7 +16,7 @@ const TradeReview = ({ ticker }) => {
     }
   }, []);
   return (
-    <div>
+    <div className="global-padding">
       {user &&
         user.importAccounts[user.activeAccount].ordersWithMetrics[index] && (
           <>
@@ -37,10 +37,10 @@ const TradeReview = ({ ticker }) => {
                     {user.importAccounts[user.activeAccount].ordersWithMetrics[
                       index
                     ].outStandingPosition !== 0 ? (
-                      <span className="open">OPEN</span>
+                      <span className="status-tag open">OPEN</span>
                     ) : user.importAccounts[user.activeAccount]
                         .ordersWithMetrics[index].PNL < 0 ? (
-                      <span className="loss">
+                      <span className="status-tag  loss">
                         LOSS -$
                         {(
                           user.importAccounts[user.activeAccount]
@@ -48,7 +48,7 @@ const TradeReview = ({ ticker }) => {
                         ).toFixed(2)}
                       </span>
                     ) : (
-                      <span className="won">
+                      <span className="status-tag won">
                         WON $
                         {user.importAccounts[
                           user.activeAccount

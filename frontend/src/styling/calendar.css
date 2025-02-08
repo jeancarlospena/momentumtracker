@@ -1,9 +1,9 @@
 .calendar-box{
   /* background-color: yellow; */
   /* border: 1px solid var(--box-outline); */
-  border-radius: 5px;
+  /* border-radius: 5px; */
 padding: 2px 10px ;
-background-color: rgb(253, 253, 253);
+/* background-color: rgb(253, 253, 253); */
 /* color:var(--box-outline); */
 }
 .calendar-weekdays{
@@ -11,26 +11,30 @@ background-color: rgb(253, 253, 253);
   display: flex;
   justify-content: space-between;
 }
-.days-of-week-names{
-  margin-bottom: 4px;
-}
+
 .calendar-single-weekday{
 
 padding: 12px 10px;
 margin: 2px;
-border: 1px solid var(--box-outline);
-border-radius: 4px;
+/* border: 1px solid var(--box-outline); */
+/* border-radius: 4px; */
 width: 100%;
 text-align: center;
-background-color: white;
+background-color: rgb(235, 235, 235);
 }
+.days-of-week-names{
+  margin-bottom: 4px;
+}
+
 .calendar-single-weekday-data{
 text-align: right;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
 height: 80px;
+background-color: rgb(244, 244, 244);
 }
+
 .trade-data{
 display: flex;
 flex-direction: column;
@@ -49,7 +53,7 @@ margin-bottom: 0;
 }
 .calendar-month-selector{
   display: flex;
-  margin: 20px auto;
+  margin: 20px 0;
 align-items: center;
 justify-content: space-between;
 width: 340px;
@@ -69,7 +73,7 @@ font-size: 1.2rem;
   justify-content: space-between;
   width: fit-content;
   font-size: 1.2rem;
-  margin: 20px auto;
+  margin: 25px 0 ;
 }
 .calendar-box + .calendar-box{
   margin-top: 20px
@@ -87,4 +91,7 @@ font-size: 1.2rem;
 }
 .month-selector{
   cursor: pointer;
+}
+a.calendar-single-weekday{
+  color: var(--dark-text)
 }

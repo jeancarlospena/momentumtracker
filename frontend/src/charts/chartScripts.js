@@ -44,7 +44,6 @@ export const lowestAndHighestPoint = (topPrice, minPrice, height) => {
 }
 
 export const dataRenderer = (data, orders, drag = 0) => {
-
   const renderNewCandlesByDrag = Math.floor(drag / 80) * 16
   const screenSection = Math.floor(drag / 80) * -80
   let low = 99999999;
@@ -73,8 +72,8 @@ export const dataRenderer = (data, orders, drag = 0) => {
   // console.log(data['2024-03-01'])
   let compressed = {};
   dataKeysArray.map((date) => {
-    const datesLow = parseFloat(data[`${date}`]["3. low"]);
-    const datesHigh = parseFloat(data[`${date}`]["2. high"]);
+    const datesLow = parseFloat(data[`${date}`]["low"]);
+    const datesHigh = parseFloat(data[`${date}`]["high"]);
     compressed[date] = data[date];
     if (datesLow < low) {
       low = datesLow;
@@ -83,7 +82,7 @@ export const dataRenderer = (data, orders, drag = 0) => {
       high = datesHigh;
     }
   });
-  // console.log(compressed)
+  // console.log(Object.keys(compressed).length)
   // console.log(data)
   return { compressed, high, low, screenSection }
 }

@@ -5,6 +5,8 @@ import { useAuthContext } from "../hooks/useAuthContext.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { dateToStringDate } from "../scripts/dateScripts.js";
 import { dataRenderer } from "./chartScripts.js";
+import polygonSampleData from "./testingData.js";
+
 // import ChartDates from "../charts/ChartDates.jsx";
 const Chart = ({ ticker }) => {
   const navigate = useNavigate();
@@ -18,72 +20,66 @@ const Chart = ({ ticker }) => {
   const [height, setHeight] = useState(450);
   const [tickerData, setTickerData] = useState({});
 
+  useEffect(() => {
+    const polygonDataToObject = {};
+    polygonSampleData.results.forEach((candle, i) => {
+      polygonDataToObject[new Date(candle.t).toISOString().slice(0, 10)] = {
+        open: candle.o,
+        close: candle.c,
+        high: candle.h,
+        low: candle.l,
+        volume: candle.v,
+      };
+    });
+  }, []);
+
   const [load, setLoad] = useState(false);
   useEffect(() => {
-    getData();
-    // clickHandler();
+    polygonChartRequest();
     if (!user.importAccounts[user.activeAccount].ordersWithMetrics[index]) {
-      console.log("trigger");
       navigate("/dashboard");
     }
+    // const test123 =
+    //   user.importAccounts[user.activeAccount].ordersWithMetrics[index].orders;
+    // console.log(new Date().toISOString().slice(0, 10));
   }, [index]);
 
-  const clickHandler = () => {
+  const polygonChartRequest = () => {
     setLoad(false);
-    axios
-      .get(
-        `https://www.alphavantage.co/query?symbol=${ticker}&RANGE=2023-01-01&RANGE=2024-01-30&outputsize=full&function=TIME_SERIES_DAILY&apikey=9ZJBUTMKMTOL2LTK`
-      )
+    const orders =
+      user.importAccounts[user.activeAccount].ordersWithMetrics[index].orders;
+    const todaysDate = new Date().toISOString().slice(0, 10);
+    axios({
+      url: `https://api.polygon.io/v2/aggs/ticker/${ticker}/range/1/day/2023-01-01/${todaysDate}`,
+      headers: {
+        Authorization: "Bearer 7n4l45XZJuIRGrCX6XOQXRtJxp_HoQIp",
+      },
+      method: "get",
+    })
       .then((response) => {
-        const orders =
-          user.importAccounts[user.activeAccount].ordersWithMetrics[index]
-            .orders;
-        let data = response.data["Time Series (Daily)"];
+        const polygonDataToObject = {};
+        response.data.results.reverse().forEach((candle, i) => {
+          polygonDataToObject[new Date(candle.t).toISOString().slice(0, 10)] = {
+            open: candle.o,
+            close: candle.c,
+            high: candle.h,
+            low: candle.l,
+            volume: candle.v,
+          };
+        });
+        setTickerData(polygonDataToObject);
 
-        // let low = 99999999;
-        // let high = 0;
-        // const dateKeys = Object.keys(data);
-
-        // const openDate = dateToStringDate(new Date(orders[0].date));
-        // const closeDate = dateToStringDate(
-        //   new Date(orders[orders.length - 1].date)
-        // );
-        // const inbetweenDate =
-        //   dateKeys.indexOf(openDate) -
-        //   (dateKeys.indexOf(openDate) - dateKeys.indexOf(closeDate)) / 2;
-        // let dataKeysArray = [];
-        // if (inbetweenDate > 100) {
-        //   dataKeysArray = dateKeys.splice(inbetweenDate - 100, 180);
-        // } else {
-        //   dataKeysArray = dateKeys.splice(0, 180);
-        // }
-
-        // let compressed = {};
-        // dataKeysArray.map((date) => {
-        //   const datesLow = parseFloat(data[`${date}`]["3. low"]);
-        //   const datesHigh = parseFloat(data[`${date}`]["2. high"]);
-        //   compressed[date] = data[date];
-        //   if (datesLow < low) {
-        //     low = datesLow;
-        //   }
-        //   if (datesHigh > high) {
-        //     high = datesHigh;
-        //   }
-        // });
-        // =====================================
-
-        setTickerData(data);
-        const renderedData = dataRenderer(data, orders);
+        // ===========
+        const renderedData = dataRenderer(polygonDataToObject, orders);
         // ===================================
-        setOrdersMarker(
-          user.importAccounts[user.activeAccount].ordersWithMetrics[index]
-            .orders
-        );
+
+        setOrdersMarker(orders);
         setH(renderedData.high);
         setL(renderedData.low);
         setStockData(renderedData.compressed);
         setLoad(true);
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   const saveDataInTheBackend = () => {
@@ -107,36 +103,7 @@ const Chart = ({ ticker }) => {
             .orders;
         let data = response.data.candles[0];
         setTickerData(data);
-        // let low = 99999999;
-        // let high = 0;
-        // const dateKeys = Object.keys(data);
-        // const openDate = dateToStringDate(new Date(orders[0].date));
-        // const closeDate = dateToStringDate(
-        //   new Date(orders[orders.length - 1].date)
-        // );
-        // const inbetweenDate =
-        //   dateKeys.indexOf(openDate) -
-        //   (dateKeys.indexOf(openDate) - dateKeys.indexOf(closeDate)) / 2;
-        // let dataKeysArray = [];
-        // if (inbetweenDate > 100) {
-        //   dataKeysArray = dateKeys.slice(inbetweenDate - 100, 200);
-        // } else {
-        //   dataKeysArray = dateKeys.slice(0, 200);
-        // }
-        // console.log(dateKeys);
-
-        // let compressed = {};
-        // dataKeysArray.map((date) => {
-        //   const datesLow = parseFloat(data[`${date}`]["3. low"]);
-        //   const datesHigh = parseFloat(data[`${date}`]["2. high"]);
-        //   compressed[date] = data[date];
-        //   if (datesLow < low) {
-        //     low = datesLow;
-        //   }
-        //   if (datesHigh > high) {
-        //     high = datesHigh;
-        //   }
-        // });
+        console.log(data);
         const renderedData = dataRenderer(data, orders);
         setOrdersMarker(
           user.importAccounts[user.activeAccount].ordersWithMetrics[index]
@@ -146,11 +113,6 @@ const Chart = ({ ticker }) => {
         setL(renderedData.low);
         setStockData(renderedData.compressed);
         setLoad(true);
-        // setOrdersMarker(user.importAccounts[user.activeAccount].ordersWithMetrics[index].orders);
-        // setH(high);
-        // setL(low);
-        // setStockData(compressed);
-        // setLoad(true);
       })
       .catch((error) => {
         console.log("NOT ABLE TO DISPLAY CHART");

@@ -32,23 +32,23 @@ table{
   transition: .3s;
 }
 
-.won{
+.status-tag{
+  height: fit-content;
   padding: 4px 12px;
   background-color: var(--background-green);
   /* border: 2px solid var(--outline-green); */
   border-radius: 1px;
+  cursor: pointer;
+}
+
+.won{
+  background-color: var(--background-green);
 }
 .loss{
-  padding: 4px 12px;
   background-color: var(--background-red);
-  /* border: 2px solid var(--outline-red); */
-  border-radius: 1px;
 }
 .open{
-  padding: 4px 12px;
   background-color: rgb(252, 252, 125);
-  /* border: 2px solid var(--outline-red); */
-  border-radius: 1px;
 }
 
 

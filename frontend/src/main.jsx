@@ -18,11 +18,14 @@ import "./styling/footer.css";
 
 // import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+      <PayPalScriptProvider deferLoading={true}>
+        <App />
+      </PayPalScriptProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );

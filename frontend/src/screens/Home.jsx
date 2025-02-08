@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className="home">
-      <h1 className="home-title">Trading Journal For Performance Boosting</h1>
+      <h1 className="home-title">We'll help you, make money work for you!</h1>
       <h2 className="home-sub-heading">
-        The Best Way To Track Performance And Breakdown Trades
+        Track Performance - Breakdown Trades - Ground For Serious Study
       </h2>
       <div className="main-home-section">
         <img
@@ -25,7 +25,7 @@ const Home = () => {
             </li>
             <li className="bullet-points">
               <img className="check-icon" src="/images/check.svg" alt="" />
-              <p>Powerful and simple to use platform.</p>
+              <p>Save time, intuitive platform.</p>
             </li>
           </ul>
           <Link to="/signup" className="trial-btn">

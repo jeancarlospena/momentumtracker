@@ -42,7 +42,6 @@ const ImportTrades = () => {
           setImportFileError("No new trades to import");
           return;
         }
-        console.log("went through");
         if (tradesJSON.earliestDate < currentTradesLatestDate) {
           const filteredJSONTrades = [];
           tradesJSON.orders.map((trade) => {
@@ -54,7 +53,8 @@ const ImportTrades = () => {
           tradesJSON.orders = filteredJSONTrades;
         }
 
-        setFileName(`${event.target.files[0].name.match(/.{1,11}/g)[0]}...`);
+        // setFileName(`${event.target.files[0].name.match(/.{1,40}/g)[0]}...`);
+        setFileName(`${event.target.files[0].name}`);
         setImportedTrades(tradesJSON);
         if (tradesJSON.orders.length > 0) {
           setDisabledButton(false);
@@ -105,8 +105,6 @@ const ImportTrades = () => {
       },
     })
       .then((response) => {
-        console.log(response);
-
         dispatch({ type: "IMPORT_TRADES", payload: response.data });
         setFileName("");
         // setImportedTrades([]);
@@ -121,7 +119,7 @@ const ImportTrades = () => {
   // );
   return (
     <div className="import-section">
-      <div className="file-input">
+      {/* <div className="file-input">
         <label className="import-button-name" htmlFor="file">
           <img className="upload-icon" src="../images/upload.svg" alt="" />
           <span className="pad">{fileName ? fileName : "None"}</span>
@@ -138,10 +136,21 @@ const ImportTrades = () => {
           <img className="upload-icon" src="../images/upload.svg" alt="" />
           <span className="pad">Select file...</span>
         </label>
-      </div>
+      </div> */}
       {importFileError && (
         <span className="error-span">{importFileError} *</span>
       )}
+      <label className="import-file" htmlFor="file">
+        {fileName ? fileName : "Select import file."}
+      </label>
+      <input
+        className="inputfile"
+        onChange={(e) => handleFile(e)}
+        accept=".csv"
+        type="file"
+        name="file"
+        id="file"
+      />
 
       <button
         disabled={disabledButton}

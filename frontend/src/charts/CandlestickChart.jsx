@@ -2,30 +2,46 @@ import { useRef, useEffect, useState } from "react";
 import ChartDates from "./ChartDates.jsx";
 import ChartPriceLevels from "./ChartPriceLevels.jsx";
 
-import {
-  graphicsOptimizer,
-  lowestAndHighestPoint,
-  dataRenderer,
-} from "./chartScripts.js";
+import { lowestAndHighestPoint, dataRenderer } from "./chartScripts.js";
 import { drawHorizontalLines, drawVerticalLines } from "./drawingScripts.js";
-
+import { drawDatesCanvas } from "./datesCanvasScripts.js";
+import { drawPriceCanvas } from "./priceCanvasCripts.js";
 const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
-  const [passDrag, setPassDrag] = useState(0);
-  const [passLastDrag, setPassLastDrag] = useState(0);
-  const [passHigh, setPassHigh] = useState(h);
-  const [passLow, setPassLow] = useState(l);
-  const [passData, setPassData] = useState(data);
-  const [passScreenSection, setPassScreenSection] = useState(0);
-  // const [board, setBoard] = useState({});
-  let board = lowestAndHighestPoint(h, l, height);
-  // console.log(tickerData);
-  // console.log(data2);
-  // console.log(dataToRender);
-  const ref = useRef();
+  const [resizeWidth, setResizeWidth] = useState(0);
+  const [resizeLastDrag, setResizeLastDrag] = useState(0);
+  const [resizeWindowSection, setResizeWindowSection] = useState(0);
+  const [primaryWidth, setPrimaryWidth] = useState(0);
+  // let board = lowestAndHighestPoint(h, l, height);
 
-  const draw = (canvas, context) => {
-    let width = 960;
+  const candlestickRef = useRef();
+  const priceRef = useRef();
+  const datesRef = useRef();
+
+  const draw = (
+    candlestickCanvas,
+    context,
+    datesCanvas,
+    datesContext,
+    priceCanvas,
+    priceContext,
+    primaryWidth
+  ) => {
+    let board = lowestAndHighestPoint(h, l, height);
+
+    let width = primaryWidth - 40;
     // window.devicePixelRatio = 1;
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    candlestickCanvas.width = width;
+    candlestickCanvas.height = height;
+    datesCanvas.width = width;
+    datesCanvas.height = 20;
+    priceCanvas.width = 40;
+    priceCanvas.height = height;
+    context.imageSmoothingEnabled = false;
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     let screenSection = 0;
     let drag = 0;
     let lastDrag = 0;
@@ -35,17 +51,29 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
       Object.keys(data)
         .reverse()
         .map((date, keyInd) => {
+          // let candleLow = moneyToPixelConverstion(
+          //   parseFloat(data[`${date}`]["3. low"])
+          // );
+          // let candleHigh = moneyToPixelConverstion(
+          //   parseFloat(data[`${date}`]["2. high"])
+          // );
+          // let candleOpen = moneyToPixelConverstion(
+          //   parseFloat(data[`${date}`]["1. open"])
+          // );
+          // let candleClose = moneyToPixelConverstion(
+          //   parseFloat(data[`${date}`]["4. close"])
+          // );
           let candleLow = moneyToPixelConverstion(
-            parseFloat(data[`${date}`]["3. low"])
+            parseFloat(data[`${date}`]["low"])
           );
           let candleHigh = moneyToPixelConverstion(
-            parseFloat(data[`${date}`]["2. high"])
+            parseFloat(data[`${date}`]["high"])
           );
           let candleOpen = moneyToPixelConverstion(
-            parseFloat(data[`${date}`]["1. open"])
+            parseFloat(data[`${date}`]["open"])
           );
           let candleClose = moneyToPixelConverstion(
-            parseFloat(data[`${date}`]["4. close"])
+            parseFloat(data[`${date}`]["close"])
           );
           let candle = new Candle(
             currentDate + screenSection,
@@ -84,19 +112,23 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
       }
     };
     const reRenderFunction = () => {
-      event.preventDefault();
+      // event.preventDefault();
+
       isDragging = false;
       context.clearRect(0, 0, width, height);
       let reRender = dataRenderer(tickerData, ordersMarker, drag + lastDrag);
-      setPassScreenSection(reRender.screenSection);
       screenSection = reRender.screenSection;
       // CHANGED ==========================
       data = reRender.compressed;
       board = lowestAndHighestPoint(reRender.high, reRender.low, height);
-      setPassLow(reRender.low);
-      setPassHigh(reRender.high);
-      setPassData(data);
-      // console.log(board);
+      drawPriceCanvas(
+        priceCanvas,
+        priceContext,
+        reRender.low,
+        reRender.high,
+        height
+      );
+      drawDatesCanvas(data, datesContext, drag, lastDrag, screenSection, width);
       drawVerticalLines(context, height, data, drag + lastDrag, lastDrag);
       drawHorizontalLines(context, width, board);
       drawCandles();
@@ -104,18 +136,21 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
       lastDrag += drag;
       lastDrag;
       drag = 0;
-      setPassLastDrag(lastDrag);
-      setPassDrag(0);
     };
     // default values
     let isDragging = false;
     let startX;
-    const mouseDown = () => {
+    const mouseDown = (event) => {
       event.preventDefault();
       isDragging = true;
       startX = parseInt(event.offsetX);
     };
-    const mouseUp = () => {
+    const mouseUp = (event) => {
+      event.preventDefault();
+      // +++++++++++++++++
+      isDragging = false;
+      // +++++++++++++++++
+
       reRenderFunction();
     };
     const mouseOut = (event) => {
@@ -126,16 +161,16 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
       reRenderFunction();
     };
 
-    const mouseMove = () => {
+    const mouseMove = (event) => {
       event.preventDefault();
+
       if (!isDragging) {
         return;
       } else {
         context.clearRect(0, 0, width, height);
         let mouseX = parseInt(event.offsetX);
         drag = mouseX - startX;
-        // console.log(drag);
-        setPassDrag(drag);
+
         // drawHorizontalLines(
         //   context,
         //   board.pixelConversion,
@@ -143,6 +178,15 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
         //   width,
         //   board.pixelConversion
         // );
+
+        drawDatesCanvas(
+          data,
+          datesContext,
+          drag,
+          lastDrag,
+          screenSection,
+          width
+        );
         drawHorizontalLines(context, width, board);
         drawVerticalLines(context, height, data, drag + lastDrag, lastDrag);
 
@@ -156,17 +200,17 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
       }
     };
 
-    canvas.onmousedown = mouseDown;
-    canvas.onmouseup = mouseUp;
-    canvas.onmouseout = mouseOut;
-    canvas.onmousemove = mouseMove;
+    candlestickCanvas.onmousedown = mouseDown;
+    // candlestickCanvas.onmousedown = sayHi;
+    candlestickCanvas.onmouseup = mouseUp;
+    candlestickCanvas.onmouseout = mouseOut;
+    candlestickCanvas.onmousemove = mouseMove;
 
-    canvas.width = width;
-    canvas.height = height;
-    context.imageSmoothingEnabled = false;
-    // canvas.style.background = "yellow";
+    // candlestickCanvas.width = width;
 
-    graphicsOptimizer(canvas, context);
+    // candlestickCanvas.height = height;
+    // context.imageSmoothingEnabled = false;
+    // candlestickCanvas.style.background = "yellow";
 
     class Triangle {
       constructor(date, price, action) {
@@ -191,6 +235,7 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
           xPointTail = +9;
           xPoint = 1;
         }
+
         context.moveTo(this.date + xPoint, this.price);
         context.lineTo(this.date + xPointTail, this.price + 6);
         context.lineTo(this.date + xPointTail, this.price - 6);
@@ -250,36 +295,65 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
       moneyInputed = maxMoneyInput - moneyInputed;
       return (moneyInputed * height) / maxMoneyInput;
     };
-
+    drawPriceCanvas(priceCanvas, priceContext, l, h, height);
+    drawDatesCanvas(data, datesContext, drag, lastDrag, screenSection, width);
     drawHorizontalLines(context, width, board);
     drawVerticalLines(context, height, data, drag + lastDrag, lastDrag);
     drawCandles();
 
     drawTriangles();
   };
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  useEffect(() => {
-    // setBoard(lowestAndHighestPoint(h, l, height));
 
-    const canvas = ref.current;
-    const context = canvas.getContext("2d");
-    draw(canvas, context);
+  // ++++++++++++
+
+  const resizeObserver = new ResizeObserver((entries) => {
+    let width = 0;
+    for (let entry of entries) {
+      width = entry.contentRect.width;
+    }
+    setPrimaryWidth(width);
+
+    return width;
+  });
+
+  useEffect(() => {
+    // ++++++++++++
+    const chartDivSize = document.getElementById("chart-tables");
+    resizeObserver.observe(chartDivSize);
   }, []);
+
+  useEffect(() => {
+    if (primaryWidth > 0) {
+      const candlestickCanvas = candlestickRef.current;
+      const context = candlestickCanvas.getContext("2d");
+
+      const priceCanvas = priceRef.current;
+      const priceContext = priceCanvas.getContext("2d");
+
+      // setBoard(lowestAndHighestPoint(h, l, height));
+      const datesCanvas = datesRef.current;
+      const datesContext = datesCanvas.getContext("2d");
+
+      draw(
+        candlestickCanvas,
+        context,
+        datesCanvas,
+        datesContext,
+        priceCanvas,
+        priceContext,
+        primaryWidth
+      );
+    }
+  }, [primaryWidth]);
+
   return (
-    <div className="chart-tables">
+    <div className="chart-tables" id="chart-tables">
       <div className="candles-and-price">
-        <canvas className="rotate-canvas" ref={ref}></canvas>
-        <ChartPriceLevels l={passLow} h={passHigh} height={height} />
+        <canvas className="rotate-canvas" ref={candlestickRef}></canvas>
+        <canvas ref={priceRef}></canvas>
       </div>
-      {/* <ChartDates data={data} l={l} h={h}></ChartDates> */}
-      <ChartDates
-        lastDrag={passLastDrag}
-        drag={passDrag}
-        data={passData}
-        screenSection={passScreenSection}
-        l={l}
-        h={h}
-      ></ChartDates>
+
+      <canvas ref={datesRef}></canvas>
     </div>
   );
 };
