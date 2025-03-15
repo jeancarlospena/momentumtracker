@@ -89,7 +89,7 @@ const CandlestickChart = ({ data, l, h, ordersMarker, height, tickerData }) => {
     };
 
     const drawTriangles = () => {
-      if (screenSection < 480 && screenSection > -480) {
+      if (screenSection < 460 && screenSection > -460) {
         const datesInArray = Object.keys(data).reverse();
         ordersMarker.map((currentOrder) => {
           const dateFormat = new Date(currentOrder.date);

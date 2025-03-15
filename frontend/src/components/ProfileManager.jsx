@@ -56,15 +56,16 @@ const ProfileManager = () => {
 
       {updatingProfile && (
         <form className="log-form" onSubmit={(e) => submitHandler(e)}>
-          <label>First Name</label>
           <input
+            placeholder="First Name"
             className="input"
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
-          <label>Update Email</label>
+
           <input
+            placeholder="Email"
             className="input"
             type="text"
             value={email}
@@ -72,8 +73,8 @@ const ProfileManager = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <label>Password</label>
           <input
+            placeholder="Password"
             className="input"
             type="password"
             autoComplete="new-password"
@@ -81,8 +82,8 @@ const ProfileManager = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <label>Copnfirm Password</label>
           <input
+            placeholder="Confirm Password"
             className="input"
             type="password"
             autoComplete="none"

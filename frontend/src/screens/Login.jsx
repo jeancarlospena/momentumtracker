@@ -31,19 +31,16 @@ const Login = () => {
   };
   return (
     <form className="log-form" onSubmit={submitHandler}>
-      <label>
-        Email <span className="required">*</span>
-      </label>
       <input
+        placeholder="Email"
         className="input"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <label>
-        Password <span className="required">*</span>
-      </label>
+
       <input
+        placeholder="Password"
         className="input"
         type="password"
         autoComplete="true"

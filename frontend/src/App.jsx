@@ -16,6 +16,7 @@ import Footer from "./components/Footer.jsx";
 import TradesInDay from "./screens/TradesInDay.jsx";
 import AccountSubscription from "./screens/AccountSubscription.jsx";
 import Chart2 from "./charts2/Chart2.jsx";
+import SideNavigator from "./components/SideNavigator.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -24,45 +25,64 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <div className="container">
+        <div>
           <div>
-            <Header />
-            <Routes>
-              {user && (
-                <>
-                  {!user.activeAccount?.unAveilable && (
-                    <>
-                      {" "}
-                      <Route
-                        path="/order/:index"
-                        element={<OrderBreakdown />}
-                      />
-                      <Route path="/dashboard" element={<UserMain />} />
-                      <Route path="/calendar" element={<Calendar />} />
-                      <Route
-                        path="/tradesinday/:date"
-                        element={<TradesInDay />}
-                      />
-                      <Route
-                        path="/subscription"
-                        element={<AccountSubscription />}
-                      />
-                      <Route path="/c2" element={<Chart2 />} />
-                    </>
-                  )}
+            {!user && authLoaded && (
+              <div className="container">
+                <Header />
 
-                  <Route path="*" element={<Profile />} />
-                </>
-              )}
-              {!user && authLoaded && (
+                <Routes>
+                  <>
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="*" element={<Home />} />
+                  </>
+                </Routes>
+              </div>
+            )}
+            {user && authLoaded && (
+              <>
+                <div className="logged-container">
+                  <SideNavigator />
+                  <div className="main-area">
+                    <Routes>
+                      {!user.activeAccount?.unAveilable && (
+                        <>
+                          {" "}
+                          <Route
+                            path="/order/:index"
+                            element={<OrderBreakdown />}
+                          />
+                          <Route path="/dashboard" element={<UserMain />} />
+                          <Route path="/calendar" element={<Calendar />} />
+                          <Route
+                            path="/tradesinday/:date"
+                            element={<TradesInDay />}
+                          />
+                          <Route
+                            path="/subscription"
+                            element={<AccountSubscription />}
+                          />
+                          <Route path="/c2" element={<Chart2 />} />
+                        </>
+                      )}
+
+                      <Route path="*" element={<Profile />} />
+
+                      {/* commented out. dont display navigation if user is logged in instead display sidenavigator*/}
+                      {/* {!user && authLoaded && (
                 <>
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="*" element={<Home />} />
                 </>
-              )}
-              <Route path="*" element={<Blanc />} />
-            </Routes>
+              )} */}
+                      <Route path="*" element={<Blanc />} />
+                    </Routes>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
           {/* <Footer /> */}

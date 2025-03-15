@@ -15,17 +15,18 @@ import "./styling/selectmenu.css";
 import "./styling/profile.css";
 import "./styling/calendar.css";
 import "./styling/footer.css";
+import "./styling/sidenavigator.css";
 
 // import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <AuthContextProvider>
-      <PayPalScriptProvider deferLoading={true}>
-        <App />
-      </PayPalScriptProvider>
-    </AuthContextProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <AuthContextProvider>
+    <PayPalScriptProvider deferLoading={true}>
+      <App />
+    </PayPalScriptProvider>
+  </AuthContextProvider>
+  // </React.StrictMode>
 );

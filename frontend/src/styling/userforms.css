@@ -1,27 +1,43 @@
 .log-form{
   display: flex;
   flex-direction: column;
-  max-width: 300px;
+  /* max-width: 300px; */
   margin: 45px auto;
+  font-size: 1.2rem;
+
 }
 
 .input{
   margin: 10px 0;
   font-size: 1rem;
-  padding: 10px 5px;
+  padding: 15px 12px;
+  /* width: 50%; */
+  width: 400px;
+  /* border-radius: 10px; */
+  border: 1px solid var(--box-outline);
+  border-radius: 8px;
+  font-size: 1.1rem;
 
 }
 
+.input:focus{
+  outline: none;
+  border: 2px solid rgb(31, 31, 246);
+}
+
 .submit-form{
-  margin-top: 10px;
-  font-size: 1rem;
-  padding: 14px 40px;
-  color: rgb(252, 247, 247);
+  margin-top: 15px;
+  font-size: 1.2rem;
+
+  padding: 16px 40px;
+  color: rgb(240, 237, 237);
   border-color: var(--highlight-color);
   background-color: var(--highlight-color);
   border-radius: 5px;
   border: none;
   opacity: .75;
+  max-width: 400px;
+
 }
 
 .required{

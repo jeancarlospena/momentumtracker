@@ -44,8 +44,14 @@ export const lowestAndHighestPoint = (topPrice, minPrice, height) => {
 }
 
 export const dataRenderer = (data, orders, drag = 0) => {
+  // 16 is the number of candles in square section
+  // when i change the size of the candles and the space between them the number of candles per square will change also
+  // 80 might be the number of pixels per square section.  
+
   const renderNewCandlesByDrag = Math.floor(drag / 80) * 16
+
   const screenSection = Math.floor(drag / 80) * -80
+  console.log(screenSection)
   let low = 99999999;
   let high = 0;
   const dateKeys = Object.keys(data);
@@ -59,6 +65,8 @@ export const dataRenderer = (data, orders, drag = 0) => {
   let dataKeysArray = [];
   // i tried adding   drag or screenSection < 0
   // if (inbetweenDate > 100) {
+
+  // here is where we pick the candles that will be on display
   const startSliceCalc = inbetweenDate - 100 + renderNewCandlesByDrag
   const startSlice = startSliceCalc >= 0 ? startSliceCalc : 0
   dataKeysArray = dateKeys.slice(startSlice, inbetweenDate + 93 + renderNewCandlesByDrag);
@@ -84,5 +92,6 @@ export const dataRenderer = (data, orders, drag = 0) => {
   });
   // console.log(Object.keys(compressed).length)
   // console.log(data)
+
   return { compressed, high, low, screenSection }
 }

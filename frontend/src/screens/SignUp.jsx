@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
+import { inputFocus } from "../scripts/inputFocus.js";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -13,6 +14,10 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -35,41 +40,47 @@ const SignUp = () => {
         .catch((error) => setError(error.response.data.error));
     }
   };
+  // const inputFocus = (e, inputToRef) => {
+  //   if (e.key === "Enter") {
+  //     e.preventDefault();
+  //     inputToRef.current.focus();
+  //   }
+  // };
   return (
     <form className="log-form" onSubmit={submitHandler}>
-      <label>
-        First Name <span className="required">*</span>
-      </label>
       <input
+        placeholder="First Name"
         className="input"
         type="text"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
+        onKeyDown={(e) => inputFocus(e, emailRef)}
       />
-      <label>
-        Email <span className="required">*</span>
-      </label>
+
       <input
+        ref={emailRef}
+        placeholder="Email"
         className="input"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        onKeyDown={(e) => inputFocus(e, passwordRef)}
       />
-      <label>
-        Password <span className="required">*</span>
-      </label>
+
       <input
+        ref={passwordRef}
+        placeholder="Password"
         className="input"
         type="password"
         autoComplete="true"
         id="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        onKeyDown={(e) => inputFocus(e, confirmPasswordRef)}
       />
-      <label>
-        Copnfirm Password <span className="required">*</span>
-      </label>
       <input
+        ref={confirmPasswordRef}
+        placeholder="Confirm Password"
         className="input"
         type="password"
         autoComplete="true"

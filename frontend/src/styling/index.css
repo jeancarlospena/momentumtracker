@@ -7,6 +7,7 @@
   --background-green: #a8f985;
   --outline-red: rgb(105, 69, 69);
   --background-red: #f28181;
+  --light-border: rgb(214, 205, 205);
   /* --highlight-color: #ae1bd7; */
   font-size: 15px; 
 }
@@ -15,11 +16,13 @@
 body{
   /* display: flex; */
   color: rgb(29, 28, 28);
-  /* background-color: blue; */
   margin: 0;
   /* font-family: sans-serif; */
   font-family:  'Segoe UI', Tahoma, sans-serif;
   overflow-y: scroll;
+}
+html{
+  margin: 0;
 }
 
 .container{
@@ -28,12 +31,12 @@ body{
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  justify-content: space-between;
+  /* min-height: 100vh; */
+  /* justify-content: space-between; */
 }
 
 .global-padding{
-  padding: 0 10px ;
+  padding: 0 30px ;
 }
 
 .error-span{
@@ -46,10 +49,15 @@ body{
 
 
 .chart2{
-  background-color: blue;
   width: 100%;
 
 min-height: 100%;
 min-height: calc(100vh - 163px);
 
 }
+
+/* * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+} */
