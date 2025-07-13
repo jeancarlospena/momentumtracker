@@ -103,8 +103,6 @@ const TradesDisplay = ({
                       performanceTracker.wins += 1;
                       performanceTracker.profitGained += orderWithMetrics.PNL;
                     }
-                    console.log(performanceTracker);
-                    console.log(orderWithMetrics);
                   }
 
                   const dateFormated = orderWithMetrics.orders[0].date

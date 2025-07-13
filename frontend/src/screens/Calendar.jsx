@@ -192,7 +192,6 @@ const Calendar = () => {
   }, [user, year, month]);
 
   const changeYear = (yearValue) => {
-    console.log(yearValue);
     setYearValueInput(yearValue);
     if (yearValue >= 1792) {
       setMonth("01");
@@ -200,17 +199,14 @@ const Calendar = () => {
     }
   };
   const yearNavigator = (changeYearAmount) => {
-    console.log(month);
     const updatedYear = Number(year) + changeYearAmount;
     setYearValueInput(updatedYear);
     setYear(String(updatedYear));
 
     if (changeYearAmount === 1) {
-      console.log("trigger 111111111");
       setMonth("01");
     }
     if (changeYearAmount === -1) {
-      console.log("triggered");
       setMonth("12");
     }
     // console.log(month);
