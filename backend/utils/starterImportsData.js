@@ -520,7 +520,7 @@ const starterImportsData = {
   "oldestOpenTradeIndex": 6,
   "metrics": {
     "winPercentage": 40,
-    "comulativePNL": 183.48,
+    "cumulativePNL": 183.48,
     "averageGains": 59.61,
     "averageLosses": -24.45,
     "wins": 8,

@@ -10,10 +10,11 @@ const Profile = () => {
     setSelected(link);
   };
   return (
-    <div className="global-padding">
+    <div className="global-padding top-spacer">
       <div className="profile-sections">
         <div className="profile-nav">
           {/* <h2 className="basic-title">Profile: </h2> */}
+          <img className="profile-img" src="../images/userimg.png" alt="" />
           <h2 className="">{user.firstName}</h2>
           <span
             onClick={() => navClickHandler("profile")}
@@ -21,7 +22,7 @@ const Profile = () => {
               selected === "profile" && "selected-profile-nav"
             }`}
           >
-            My profile
+            My Profile
           </span>
           <span
             className={`profile-nav-button ${
@@ -29,7 +30,7 @@ const Profile = () => {
             }`}
             onClick={() => navClickHandler("accounts")}
           >
-            Trading accounts
+            Trading Accounts
           </span>
         </div>
 

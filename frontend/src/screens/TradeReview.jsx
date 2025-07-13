@@ -22,8 +22,8 @@ const TradeReview = ({ ticker }) => {
           <>
             <div></div>
             <div className="trade-info-board">
-              <div>
-                <h2 className="stats-title">position</h2>
+              <div className="orders-placed">
+                <span className="stats-title">position</span>
 
                 <div className="trade-intro">
                   <span className="trade-intro-span">
@@ -67,7 +67,7 @@ const TradeReview = ({ ticker }) => {
                 </div>
               </div>
               <div className="orders-placed">
-                <h2 className="stats-title">trades</h2>
+                <span className="stats-title">trades</span>
                 {user.importAccounts[user.activeAccount].ordersWithMetrics[
                   index
                 ].orders.map((order, ind) => {

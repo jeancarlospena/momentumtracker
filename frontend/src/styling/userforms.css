@@ -1,10 +1,15 @@
 .log-form{
   display: flex;
+  align-items: center;
   flex-direction: column;
   /* max-width: 300px; */
-  margin: 45px auto;
+  /* margin: 200px auto; */
   font-size: 1.2rem;
 
+}
+
+.auth-form-space{
+  margin-top: 180px;
 }
 
 .input{
@@ -15,7 +20,7 @@
   width: 400px;
   /* border-radius: 10px; */
   border: 1px solid var(--box-outline);
-  border-radius: 8px;
+  /* border-radius: 8px; */
   font-size: 1.1rem;
 
 }
@@ -26,17 +31,17 @@
 }
 
 .submit-form{
-  margin-top: 15px;
+  margin-top: 30px;
   font-size: 1.2rem;
 
   padding: 16px 40px;
   color: rgb(240, 237, 237);
   border-color: var(--highlight-color);
   background-color: var(--highlight-color);
-  border-radius: 5px;
+  /* border-radius: 5px; */
   border: none;
-  opacity: .75;
-  max-width: 400px;
+  /* opacity: .8; */
+  width: 400px;
 
 }
 

@@ -31,7 +31,7 @@ text-align: right;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
-height: 80px;
+height: 100px;
 background-color: rgb(244, 244, 244);
 }
 

@@ -8,7 +8,7 @@
   justify-content: space-between;
   align-items: center;
   align-items: flex-start;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 }
 
 
@@ -20,11 +20,7 @@
   flex-direction: column;
 }
 
-.account-selection{
-  display: flex; 
-  flex-direction: column;
-  margin-top: 36px;
-}
+
 
 .filters-area{
   display: flex;
@@ -39,10 +35,12 @@
   background-color: rgb(240, 239, 239);
 }
 
-.filter-section{
-  align-items: center;
+.trade-filter{
+  height: 60px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 20px;
 }
 
 .filter-tag{
@@ -54,6 +52,42 @@
   margin: 5px;
 }
 
-.date-picker{
-  margin: 5px;
+div.filter-section:first-child{
+  margin-right: 50px;
+  color: blue;
 }
+
+.filter-section{
+    display: flex;
+  flex-direction: row;
+}
+
+.filter-input{
+  width: 80px;
+}
+
+.left-filter{
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+.right-filters{
+  display: flex;
+  flex-direction: column;
+   height: 60px;
+  justify-content: space-between;
+}
+
+.filter-selector{
+
+  text-transform: uppercase;
+  padding: 5px;
+  width: 80px;
+}
+.date-spacer{
+  margin-right: 20px;
+}
+
+
+

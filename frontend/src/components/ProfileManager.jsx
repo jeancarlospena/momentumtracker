@@ -36,13 +36,15 @@ const ProfileManager = () => {
   };
   return (
     <div className="displayed-section">
-      <div className="bottom-margin">
-        <span>Name: {user.firstName}</span>
+      <div className="profile-describer">
+        <span>FULL NAME </span>
+        <span className="profile-user-info-name">{user.firstName}</span>
       </div>
-      <div className="bottom-margin">
-        <span>Email: {user.email}</span>
+      <div className="profile-describer">
+        <span>EMAIL</span>
+        <span className="profile-user-info"> {user.email}</span>
       </div>
-      <div className="bottom-margin">
+      <div className="profile-describer">
         <Link to={"/subscription"}>Subscription</Link>
       </div>
       <span>
@@ -93,7 +95,7 @@ const ProfileManager = () => {
           />
           {error && <span className="error-span">{error} *</span>}
           <button className="submit-form" type="submit">
-            Update
+            Update Account
           </button>
         </form>
       )}

@@ -50,7 +50,7 @@ const TradesInDay = () => {
   return (
     <div className="global-padding">
       <div className="date-on-display">
-        <span> View all trades with orders on: {` ${date}`}</span>
+        <h2 className="basic-title"> All orders on: {` ${date}`}</h2>
       </div>
       <div className="table">
         {" "}

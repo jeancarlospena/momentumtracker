@@ -1,0 +1,20 @@
+.active-bar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 40px;
+  /* padding: 20px 0; */
+}
+
+.account-selection{
+  display: flex; 
+  flex-direction: row;
+  /* margin-top: 36px; */
+}
+
+.active-bar > a {
+  color: var(--dark-text);
+  font-weight: bold;
+}
+

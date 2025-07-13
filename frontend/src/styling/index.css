@@ -1,5 +1,6 @@
 :root{
   --dark-text: rgb(43, 39, 39);
+  --very-light-dark-text: rgb(46, 41, 41);
   --nav-text: rgb(81, 80, 80);
   --box-outline: rgb(126, 126, 126);
   --highlight-color: #2e820a;
@@ -8,14 +9,21 @@
   --outline-red: rgb(105, 69, 69);
   --background-red: #f28181;
   --light-border: rgb(214, 205, 205);
+  /* --white-dark-text: #f5f5f0 */
+  --white-dark-text: rgb(235, 228, 228);
   /* --highlight-color: #ae1bd7; */
-  font-size: 15px; 
+  font-size: 16px; 
+}
+
+*{
+  margin: 0;
+  padding: 0;
 }
 
 /* #e0e3eb */
 body{
   /* display: flex; */
-  color: rgb(29, 28, 28);
+  /* color: rgb(29, 28, 28); */
   margin: 0;
   /* font-family: sans-serif; */
   font-family:  'Segoe UI', Tahoma, sans-serif;
@@ -26,17 +34,29 @@ html{
 }
 
 .container{
-  max-width: 1100px;
   width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  /* min-height: 100vh; */
-  /* justify-content: space-between; */
+  max-width: 1400px;
+   /* max-width: 1700px;  */
+/* background-color: #2e820a; */
+margin: 0 auto;
+padding: 0 50px;
+/* min-height: 100vh; */
 }
 
+/* .container-background{
+
+   width: 100%;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: column;
+ 
+   background-color: rgb(67, 67, 255);
+   background: linear-gradient(#412cbb, #5a6094);
+   min-height: 100vh;
+} */
+
 .global-padding{
-  padding: 0 30px ;
+  padding: 0 20px ;
 }
 
 .error-span{
@@ -44,7 +64,13 @@ html{
 }
 
 
+.top-spacer{
+  margin-top: 20px;
+}
 
+.bottom-spacer{
+  margin-bottom: 40px;
+}
 
 
 

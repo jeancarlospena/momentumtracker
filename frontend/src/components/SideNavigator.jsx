@@ -22,7 +22,7 @@ const SideNavigator = () => {
     <div className="side-navigator">
       <div className="logo-section">
         <Link to={"/dashboard"}>
-          <img className="logged-logo" src="../images/pricelogo.png" alt="" />
+          <img className="logged-logo" src="../images/quantsky.svg" alt="" />
         </Link>
       </div>
       <div className="side-nav-menu">
@@ -33,7 +33,6 @@ const SideNavigator = () => {
           <NavLink className="nav-link" to={"/dashboard"}>
             dashboard
           </NavLink>
-
           <NavLink className="nav-link" to={"/calendar"}>
             calendar
           </NavLink>

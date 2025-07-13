@@ -28,14 +28,17 @@ function App() {
         <div>
           <div>
             {!user && authLoaded && (
-              <div className="container">
+              <div className="container-background">
+                {/* <div className="container"> */}
                 <Header />
+                {/* </div> */}
 
                 <Routes>
                   <>
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="*" element={<Home />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
                   </>
                 </Routes>
               </div>

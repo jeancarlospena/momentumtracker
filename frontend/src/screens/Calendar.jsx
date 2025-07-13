@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import YearlyCalendarDisplay from "../components/YearlyCalendarDisplay.jsx";
+import ActiveAccount from "../components/ActiveAccount.jsx";
+import ImportTrades from "../components/ImportTrades.jsx";
 
 const Calendar = () => {
   const navigate = useNavigate();
@@ -19,9 +21,9 @@ const Calendar = () => {
   const [calendarReadyToLoad, setCalendarReadyToLoad] = useState(false);
   useEffect(() => {
     if (accountIsEmpty) {
-      navigate("/dashboard");
+      navigate("/import");
     }
-  }, []);
+  }, [user]);
   const monthsOfTheYear = {
     "01": "January",
     "02": "February",
@@ -187,7 +189,7 @@ const Calendar = () => {
       setCalendarElements(weeklyElements);
       setCalendarReadyToLoad(true);
     }
-  }, [year, month]);
+  }, [user, year, month]);
 
   const changeYear = (yearValue) => {
     console.log(yearValue);
@@ -216,31 +218,10 @@ const Calendar = () => {
   };
   return (
     <>
-      {!accountIsEmpty && calendarReadyToLoad && (
-        <div className="global-padding">
-          {/* <select
-            className="custom-select select-bottom-margin"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-          >
-            {yearOpstions}
-          </select> */}
-
-          {/* <select
-            className="custom-select select-bottom-margin"
-            value={month}
-            onChange={(e) => setMonth(e.target.value)}
-          >
-            <option value={"01"}>01</option>,<option value={"02"}>02</option>,
-            <option value={"03"}>03</option>,<option value={"04"}>04</option>,
-            <option value={"05"}>05</option>,<option value={"06"}>06</option>,
-            <option value={"07"}>07</option>,<option value={"08"}>08</option>,
-            <option value={"09"}>09</option>,<option value={"10"}>10</option>,
-            <option value={"11"}>11</option>,<option value={"12"}>12</option>,
-          </select> */}
-
-          {/* {new Date(`${year}-${month.padStart(2, "0")}-02`).toDateString()} */}
-
+      <div className="global-padding">
+        {/* <ActiveAccount /> */}
+        <ImportTrades />
+        {!accountIsEmpty && calendarReadyToLoad && (
           <div className="calendar-box">
             {calendarReadyToLoad && (
               <YearlyCalendarDisplay
@@ -269,8 +250,8 @@ const Calendar = () => {
 
             {calendarElements}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };

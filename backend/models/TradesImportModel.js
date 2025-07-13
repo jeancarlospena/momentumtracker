@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 //   earliestDate: { type: Date, required: true },
 //   latestDate: { type: Date, required: true },
 //   ordersWithMetrics: [],
-//   metrics: { winPercentage: Number, comulativePNL: Number, averageGains: Number, averageLosses: Number, wins: Number, losses: Number }
+//   metrics: { winPercentage: Number, cumulativePNL: Number, averageGains: Number, averageLosses: Number, wins: Number, losses: Number }
 // }, { timestamps: true })
 
 const TradesImportSchema = new mongoose.Schema({

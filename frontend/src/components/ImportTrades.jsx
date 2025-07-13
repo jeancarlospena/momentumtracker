@@ -117,48 +117,50 @@ const ImportTrades = () => {
   //   user.importAccounts["Sample Account"].earliestDate <
   //     user.importAccounts["Sample Account"].latestDate
   // );
-  return (
-    <div className="import-section">
-      {/* <div className="file-input">
-        <label className="import-button-name" htmlFor="file">
-          <img className="upload-icon" src="../images/upload.svg" alt="" />
-          <span className="pad">{fileName ? fileName : "None"}</span>
-        </label>
-        <input
-          className="inputfile"
-          onChange={(e) => handleFile(e)}
-          accept=".csv"
-          type="file"
-          name="file"
-          id="file"
-        />
-        <label className="import-button" htmlFor="file">
-          <img className="upload-icon" src="../images/upload.svg" alt="" />
-          <span className="pad">Select file...</span>
-        </label>
-      </div> */}
-      {importFileError && (
-        <span className="error-span">{importFileError} *</span>
-      )}
-      <label className="import-file" htmlFor="file">
-        {fileName ? fileName : "Select import file."}
-      </label>
-      <input
-        className="inputfile"
-        onChange={(e) => handleFile(e)}
-        accept=".csv"
-        type="file"
-        name="file"
-        id="file"
-      />
 
-      <button
-        disabled={disabledButton}
-        className="button"
-        onClick={handleClick}
-      >
-        Import Trades
-      </button>
+  const accountChange = (e) => {
+    dispatch({ type: "SWAP_ACCOUNT", payload: e.target.value });
+  };
+  return (
+    <div className="top-spacer">
+      <div className="import-container">
+        <div className="account-selection">
+          <h2 className="basic-title">Account:</h2>
+          <select
+            defaultValue={user.activeAccount}
+            onChange={accountChange}
+            className="custom-select"
+            name=""
+            id=""
+          >
+            {Object.keys(user.importAccounts).map((accountName, ind) => {
+              return <option key={ind}>{accountName}</option>;
+            })}
+          </select>
+        </div>
+        <div className="import-section">
+          <h2 className="basic-title">Import:</h2>
+
+          <input
+            type="file"
+            className="file-input"
+            onChange={(e) => handleFile(e)}
+            accept=".csv"
+            name="file"
+            id="file"
+          ></input>
+          {importFileError && (
+            <span className="error-span">{importFileError} *</span>
+          )}
+          <button
+            disabled={disabledButton}
+            className="button"
+            onClick={handleClick}
+          >
+            Import Trades
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

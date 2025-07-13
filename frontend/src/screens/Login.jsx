@@ -30,7 +30,7 @@ const Login = () => {
       .catch((error) => setError(error.response.data.error));
   };
   return (
-    <form className="log-form" onSubmit={submitHandler}>
+    <form className="log-form auth-form-space" onSubmit={submitHandler}>
       <input
         placeholder="Email"
         className="input"

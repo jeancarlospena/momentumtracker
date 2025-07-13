@@ -104,7 +104,7 @@ justify-content: space-between;
   /* justify-content: space-between; */
 }
 .displayed-section{
-  margin: 0 auto;
+  margin-left: 50px;
 }
 .profile-nav{
   display: flex;
@@ -139,4 +139,35 @@ transition: .3s
   margin-left: auto;
   margin-right: 0;
   color: yellow !important;
+}
+
+.profile-img{
+  border: 2px solid rgb(147, 147, 147);
+  width: 140px;
+  margin: 0 auto;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.profile-describer{
+  width: 300px;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(210, 208, 208);
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-describer > span{
+  margin: 5px 0;
+}
+
+.profile-user-info{
+  text-transform: lowercase;
+
+}
+.profile-user-info-name{
+  text-transform: capitalize;
+
 }

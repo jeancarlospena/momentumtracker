@@ -160,7 +160,7 @@ export const incorporateNewImports = (currentOrders, newOrders) => {
 
 export const metricsCalculator = (orders) => {
   // p&l win %
-  let comulativePNL = 0
+  let cumulativePNL = 0
   let oldestOpenTradeIndex = 0
   let searchingOldestOpenTradeIndex = true
   console.log(orders)
@@ -191,7 +191,7 @@ export const metricsCalculator = (orders) => {
     })
 
     const resultingGainLoss = roundNumber((spent + sold) * -1)
-    comulativePNL += resultingGainLoss
+    cumulativePNL += resultingGainLoss
     if (resultingGainLoss > 0) {
       winLossPercentage.wins += 1
       gains.push(resultingGainLoss)
@@ -209,9 +209,9 @@ export const metricsCalculator = (orders) => {
   const averageLosses = roundNumber(getTheAverage(losses))
   const averageGains = roundNumber(getTheAverage(gains))
   const winPercentage = roundNumber((winLossPercentage.wins * 100) / (winLossPercentage.wins + winLossPercentage.losses))
-  comulativePNL = roundNumber(comulativePNL)
+  cumulativePNL = roundNumber(cumulativePNL)
   console.log(ordersWithMetrics)
-  return { ordersWithMetrics, oldestOpenTradeIndex: searchingOldestOpenTradeIndex ? "none" : oldestOpenTradeIndex, metrics: { winPercentage, comulativePNL, averageGains, averageLosses, wins: winLossPercentage.wins, losses: winLossPercentage.losses } }
+  return { ordersWithMetrics, oldestOpenTradeIndex: searchingOldestOpenTradeIndex ? "none" : oldestOpenTradeIndex, metrics: { winPercentage, cumulativePNL, averageGains, averageLosses, wins: winLossPercentage.wins, losses: winLossPercentage.losses } }
 }
 
 const getTheAverage = (arr) => {

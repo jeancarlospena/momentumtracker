@@ -47,7 +47,7 @@ const SignUp = () => {
   //   }
   // };
   return (
-    <form className="log-form" onSubmit={submitHandler}>
+    <form className="log-form auth-form-space" onSubmit={submitHandler}>
       <input
         placeholder="First Name"
         className="input"

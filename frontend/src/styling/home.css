@@ -1,95 +1,192 @@
-.home{
-  text-align: center;
-  margin-top: 20px;
+.landing-page{
+  /* padding-top: 4%; */
+  /* padding: 0 50px; */
+  /* height: 100vh; */
+  /* background-color: pink; */
+
 }
 
 
-.home-title{
-  margin-bottom: none;
-  font-size: 2.9rem;
+
+.intro-heading{
+  font-size: 2.5rem;
+  max-width: 750px;
+  margin-bottom: 25px;
 }
 
-.home-sub-heading{
-  margin-top: 10px;
-  font-size: 1.1rem;
+.intro-p{
+  margin-bottom: 15px;
 }
 
-.main-home-section{
-  margin-top: 45px;
+
+
+
+.message-section {
+  /* position: relative; */
+  /* padding: 50px 0; */
+  /* display: flex; */
+  /* justify-content: center; */
+}
+
+/* .content-wrapper {
+  position: relative;
+  display: inline-block;
+} */
+
+.img-back-business {
+  /* position: absolute; */
+  /* top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; */
+  background-image: url('../images/business-shakeDark2.jpg');
+  background-size: cover;
+  background-position: 50% 30%;
+  /* filter: brightness(50%); */
+  z-index: 1;
+  height: 450px;
+ display: flex;
+ align-items: end;
+}
+
+.content {
+  /* width: 100%;
+  position: relative;
+  z-index: 2; */
+  padding: 35px 0;
+  color: var(--white-dark-text);
+  margin-bottom: 0;
+  max-width: 800px;
+}
+
+.button-title-section{
+  line-height: .8;
+
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-
-.main-home-photo{
-  width: 500px;
-  border-radius: 5px;
-}
-
-.bullet-points{
-  display: flex;
-  flex-direction: row;
-  list-style-type: none;
-  font-size: 1.5rem;
-}
-
-.check-icon{
-  margin-right: 15px;
+  /* align-items: center; */
 }
 
 .trial-btn{
-  font-size: 1.5rem;
-  padding: 12px 40px;
-  color: rgb(252, 247, 247);
-  border-color: var(--highlight-color);
-  background-color: var(--highlight-color);
-  border-radius: 5px;
-  opacity: .75;
-
+  margin-top: 9px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 0 45px;
+  color: rgb(32, 161, 85);
+  border: none;
+  background-color: white;
+  border: 1px solid rgb(151, 151, 151);
+  border-radius: 40px;
+  /* opacity: .75; */
+  height: 50px;
+  margin-right: 20px;
+  cursor: pointer;
+  transition-duration: .5s;
+  display: flex;
+  align-items: center;
 }
+
+
 .trial-btn:hover{
-  background-color: var(--highlight-color);
-  color: rgb(252, 247, 247);
+  background-color: rgb(52, 157, 97);
 
-  transition-duration: .3s;
-  opacity: 1;
+  color: white;
+
+}
+.tester1{
+  margin-top: calc(25vh);
+  background-color: #845bcd;
 }
 
-.features-section{
-  margin-top: 55px;
-  padding: 25px 10px ;
-  border-radius: 10px;
-  background-color: rgb(235, 237, 235);
-}
 
-.features-section, .feature{
+
+.informative-section{
+  margin: 50px 0;
   display: flex;
   flex-direction: row;
 }
 
-.feature{
-  padding: 0 25px;
-  width: 33.33%;
+.side-photo{
+  max-width: 55%;
 }
 
-.feature + .feature{
-  border-left: 1px solid rgb(186, 184, 184);
+.informative-section-text{
+  padding-left: 50px;
+  width: 60%;
+  
 }
 
-.feature-title{
+.informative-section-text-left{
+  padding-right: 50px;
+ 
+}
+
+.title-h3{
+  
+  margin: 0 0 20px;
+  font-size: 2.2rem;
+  color: var(--dark-text);
+}
+
+.bullet-point{
+  margin: 15px 0;
+  border-left: 5px solid brown;
+  padding: 5px 0 5px 30px;
+}
+
+.check-bullet{
+  height: 20px;
+  margin: auto 10px auto 0;
+}
+
+.check-bullet-point{
+  display: flex;
+   margin: 15px 0;
+  /* border-left: 5px solid brown; */
+  padding: 5px 30px 5px 0;
+}
+
+.bullet-p{
+  margin-top: 5px;
+  color: var(--very-light-dark-text);
+}
+.normal-p{
+  color: var(--very-light-dark-text);
+
+}
+
+
+.bullet-heading{
+  color: var(--dark-text);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+img{
   margin: 0;
+  padding: 0;
 }
 
-.feature-img{
-  height: 64px;
+.double-image {
+  margin: auto;
+  position: relative;
+  width: 50%;       /* or set fixed width like 300px */
+  height: 400px;
+  /* background-color: purple; */
+
 }
 
-.feature-text-section{
-  padding-left: 25px;
-  text-align: left;
+.worker-intro-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;       /* adjust size as needed */
+  z-index: 1;       /* lower layer */
 }
 
-.feature-text{
-  margin: 5px 0 0;
+.worker-intro-image-2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 70%;       /* adjust size as needed */
+  z-index: 2;       /* this is on top */
 }
