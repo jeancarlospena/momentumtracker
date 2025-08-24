@@ -98,47 +98,72 @@ const Home = () => {
               one place. Import trades from most major brokers to unlock a
               powerful, broker-synced trading journal and performance hub.
             </p>
+            <div className="bullet-section-container">
+              <div className="check-bullet-point">
+                <img
+                  className="check-bullet"
+                  src="../images/check2.svg"
+                  alt=""
+                />
+                <p className="bullet-p">
+                  Real-time performance metrics and strategy analytics
+                </p>
+              </div>
 
-            <div className="check-bullet-point">
-              <img className="check-bullet" src="../images/check2.svg" alt="" />
-              <p className="bullet-p">
-                Real-time performance metrics and strategy analytics
-              </p>
-            </div>
+              <div className="check-bullet-point">
+                <img
+                  className="check-bullet"
+                  src="../images/check2.svg"
+                  alt=""
+                />
+                <p className="bullet-p">
+                  Subscribe to multiple algorithms tailored to your goals
+                </p>
+              </div>
 
-            <div className="check-bullet-point">
-              <img className="check-bullet" src="../images/check2.svg" alt="" />
-              <p className="bullet-p">
-                Subscribe to multiple algorithms tailored to your goals
-              </p>
-            </div>
+              <div className="check-bullet-point">
+                <img
+                  className="check-bullet"
+                  src="../images/check2.svg"
+                  alt=""
+                />
+                <p className="bullet-p">
+                  Risk management tools with return projections based on input
+                </p>
+              </div>
 
-            <div className="check-bullet-point">
-              <img className="check-bullet" src="../images/check2.svg" alt="" />
-              <p className="bullet-p">
-                Risk management tools with return projections based on input
-              </p>
-            </div>
+              <div className="check-bullet-point">
+                <img
+                  className="check-bullet"
+                  src="../images/check2.svg"
+                  alt=""
+                />
+                <p className="bullet-p">
+                  Detailed trade breakdowns with chart-based visualizations
+                </p>
+              </div>
 
-            <div className="check-bullet-point">
-              <img className="check-bullet" src="../images/check2.svg" alt="" />
-              <p className="bullet-p">
-                Detailed trade breakdowns with chart-based visualizations
-              </p>
-            </div>
+              <div className="check-bullet-point">
+                <img
+                  className="check-bullet"
+                  src="../images/check2.svg"
+                  alt=""
+                />
+                <p className="bullet-p">
+                  Performance calendar with day-by-day tracking
+                </p>
+              </div>
 
-            <div className="check-bullet-point">
-              <img className="check-bullet" src="../images/check2.svg" alt="" />
-              <p className="bullet-p">
-                Performance calendar with day-by-day tracking
-              </p>
-            </div>
-
-            <div className="check-bullet-point">
-              <img className="check-bullet" src="../images/check2.svg" alt="" />
-              <p className="bullet-p">
-                Step-by-step onboarding guides for instant setup
-              </p>
+              <div className="check-bullet-point">
+                <img
+                  className="check-bullet"
+                  src="../images/check2.svg"
+                  alt=""
+                />
+                <p className="bullet-p">
+                  Step-by-step onboarding guides for instant setup
+                </p>
+              </div>
             </div>
           </div>
           <img className="side-photo" src="../images/investor.jpg" alt="" />

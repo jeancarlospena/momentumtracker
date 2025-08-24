@@ -12,7 +12,7 @@ const requireAuth = asyncHandler(async (req, res, next) => {
       req.user = await (User.findById(decoded.userId)).select('-password')
     } catch (error) {
       res.cookie('jwt', '', { httpOnly: true, expiresIn: new Date(0) })
-      res.status(400).json('User not logged in')
+      res.status(200).json('User not logged in')
     }
   } else {
     throw new Error('Not authorized')

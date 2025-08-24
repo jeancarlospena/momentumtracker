@@ -65,7 +65,7 @@ a.table-row{
   color: var(--dark-text);
 }
 .table-cell{
-  width: 16.66%;
+  width: 20%;
   padding: 10px;
 }
 

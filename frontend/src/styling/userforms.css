@@ -61,3 +61,18 @@
 .submit-form-margin{
   margin-left: 15px;
 }
+
+@media (max-width: 600px){
+  .log-form{
+    padding: 15px
+  }
+.input, .submit-form{
+
+  width: 100%;
+
+}
+
+.auth-form-space{
+  margin-top: 140px;
+}
+}

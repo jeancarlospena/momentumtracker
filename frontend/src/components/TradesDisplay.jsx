@@ -117,7 +117,6 @@ const TradesDisplay = ({
       );
     })
     .filter(Boolean); // Remove skipped (null) entries
-  console.log(performanceTracker);
   if (performanceTracker.losses > 0) {
     performanceTracker.averageLosses = (
       performanceTracker.profitLoss / performanceTracker.losses
@@ -148,7 +147,19 @@ const TradesDisplay = ({
     selectedOrderSide,
     searchedSymbol,
   ]);
-  return <div className="global-padding">{tableRows}</div>;
+  return (
+    <div className="global-padding">
+      <div className="table-heading">
+        <div className="table-cell">Status</div>
+        <div className="table-cell">Ticker</div>
+        <div className="table-cell">Open Date</div>
+        <div className="table-cell">Side</div>
+        <div className="table-cell">Return</div>
+        {/* <div className="table-cell">Setup</div> */}
+      </div>
+      {tableRows}
+    </div>
+  );
 };
 
 export default TradesDisplay;

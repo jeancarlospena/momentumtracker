@@ -190,3 +190,75 @@ img{
   width: 70%;       /* adjust size as needed */
   z-index: 2;       /* this is on top */
 }
+
+@media (max-width: 900px){
+  .informative-section{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+  }
+  .double-image {
+  margin: auto;
+  position: relative;
+  width: 90%;       /* or set fixed width like 300px */
+  height: 400px;
+  /* background-color: purple; */
+}
+.informative-section-text{
+  padding-left: 0;
+  width: 100%;
+  margin-top: 20px;
+}
+  .bullet-section-container{
+    margin: 20px auto;
+    width: fit-content;
+  }
+
+
+.side-photo{
+  max-width: 100%;
+  padding: 20px;
+}
+
+
+}
+
+
+
+
+
+
+@media (max-width: 650px){
+  .title-h3{
+    font-size: 30px;
+  }
+ 
+  .double-image {
+  margin: auto;
+  position: relative;
+  width: 90%;       /* or set fixed width like 300px */
+  height: 200px;
+  margin-top: 40px;
+  margin-bottom: 15px;
+  /* background-color: purple; */
+}
+
+
+.content{
+  margin-top: 800px;
+}
+.img-back-business{
+  height: 500px;
+}
+.intro-heading{
+  font-size: 35px;
+}
+} 
+/* 
+.content {
+
+  padding: 35px 0;
+  color: var(--white-dark-text);
+  margin-bottom: 0;
+  max-width: 800px;
+} */

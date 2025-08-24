@@ -4,7 +4,7 @@
   margin: 40px auto 0;
 text-align: center;
 padding: 60px;
-background-color: rgb(243, 241, 246);
+background-color: rgb(246, 246, 246);
   color: var(--very-light-dark-text);
 }
 
@@ -65,4 +65,34 @@ color: rgb(91, 26, 111);
   justify-content: space-around;
   height: 300px;
   padding: 0 15px;
+}
+
+
+@media (max-width: 950px){
+  .top-footer{
+    flex-direction: column;
+    align-items: center;
+  height: fit-content;
+    
+  }
+  .footer-section{
+    padding: 30px 0;
+  }
+  .right-footer{
+    max-width: 400px;
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
+    margin: 35px 0 25px;
+  }
+  .footer-links-section{
+    margin: 0;
+    justify-content: space-between;
+  }
+  .bottom-footer{
+    margin-top: 25px;
+  }
+  .bottom-footer span{
+    margin-bottom: 15px;
+  }
 }

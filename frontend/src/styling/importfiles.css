@@ -146,3 +146,13 @@ input::file-selector-button:hover {
   /* height: 100px; */
   margin-bottom: 40px;
 }
+
+@media (max-width: 1100px){
+  .import-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .import-section{
+    margin-top: 25px;
+  }
+}
