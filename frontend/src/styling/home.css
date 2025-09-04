@@ -47,7 +47,22 @@
   height: 450px;
  display: flex;
  align-items: end;
+  transition: 1s;
 }
+
+
+.preloadSection{
+  opacity: 0;
+   transition: opacity 1s ease-in-out, transform 3s ease;
+
+}
+
+.preloadSection.loaded{
+  opacity: 1;
+}
+
+
+
 
 .content {
   /* width: 100%;
@@ -190,6 +205,8 @@ img{
   width: 70%;       /* adjust size as needed */
   z-index: 2;       /* this is on top */
 }
+
+
 
 @media (max-width: 900px){
   .informative-section{
