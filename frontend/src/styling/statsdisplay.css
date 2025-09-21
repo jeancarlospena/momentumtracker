@@ -4,6 +4,9 @@
   flex-wrap: wrap;
   margin-bottom: 40px;
   width: 100%;
+   background-color: rgb(245, 245, 245);
+   border-radius: 10px;
+   padding: 10px 0;
 }
 
 .stats-section{
@@ -25,7 +28,6 @@
   min-width: 200px;
   max-width: 300px;
   margin: 5px;
-  background-color: rgb(245, 245, 245);
 
 }
 

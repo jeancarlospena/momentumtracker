@@ -14,11 +14,21 @@ const OrderBreakdown = () => {
             className="account-btn-regular"
             to={`/order/${parseInt(index) - 1}`}
           >
-            &lt; PREVIOUS TRADE
+            <img
+              className="nav-arrow"
+              src="/images/nav-arrow.svg"
+              alt="navigate arrow"
+            />{" "}
+            PREVIOUS TRADE
           </Link>
         ) : (
           <Link className="account-btn-regular account-btn-disabled" to={`#`}>
-            &lt; PREVIOUS TRADE
+            <img
+              className="nav-arrow"
+              src="/images/nav-arrow.svg"
+              alt="navigate arrow"
+            />{" "}
+            PREVIOUS TRADE
           </Link>
         )}
         {index <
@@ -27,7 +37,12 @@ const OrderBreakdown = () => {
             className="account-btn-regular"
             to={`/order/${parseInt(index) + 1}`}
           >
-            NEXT TRADE &gt;
+            NEXT TRADE{" "}
+            <img
+              className="nav-arrow flipped"
+              src="/images/nav-arrow.svg"
+              alt="navigate arrow"
+            />
           </Link>
         ) : (
           <Link className="account-btn-regular account-btn-disabled" to={`#`}>
@@ -35,7 +50,6 @@ const OrderBreakdown = () => {
           </Link>
         )}
       </div>
-
       {user &&
         user.importAccounts?.[user.activeAccount]?.ordersWithMetrics[index] && (
           <TradeReview

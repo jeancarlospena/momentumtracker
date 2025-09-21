@@ -22,15 +22,6 @@ table{
   width: 100%;
 } */
 
-.table-row:nth-child(even){
-  background-color: rgb(242, 242, 242);
-  transition: .3s;
-}
-
-.table-row:hover{
-  background-color: rgb(214, 214, 214);
-  transition: .3s;
-}
 
 .status-tag{
   height: fit-content;
@@ -39,6 +30,7 @@ table{
   /* border: 2px solid var(--outline-green); */
   border-radius: 1px;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .won{
@@ -67,6 +59,25 @@ a.table-row{
 .table-cell{
   width: 20%;
   padding: 10px;
+}
+
+
+.table-row:nth-child(even){
+  background-color: var(--cell-back-color);
+  transition: .3s;
+  /* border-radius: 10px; */
+}
+
+.table-row:hover{
+  background-color: rgb(214, 214, 214);
+  transition: .3s;
+}
+
+
+
+.table-row{
+  border-radius: 6px;
+  /* background-color: pink; */
 }
 
 .table{

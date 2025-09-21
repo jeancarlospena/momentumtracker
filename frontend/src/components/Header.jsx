@@ -19,6 +19,7 @@ const Header = () => {
   // };
   return (
     <header className={isHome ? "header-grade-back" : "header-dark-back"}>
+      {/* <header className={"header-dark-back"}> */}
       <div className="container">
         <div className="main-navigator">
           <div className="left-nav">
@@ -31,6 +32,19 @@ const Header = () => {
                 />
               </Link>
             </h1>
+          </div>
+          <div>
+            <div className="nav-menu">
+              {/* <li className="nav-link">
+                  <NavLink to="/">Home</NavLink>
+                </li> */}
+              <li className="nav-link">
+                <NavLink to="/faq">FAQ</NavLink>
+              </li>
+              <li className="nav-link">
+                <NavLink to="/pricing">Pricing</NavLink>
+              </li>
+            </div>
           </div>
           <div className="right-nav">
             {authLoaded && !user && (

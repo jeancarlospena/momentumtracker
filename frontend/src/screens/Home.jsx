@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     const img = new Image();
-    img.src = "../images/business-shakeDark2.jpg"; // same path as your CSS background
+    img.src = "../images/business-shakeDark2.jpg";
     img.onload = () => setMainLoaded(true);
     console.log("hitter");
   }, []);

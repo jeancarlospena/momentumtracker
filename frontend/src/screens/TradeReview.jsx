@@ -20,7 +20,6 @@ const TradeReview = ({ ticker }) => {
       {user &&
         user.importAccounts[user.activeAccount].ordersWithMetrics[index] && (
           <>
-            <div></div>
             <div className="trade-info-board">
               <div className="orders-placed">
                 <span className="stats-title">position</span>

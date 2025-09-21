@@ -11,6 +11,8 @@
   --light-border: rgb(214, 205, 205);
   /* --white-dark-text: #f5f5f0 */
   --white-dark-text: rgb(235, 228, 228);
+  --gen-back-light: rgb(243, 243, 243);
+  --cell-back-color: rgb(231, 230, 230);
   /* --highlight-color: #ae1bd7; */
   font-size: 16px; 
 }
@@ -28,6 +30,7 @@ body{
   /* font-family: sans-serif; */
   font-family:  'Segoe UI', Tahoma, sans-serif;
   overflow-y: scroll;
+  background-color: var(--gen-back-light);
 }
 html{
   margin: 0;
