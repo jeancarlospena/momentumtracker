@@ -1,0 +1,92 @@
+.sign-up-content{
+  color: var(--dark-text);
+  display: flex;
+  /* background-color: aqua; */
+  max-width: 1500px;
+  margin: 0 auto;
+  /* flex-direction: row; */
+  justify-content: space-around;
+  padding: 0 50px;
+  width: 100%;
+}
+
+.plans-section{
+  /* max-width: 600px; */
+  max-width: 65%;
+  margin-top: 180px;
+  display: flex;
+  width: 100%;
+  /* max-width: ; */
+  justify-content: space-around;
+  background-color: var(--cell-back-color);
+ border: 1px solid rgb(215, 209, 209);
+ border-radius: 10px;
+}
+
+.plans-section h2{
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.plan{
+  display: flex;
+  flex-direction: column;
+  /* background-color: var(--cell-back-color); */
+  /* background-color: rgb(255, 255, 255); */
+  padding: 40px;
+  border-radius: 12px;
+  width: 40%;
+  width: 400px;
+  /* justify-content: center; */
+  /* border: 1px solid black; */
+  gap: 20px;
+  align-items: center;
+ text-align: center;
+}
+
+.vertical-line{
+  border: 1px solid rgb(215, 213, 213);
+
+  width: 1px;
+  /* max-height: 80%; */
+  /* margin-top: 20%; */
+  margin: 8% 0;
+}
+
+.pricing-title{
+  font-weight: bold;
+  font-size: 30px;
+}
+
+
+
+@media(max-width:1400px){
+  .plans-section{
+    margin: 80px auto;
+    max-width: 100%;
+  }
+   .sign-up-content{
+    flex-direction: column-reverse;
+ 
+   }
+}
+@media(max-width:1000px){
+ 
+  .plans-section{
+    flex-direction: column;
+    /* justify-content: ; */
+    align-items: center;
+  }
+  .vertical-line{
+  border: 1px solid rgb(215, 213, 213);
+
+  width: 80%;
+  /* max-height: 80%; */
+  /* margin-top: 20%; */
+  /* margin: 8% 0; */
+  }
+  .sign-up-content{
+    padding: 15px;
+  }
+}

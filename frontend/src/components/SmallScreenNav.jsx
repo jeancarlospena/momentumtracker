@@ -1,10 +1,13 @@
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
+
 import axios from "axios";
-import SmallScreenNav from "./SmallScreenNav.jsx";
-const Header = () => {
+import { useState } from "react";
+import Header from "./Header.jsx";
+const SmallScreenNav = () => {
   const navigate = useNavigate();
   const { user, dispatch, authLoaded } = useAuthContext();
+  const [expandedNav, setExpandedNav] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
   // const logOutHandler = () => {
@@ -19,9 +22,18 @@ const Header = () => {
   //     .catch((error) => console.log(error));
   // };
   return (
-    <>
+    <div className="small-nav-blocker">
+      {/* Overlay (only when menu is open) */}
+      {expandedNav && (
+        <div
+          className="nav-overlay"
+          onClick={() => setExpandedNav(false)}
+        ></div>
+      )}
+      {/* small screens navigator */}
+      {/* <header className={` small-navavigator `}> */}
       <header
-        className={`wide-header ${
+        className={`small-navavigator ${
           isHome ? "header-grade-back" : "header-dark-back"
         }`}
       >
@@ -39,20 +51,44 @@ const Header = () => {
                 </Link>
               </h1>
             </div>
-
-            <div className="right-nav">
+            <div>
+              <img
+                className="nav-sandwich"
+                onClick={() => setExpandedNav(true)}
+                src="/images/nav_sandwich.svg"
+                alt=""
+              />
+            </div>
+            <div
+              className={`mobile-nav 
+                ${expandedNav ? "nav-open" : ""} 
+                `}
+            >
               {authLoaded && !user && (
-                <ul className="nav-menu">
-                  {/* <li className="nav-link">
-                  <NavLink to="/">Home</NavLink>
-                </li> */}
-                  <li className="nav-link">
+                <ul className="small-nav-menu">
+                  <span
+                    className="close-small-nav"
+                    onClick={() => setExpandedNav(false)}
+                  >
+                    Close
+                  </span>
+                  <li
+                    className="nav-link"
+                    onClick={() => setExpandedNav(false)}
+                  >
                     <NavLink to="/faq">FAQ</NavLink>
                   </li>
-                  <li className="nav-link ">
+
+                  <li
+                    className="nav-link "
+                    onClick={() => setExpandedNav(false)}
+                  >
                     <NavLink to="/signup">Start Membership</NavLink>
                   </li>
-                  <li className="nav-link">
+                  <li
+                    className="nav-link"
+                    onClick={() => setExpandedNav(false)}
+                  >
                     <NavLink to="/login">Sign In</NavLink>
                   </li>
                 </ul>
@@ -61,10 +97,8 @@ const Header = () => {
           </div>
         </div>
       </header>
-      {/* small screens navigator */}
-      <SmallScreenNav />
-    </>
+    </div>
   );
 };
 
-export default Header;
+export default SmallScreenNav;

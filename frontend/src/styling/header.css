@@ -1,3 +1,10 @@
+.small-navigator{
+  display: none;
+}
+.small-nav-blocker{
+  display: none;
+}
+
 .main-navigator{
 
   display: flex;
@@ -47,6 +54,8 @@ header{
    background-color: rgb(54, 48, 66);
   /* color: #ffffff; */
 }
+
+
 
 .nav-menu{
   display: flex;
@@ -131,11 +140,89 @@ h1{
   width: 160px;
 
 }
+.nav-sandwich{
+  width: 25px;
+  cursor: pointer;
+  display: none;
+}
+
+@media(max-width: 950px){
+  .wide-header{
+    display: none;
+  }
+  .small-navigator, .nav-sandwich{
+    display: block;
+  }
+
+.small-nav-blocker{
+  display: block;
+}
+
+}
+
+
+
+/* Base nav styles */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 250px;
+ 
+  background-color: rgba(30, 28, 28, 0.8); 
+  color: rgb(214, 211, 211);
+  transform: translateX(100%); 
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  padding: 50px 30px;
+
+}
+
+/* Active state */
+.nav-open {
+  transform: translateX(0); /* slide in */
+}
+
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); 
+  z-index: 999;
+}
+.close-small-nav{
+  /* padding-bottom: 20px; */
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.small-nav-menu{
+
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  gap: 16px;              /* space between li items */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  
+}
+
+.small-nav-menu .nav-link{
+
+
+  padding: 0;
+  margin: 0;
+
+
+}
 
 @media (max-width: 680px){
-  .main-navigator{
+  /* .main-navigator{
     flex-direction: column;
-  }
+  } */
   .nav-menu{
     margin-top: 20px;
   }

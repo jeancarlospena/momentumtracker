@@ -121,7 +121,10 @@
 }
 
 .side-photo{
-  max-width: 55%;
+  /* aspect-ratio: 1; */
+  max-width: 50%;
+  margin: auto 0;
+  max-height: fit-content;
 }
 
 .informative-section-text{
@@ -235,6 +238,7 @@ img{
 .side-photo{
   max-width: 100%;
   padding: 20px;
+
 }
 
 

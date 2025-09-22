@@ -67,7 +67,7 @@ const Home = () => {
                 />
               </div>
               <div className="informative-section-text">
-                <h3 className="title-h3">Why Investors Choose Us</h3>
+                <h3 className="title-h3">Why Traders Choose Us</h3>
                 <div className="bullet-point">
                   <span className="bullet-heading">
                     Hands-Free Investing, Fully in Your Control

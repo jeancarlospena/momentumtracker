@@ -22,6 +22,7 @@ const Header = lazy(() => import("./components/Header.jsx"));
 const SignUp = lazy(() => import("./screens/SignUp.jsx"));
 const Login = lazy(() => import("./screens/Login.jsx"));
 const Home = lazy(() => import("./screens/Home.jsx"));
+const FrequentlyAsked = lazy(() => import("./screens/FrequentlyAsked.jsx"));
 
 // Private (authenticated) routes
 const UserMain = lazy(() => import("./screens/UserMain.jsx"));
@@ -55,6 +56,7 @@ function App() {
                   <>
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/faq" element={<FrequentlyAsked />} />
                     <Route path="/" element={<Home />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </>

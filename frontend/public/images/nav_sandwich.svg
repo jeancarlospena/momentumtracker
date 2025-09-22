@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800"
+   height="800"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg4"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs4" />
+  <title
+     id="title1" />
+  <g
+     id="Complete">
+    <g
+       id="align-justify">
+      <g
+         id="g4">
+        <polygon
+           fill="#d6cdcd"
+           points="4,18 20,18 "
+           stroke="#d6cdcd"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           stroke-width="2"
+           id="polygon1" />
+        <polygon
+           fill="#d6cdcd"
+           points="4,14 20,14 "
+           stroke="#d6cdcd"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           stroke-width="2"
+           id="polygon2" />
+        <polygon
+           fill="#d6cdcd"
+           points="4,10 20,10 "
+           stroke="#d6cdcd"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           stroke-width="2"
+           id="polygon3" />
+        <polygon
+           fill="#d6cdcd"
+           points="4,6 20,6 "
+           stroke="#d6cdcd"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           stroke-width="2"
+           id="polygon4" />
+      </g>
+    </g>
+  </g>
+</svg>

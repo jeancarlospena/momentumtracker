@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
 import { inputFocus } from "../scripts/inputFocus.js";
+import Pricing from "../components/Pricing.jsx";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -47,52 +48,55 @@ const SignUp = () => {
   //   }
   // };
   return (
-    <form className="log-form auth-form-space" onSubmit={submitHandler}>
-      <input
-        placeholder="First Name"
-        className="input"
-        type="text"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        onKeyDown={(e) => inputFocus(e, emailRef)}
-      />
+    <div className="sign-up-content">
+      <Pricing />
+      <form className="log-form auth-form-space" onSubmit={submitHandler}>
+        <input
+          placeholder="First Name"
+          className="input"
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          onKeyDown={(e) => inputFocus(e, emailRef)}
+        />
 
-      <input
-        ref={emailRef}
-        placeholder="Email"
-        className="input"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        onKeyDown={(e) => inputFocus(e, passwordRef)}
-      />
+        <input
+          ref={emailRef}
+          placeholder="Email"
+          className="input"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={(e) => inputFocus(e, passwordRef)}
+        />
 
-      <input
-        ref={passwordRef}
-        placeholder="Password"
-        className="input"
-        type="password"
-        autoComplete="true"
-        id="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        onKeyDown={(e) => inputFocus(e, confirmPasswordRef)}
-      />
-      <input
-        ref={confirmPasswordRef}
-        placeholder="Confirm Password"
-        className="input"
-        type="password"
-        autoComplete="true"
-        id="confirm-password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      {error && <span className="error-span">{error} *</span>}
-      <button className="submit-form" type="submit">
-        Sign Up
-      </button>
-    </form>
+        <input
+          ref={passwordRef}
+          placeholder="Password"
+          className="input"
+          type="password"
+          autoComplete="true"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={(e) => inputFocus(e, confirmPasswordRef)}
+        />
+        <input
+          ref={confirmPasswordRef}
+          placeholder="Confirm Password"
+          className="input"
+          type="password"
+          autoComplete="true"
+          id="confirm-password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        {error && <span className="error-span">{error} *</span>}
+        <button className="submit-form" type="submit">
+          Sign Up
+        </button>
+      </form>
+    </div>
   );
 };
 
