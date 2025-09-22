@@ -49,7 +49,9 @@ const SignUp = () => {
   // };
   return (
     <div className="sign-up-content">
-      <Pricing />
+      <div className="pricing-container">
+        <Pricing />
+      </div>
       <form className="log-form auth-form-space" onSubmit={submitHandler}>
         <input
           placeholder="First Name"
@@ -93,7 +95,7 @@ const SignUp = () => {
         />
         {error && <span className="error-span">{error} *</span>}
         <button className="submit-form" type="submit">
-          Sign Up
+          Start Trading!
         </button>
       </form>
     </div>

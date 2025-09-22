@@ -23,6 +23,7 @@
   border: 1px solid var(--box-outline);
   /* border-radius: 8px; */
   font-size: 1.1rem;
+  border-color: var(--cell-back-color);
 
 }
 
@@ -38,7 +39,7 @@
 
   padding: 16px 40px;
   color: rgb(240, 237, 237);
-  border-color: var(--highlight-color);
+  /* border-color: var(--highlight-color); */
   background-color: var(--highlight-color);
   /* border-radius: 5px; */
   border: none;

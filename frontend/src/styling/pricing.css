@@ -9,17 +9,20 @@
   padding: 0 50px;
   width: 100%;
 }
-
+.pricing-container{
+  width: 100%;
+  /* background-color: pink; */
+}
 .plans-section{
   /* max-width: 600px; */
-  max-width: 65%;
+  max-width: 95%;
   margin-top: 180px;
   display: flex;
   width: 100%;
   /* max-width: ; */
   justify-content: space-around;
   background-color: var(--cell-back-color);
- border: 1px solid rgb(215, 209, 209);
+ /* border: 1px solid rgb(215, 209, 209); */
  border-radius: 10px;
 }
 
@@ -32,22 +35,33 @@
 .plan{
   display: flex;
   flex-direction: column;
-  /* background-color: var(--cell-back-color); */
-  /* background-color: rgb(255, 255, 255); */
   padding: 40px;
   border-radius: 12px;
   width: 40%;
   width: 400px;
-  /* justify-content: center; */
-  /* border: 1px solid black; */
-  gap: 20px;
-  align-items: center;
- text-align: center;
+  gap: 22px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.main-pricing{
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(229, 220, 238);
+  padding: 20px;
+  border-radius: 12px;
+  gap:6px;
+}
+
+.exclusive-price{
+  background-color: rgb(253, 247, 227);
 }
 
 .vertical-line{
-  border: 1px solid rgb(215, 213, 213);
-
+  /* border: 1px solid rgb(215, 213, 213); */
+  background-color: rgb(215, 213, 213);
   width: 1px;
   /* max-height: 80%; */
   /* margin-top: 20%; */
@@ -56,7 +70,7 @@
 
 .pricing-title{
   font-weight: bold;
-  font-size: 30px;
+  font-size: 32px;
 }
 
 
@@ -64,19 +78,30 @@
 @media(max-width:1400px){
   .plans-section{
     margin: 80px auto;
-    max-width: 100%;
+    width: 100%;
+    /* max-width: 800px; */
+    /* padding: 10px; */
+    /* margin: 50px auto; */
   }
    .sign-up-content{
     flex-direction: column-reverse;
- 
+    width: 100%;
+    /* background-color: pink; */
    }
 }
-@media(max-width:1000px){
- 
+@media(max-width:800px){
+  .sign-up-content{
+    padding: 0;
+  }
+  .pricing-container{
+    /* padding: 0 15px; */
+  }
   .plans-section{
     flex-direction: column;
     /* justify-content: ; */
     align-items: center;
+    margin-top: 30px;
+    /* margin-right: 20px; */
   }
   .vertical-line{
   border: 1px solid rgb(215, 213, 213);
@@ -87,6 +112,6 @@
   /* margin: 8% 0; */
   }
   .sign-up-content{
-    padding: 15px;
+    /* padding: 0; */
   }
 }

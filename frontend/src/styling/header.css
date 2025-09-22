@@ -11,19 +11,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* margin: 20px 0 35px; */
-  /* position: fixed; */
+
   width: 100%;
   
-  /* max-width: 900px; */
-  /* margin: 0 auto; */
+
   padding: 18px 0 10px;
-  /* margin-top: 18px; */
-  /* max-width: 1000px; */
+
   font-weight: bold;
-  /* position: fixed; */
-  /* background-color: rgba(227, 227, 227, 1); */
-  /* box-shadow: 5px 5px 10px rgba(50, 49, 49, 0.3);  */
+
   border-radius: 38px;
 }
 header{
@@ -52,6 +47,7 @@ header{
 .header-dark-back{
 
    background-color: rgb(54, 48, 66);
+   
   /* color: #ffffff; */
 }
 

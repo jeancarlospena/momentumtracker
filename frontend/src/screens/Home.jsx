@@ -10,7 +10,6 @@ const Home = () => {
     const img = new Image();
     img.src = "../images/business-shakeDark2.jpg";
     img.onload = () => setMainLoaded(true);
-    console.log("hitter");
   }, []);
   return (
     <div
