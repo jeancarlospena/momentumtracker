@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 const TradesInDay = () => {
   const { date } = useParams();
-  const { user } = useAuthContext();
+  const { user, loadedTrades } = useAuthContext();
   const [allTradesForDate, setAllTradesForDate] = useState([]);
   useEffect(() => {
     const tradesInDay = [];
-    user.importAccounts[user.activeAccount].ordersWithMetrics.map((trade) => {
+    user.importAccounts[user.activeAccount].map((trade) => {
       const checkOpenDate = trade.orders[0].date.split("T")[0] === date;
       const checkClosedDate =
         trade.orders[trade.orders.length - 1].action === "closed" &&
@@ -17,9 +17,9 @@ const TradesInDay = () => {
       if (checkOpenDate || checkClosedDate) {
         tradesInDay.push(
           <Link
-            key={trade.tradeIndex}
-            className="table-row"
-            to={`/order/${trade.tradeIndex}`}
+            key={trade._id}
+            className="table-row table-row-even"
+            to={`/order/${trade._id}`}
           >
             <div className="table-cell">
               {trade.outStandingPosition !== 0 ? (

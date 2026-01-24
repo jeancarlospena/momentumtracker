@@ -16,7 +16,6 @@ const AccountsManager = () => {
       .then((response) => {
         dispatch({ type: "ADD_ACCOUNT", payload: response.data });
         setNewAccountName("");
-        console.log(newAccountName);
       });
   };
   const deleteAccount = (name) => {

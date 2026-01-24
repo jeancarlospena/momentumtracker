@@ -3,17 +3,28 @@ import { useAuthContext } from "../hooks/useAuthContext.jsx";
 import TradeReview from "./TradeReview.jsx";
 
 const OrderBreakdown = () => {
-  const { user } = useAuthContext();
-  const { index } = useParams();
+  const { user, loadedTrades } = useAuthContext();
+  const { orderid } = useParams();
+  // console.log(loadedTrades[user.activeAccount]);
+  const selectedOrderIndex = user.importAccounts[user.activeAccount].findIndex(
+    (trade) => {
+      return trade._id === orderid;
+    }
+  );
 
+  const nextId =
+    selectedOrderIndex > 0
+      ? user.importAccounts[user.activeAccount][selectedOrderIndex - 1]._id
+      : null;
+  const prevId =
+    selectedOrderIndex < user.importAccounts[user.activeAccount].length - 1
+      ? user.importAccounts[user.activeAccount][selectedOrderIndex + 1]._id
+      : null;
   return (
     <div>
       <div className="trades-navigator">
-        {index > 0 ? (
-          <Link
-            className="account-btn-regular"
-            to={`/order/${parseInt(index) - 1}`}
-          >
+        {prevId ? (
+          <Link className="account-btn-regular" to={`/order/${prevId}`}>
             <img
               className="nav-arrow"
               src="/images/nav-arrow.svg"
@@ -31,12 +42,8 @@ const OrderBreakdown = () => {
             PREVIOUS TRADE
           </Link>
         )}
-        {index <
-        user.importAccounts[user.activeAccount].ordersWithMetrics.length - 1 ? (
-          <Link
-            className="account-btn-regular"
-            to={`/order/${parseInt(index) + 1}`}
-          >
+        {nextId ? (
+          <Link className="account-btn-regular" to={`/order/${nextId}`}>
             NEXT TRADE{" "}
             <img
               className="nav-arrow flipped"
@@ -50,27 +57,7 @@ const OrderBreakdown = () => {
           </Link>
         )}
       </div>
-      {user &&
-        user.importAccounts?.[user.activeAccount]?.ordersWithMetrics[index] && (
-          <TradeReview
-            ticker={
-              user.importAccounts[user.activeAccount].ordersWithMetrics[index]
-                .ticker
-            }
-            result={
-              user.importAccounts[user.activeAccount].ordersWithMetrics[index]
-                .PNL > 0 ? (
-                <span className="won">WON</span>
-              ) : (
-                <span className="loss">LOSS</span>
-              )
-            }
-            position={
-              user.importAccounts[user.activeAccount].ordersWithMetrics[index]
-                .position
-            }
-          ></TradeReview>
-        )}
+      {user && selectedOrderIndex > -1 && <TradeReview></TradeReview>}
     </div>
   );
 };

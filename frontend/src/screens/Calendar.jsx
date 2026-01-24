@@ -8,22 +8,25 @@ import ImportTrades from "../components/ImportTrades.jsx";
 
 const Calendar = () => {
   const navigate = useNavigate();
-  const { user } = useAuthContext();
+  const { user, accountState } = useAuthContext();
   const [year, setYear] = useState(2024);
   const [month, setMonth] = useState("6");
   const [calendarElements, setCalendarElements] = useState([]);
   const [yearlyData, setYearlyData] = useState({});
   const [yearOpstions, setYearOptions] = useState([]);
-  const [accountIsEmpty, setAccountIsEmpty] = [
-    user.importAccounts[user.activeAccount]?.empty,
-  ];
+  const [accountIsEmpty, setAccountIsEmpty] = useState(
+    user.activeAccount === "" ||
+      !user.importAccounts[user.activeAccount]?.length > 0
+  );
+
   const [yearValueInput, setYearValueInput] = useState([]);
   const [calendarReadyToLoad, setCalendarReadyToLoad] = useState(false);
-  useEffect(() => {
-    if (accountIsEmpty) {
-      navigate("/import");
-    }
-  }, [user]);
+  const [selectedAccount, setSelectedAccount] = useState({});
+  // useEffect(() => {
+  //   if (accountIsEmpty) {
+  //     navigate("/import");
+  //   }
+  // }, [user]);
   const monthsOfTheYear = {
     "01": "January",
     "02": "February",
@@ -54,11 +57,14 @@ const Calendar = () => {
   };
 
   const setDateOptions = () => {
+    const gatherSelectedAccount = user.importAccounts[user.activeAccount];
+    const lastTradeInd = gatherSelectedAccount.length - 1;
+    const lastOrderInd = gatherSelectedAccount[0].orders.length - 1;
     const earliestYear = new Date(
-      user.importAccounts[user.activeAccount].earliestDate
+      gatherSelectedAccount[lastTradeInd].orders[0].date
     ).getFullYear();
     const latestYear = new Date(
-      user.importAccounts[user.activeAccount].latestDate
+      gatherSelectedAccount[0].orders[lastOrderInd].date
     ).getFullYear();
     const listOfYears = [];
     for (let i = earliestYear; i <= latestYear; i++) {
@@ -70,58 +76,64 @@ const Calendar = () => {
     }
     setYearOptions(listOfYears);
   };
+  // const selectedAccount = loadedTrades[user.activeAccount];
+  // const selectedExample = selectedAccount[selectedAccount.length - 1];
 
   const daysToSkip = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
   useEffect(() => {
-    if (!accountIsEmpty) {
+    if (user.importAccounts[user.activeAccount]?.length > 0) {
+      setAccountIsEmpty(false);
+      const gatherSelectedAccount = user.importAccounts[user.activeAccount];
+      const lastOrderInd = gatherSelectedAccount[0].orders.length - 1;
+      setSelectedAccount(gatherSelectedAccount);
+      // if (!accountIsEmpty) {
       const currentLatestImports =
-        user.importAccounts[user.activeAccount].latestDate.split("-");
+        gatherSelectedAccount[0].orders[lastOrderInd].date.split("-");
       setYear(currentLatestImports[0]);
       setYearValueInput(currentLatestImports[0]);
       setMonth(currentLatestImports[1]);
       setDateOptions();
     }
-  }, []);
+  }, [user]);
   useEffect(() => {
-    if (!accountIsEmpty) {
+    if (selectedAccount.length > 0) {
       // Function below gathers all the trades for selected month. adds the number of trades and pnl for each day
       const tradesDataToDisplay = {};
       const monthDataToDisplay = {};
-      user.importAccounts[user.activeAccount].ordersWithMetrics.map(
-        (completeOrder) => {
-          completeOrder.orders.map((trade) => {
-            const tradeDateDetails = trade.date.split("T")[0].split("-");
-            if (tradeDateDetails[0] === year) {
-              const day = tradeDateDetails[2];
-              const currentMonth = tradeDateDetails[1];
-              // Montly Calendar
-              if (currentMonth === month) {
-                if (tradesDataToDisplay[day]) {
-                  tradesDataToDisplay[day].numberOfTrades += 1;
-                } else {
-                  tradesDataToDisplay[day] = { numberOfTrades: 1, PNL: 0 };
-                }
-                if (trade.action === "closed") {
-                  tradesDataToDisplay[day].PNL += completeOrder.PNL;
-                }
-              }
-
-              // Yearly Calendar
-              if (monthDataToDisplay[currentMonth]) {
-                monthDataToDisplay[currentMonth].numberOfTrades += 1;
+      selectedAccount.map((completeOrder) => {
+        completeOrder.orders.map((trade) => {
+          const tradeDateDetails = trade.date.split("T")[0].split("-");
+          if (tradeDateDetails[0] === year) {
+            const day = tradeDateDetails[2];
+            const currentMonth = tradeDateDetails[1];
+            // Montly Calendar
+            if (currentMonth === month) {
+              if (tradesDataToDisplay[day]) {
+                tradesDataToDisplay[day].numberOfTrades += 1;
               } else {
-                monthDataToDisplay[currentMonth] = {
-                  numberOfTrades: 1,
-                  PNL: 0,
-                };
+                tradesDataToDisplay[day] = { numberOfTrades: 1, PNL: 0 };
               }
               if (trade.action === "closed") {
-                monthDataToDisplay[currentMonth].PNL += completeOrder.PNL;
+                tradesDataToDisplay[day].PNL += completeOrder.PNL;
               }
             }
-          });
-        }
-      );
+
+            // Yearly Calendar
+            if (monthDataToDisplay[currentMonth]) {
+              monthDataToDisplay[currentMonth].numberOfTrades += 1;
+            } else {
+              monthDataToDisplay[currentMonth] = {
+                numberOfTrades: 1,
+                PNL: 0,
+              };
+            }
+            if (trade.action === "closed") {
+              monthDataToDisplay[currentMonth].PNL += completeOrder.PNL;
+            }
+          }
+        });
+      });
       const firstDayOfMonth = new Date(`${year}-${month.padStart(2, "0")}-02`)
         .toDateString()
         .split(" ");
@@ -189,7 +201,7 @@ const Calendar = () => {
       setCalendarElements(weeklyElements);
       setCalendarReadyToLoad(true);
     }
-  }, [user, year, month]);
+  }, [user, year, month, selectedAccount]);
 
   const changeYear = (yearValue) => {
     setYearValueInput(yearValue);
@@ -209,45 +221,59 @@ const Calendar = () => {
     if (changeYearAmount === -1) {
       setMonth("12");
     }
-    // console.log(month);
-    // changeYear(Number(year) + changeYearAmount);
   };
   return (
     <>
       <div className="global-padding">
-        {/* <ActiveAccount /> */}
-        <ImportTrades />
-        {!accountIsEmpty && calendarReadyToLoad && (
-          <div className="calendar-box">
-            {calendarReadyToLoad && (
-              <YearlyCalendarDisplay
-                selectedMonth={month}
-                yearNavigator={yearNavigator}
-                changeYear={changeYear}
-                yearValueInput={yearValueInput}
-                yearlyData={yearlyData}
-                setMonth={setMonth}
-              />
-            )}
-            <div className="date-on-display">
-              <span>
-                {monthsOfTheYear[month]} {year}
-              </span>
-            </div>
-            <div className="calendar-weekdays days-of-week-names">
-              <div className="calendar-single-weekday">Sunday</div>
-              <div className="calendar-single-weekday">Monday</div>
-              <div className="calendar-single-weekday">Tuesday</div>
-              <div className="calendar-single-weekday">Wednesday</div>
-              <div className="calendar-single-weekday">Thursday</div>
-              <div className="calendar-single-weekday">Friday</div>
-              <div className="calendar-single-weekday">Saturday</div>
-            </div>
-
-            {calendarElements}
-          </div>
-        )}
+        <ActiveAccount />
+        {/* <ImportTrades /> */}
       </div>
+      {accountIsEmpty ? (
+        <div className="global-padding">
+          <h2 className="basic-title">
+            No trades,{" "}
+            <Link className="link-to-import" to={"/import-trades"}>
+              Import here.
+            </Link>
+          </h2>
+        </div>
+      ) : (
+        <div className="global-padding top-spacer">
+          {/* <ActiveAccount /> */}
+          {/* <ImportTrades /> */}
+          {!accountIsEmpty && calendarReadyToLoad && (
+            <div className="calendar-box">
+              {calendarReadyToLoad && (
+                <YearlyCalendarDisplay
+                  selectedMonth={month}
+                  yearNavigator={yearNavigator}
+                  changeYear={changeYear}
+                  yearValueInput={yearValueInput}
+                  yearlyData={yearlyData}
+                  setMonth={setMonth}
+                />
+              )}
+
+              <div className="date-on-display">
+                <span>
+                  {monthsOfTheYear[month]} {year}
+                </span>
+              </div>
+              <div className="calendar-weekdays days-of-week-names">
+                <div className="calendar-single-weekday">Sunday</div>
+                <div className="calendar-single-weekday">Monday</div>
+                <div className="calendar-single-weekday">Tuesday</div>
+                <div className="calendar-single-weekday">Wednesday</div>
+                <div className="calendar-single-weekday">Thursday</div>
+                <div className="calendar-single-weekday">Friday</div>
+                <div className="calendar-single-weekday">Saturday</div>
+              </div>
+
+              {calendarElements}
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };

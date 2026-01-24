@@ -1,7 +1,8 @@
-const jwt = require('jsonwebtoken')
-const User = require('../models/UserModel.js')
+import jwt from 'jsonwebtoken'
+import User from '../models/UserModel.js'
 
-const asyncHandler = require("../middleware/asyncHandler.js")
+
+import asyncHandler from "../middleware/asyncHandler.js"
 
 
 const requireAuth = asyncHandler(async (req, res, next) => {
@@ -9,7 +10,9 @@ const requireAuth = asyncHandler(async (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.SECRET)
-      req.user = await (User.findById(decoded.userId)).select('-password')
+      req.user = await (User.findById(decoded.userId)).select('-password -paypalPayments')
+
+
     } catch (error) {
       res.cookie('jwt', '', { httpOnly: true, expiresIn: new Date(0) })
       res.status(200).json('User not logged in')
@@ -28,4 +31,7 @@ const requireAdmin = asyncHandler(async (req, res, next) => {
   }
 })
 
-module.exports = { requireAdmin, requireAuth }
+export { requireAdmin, requireAuth }
+
+
+

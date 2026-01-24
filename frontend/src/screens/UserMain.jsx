@@ -5,10 +5,10 @@ import StatsDisplay from "../components/StatsDisplay.jsx";
 import DatePicker from "react-datepicker";
 import ActiveAccount from "../components/ActiveAccount.jsx";
 import "react-datepicker/dist/react-datepicker.css";
-import ImportTrades from "../components/ImportTrades.jsx";
+import { Link } from "react-router-dom";
 
 const UserMain = () => {
-  const { user, dispatch } = useAuthContext();
+  const { user, dispatch, loadedTrades } = useAuthContext();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date().setHours(23, 59, 59, 59));
   const [selectedOrderSide, setSelectedOrderSide] = useState("all");
@@ -18,21 +18,46 @@ const UserMain = () => {
   const accountChange = (e) => {
     dispatch({ type: "SWAP_ACCOUNT", payload: e.target.value });
   };
-
   useEffect(() => {
-    if (!user?.importAccounts?.[user.activeAccount]?.empty) {
+    // async function fetchData() {
+    //   try {
+    //     const fetchedData = await getTrades(user.activeAccount);
+    //     console.log("here");
+    //     console.log(fetchedData);
+    //     console.log(user);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+    // fetchData();
+    // if (!user?.importAccounts?.[user.activeAccount]?.empty) {
+    //   setStartDate(
+    //     new Date(
+    //       user.importAccounts?.[user.activeAccount]?.earliestDate
+    //     ).setHours(0, 0, 0, 0)
+    //   );
+    //   console.log(user);
+    //   const tradesResult = getTrades(user.activeAccount);
+    //   console.log(tradesResult);
+    //   setMetrics(user?.importAccounts[user.activeAccount].metrics);
+    //   // setEndDate(new Date().setHours(23, 59, 59, 59));
+    // }
+    // console.log(loadedTrades[user.activeAccount][0].orders[0].date);
+
+    if (
+      user.activeAccount &&
+      user.importAccounts[user.activeAccount]?.length > 0
+    ) {
+      const lastInd = user.importAccounts[user.activeAccount].length - 1;
       setStartDate(
         new Date(
-          user.importAccounts?.[user.activeAccount]?.earliestDate
+          user.importAccounts[user.activeAccount][lastInd].orders[0].date
         ).setHours(0, 0, 0, 0)
       );
-      setMetrics(user?.importAccounts[user.activeAccount].metrics);
-      // setEndDate(new Date().setHours(23, 59, 59, 59));
     }
-  }, [user.activeAccount]);
-  useEffect(() => {
-    // console.log(new Date(endDate).setHours(23, 59, 59, 59));
-  }, [endDate]);
+
+    // console.log(user.activeAccount);
+  }, [user]);
 
   const tradesSymbolFilterHandler = (event) => {
     setSearchedSymbol(event.target.value.toUpperCase());
@@ -48,10 +73,10 @@ const UserMain = () => {
   return (
     <>
       <div className="global-padding">
-        {/* <ActiveAccount /> */}
-        <ImportTrades />
+        <ActiveAccount />
+        {/* <ImportTrades /> */}
       </div>
-      {user && !user?.importAccounts?.[user.activeAccount]?.empty ? (
+      {user && user?.importAccounts?.[user.activeAccount]?.length > 0 ? (
         <>
           <div className="filters-area global-padding">
             <div className="left-filter">
@@ -118,7 +143,6 @@ const UserMain = () => {
               <StatsDisplay metrics={metrics}></StatsDisplay>
             )}
           </div>
-
           <TradesDisplay
             startDate={startDate}
             endDate={endDate}
@@ -131,8 +155,10 @@ const UserMain = () => {
       ) : (
         <div className="global-padding">
           <h2 className="basic-title">
-            No trades have been imported into this account. Import your CSV
-            files from the "Think Or Swim" platform.
+            No trades,{" "}
+            <Link className="link-to-import" to={"/import-trades"}>
+              Import here.
+            </Link>
           </h2>
         </div>
       )}

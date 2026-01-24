@@ -1,7 +1,6 @@
 import { useState } from "react"
 
 export const newTradesDatesChecker = (latestCurrentDate, newTrades) => {
-  console.log(latestCurrentDate, newTrades)
 }
 
 
@@ -36,8 +35,7 @@ export const openTradesCloser = (oldTrades, newTrades) => {
     }
   }
   return { oldTrades, ignoreNewTradesIndex }
-  // console.log(oldTrades)
-  // console.log(ignoreNewTradesIndex)
+
 }
 
 export const ordersIntoJSON = (arr) => {
@@ -64,7 +62,6 @@ export const ordersIntoJSON = (arr) => {
     }
 
   })
-  console.log(orders)
   const importedData = { orders: orders, earliestDate: new Date(orders[0].orderPlaced), latestDate: new Date(orders[orders.length - 1].orderPlaced) }
 
   return importedData
@@ -155,7 +152,7 @@ export const incorporateNewImports = (currentOrders, newOrders) => {
     // new order completely overwrite current orders because of larger time frame
     return newOrders
   }
-  console.log('nothing was hit')
+  ('nothing was hit')
 }
 
 export const metricsCalculator = (orders) => {
@@ -163,7 +160,6 @@ export const metricsCalculator = (orders) => {
   let cumulativePNL = 0
   let oldestOpenTradeIndex = 0
   let searchingOldestOpenTradeIndex = true
-  console.log(orders)
   const winLossPercentage = { wins: 0, losses: 0 }
   const gains = []
   const losses = []
@@ -199,18 +195,13 @@ export const metricsCalculator = (orders) => {
       winLossPercentage.losses += 1
       losses.push(resultingGainLoss)
     }
-    // if (completeOrder.ticker === 'NVDA') {
-    //   console.log(resultingGainLoss)
-    //   console.log(completeOrder)
-    // }
 
-    ordersWithMetrics.push({ ...completeOrder, PNL: resultingGainLoss, tradeIndex: index })
+    ordersWithMetrics.push({ ...completeOrder, PNL: resultingGainLoss })
   })
   const averageLosses = roundNumber(getTheAverage(losses))
   const averageGains = roundNumber(getTheAverage(gains))
   const winPercentage = roundNumber((winLossPercentage.wins * 100) / (winLossPercentage.wins + winLossPercentage.losses))
   cumulativePNL = roundNumber(cumulativePNL)
-  console.log(ordersWithMetrics)
   return { ordersWithMetrics, oldestOpenTradeIndex: searchingOldestOpenTradeIndex ? "none" : oldestOpenTradeIndex, metrics: { winPercentage, cumulativePNL, averageGains, averageLosses, wins: winLossPercentage.wins, losses: winLossPercentage.losses } }
 }
 

@@ -31,11 +31,7 @@ const Header = () => {
             <div className="left-nav">
               <h1>
                 <Link to={authLoaded && user ? "/dashboard" : "/"}>
-                  <img
-                    className="logo"
-                    src="../images/quantskyewhite.svg"
-                    alt=""
-                  />
+                  <img className="logo" src="../images/lightso.svg" alt="" />
                 </Link>
               </h1>
             </div>

@@ -41,7 +41,6 @@ const Chart = ({ ticker }) => {
     }
     // const test123 =
     //   user.importAccounts[user.activeAccount].ordersWithMetrics[index].orders;
-    // console.log(new Date().toISOString().slice(0, 10));
   }, [index]);
 
   const polygonChartRequest = () => {
@@ -79,7 +78,7 @@ const Chart = ({ ticker }) => {
         setStockData(renderedData.compressed);
         setLoad(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {});
   };
 
   const saveDataInTheBackend = () => {
@@ -103,7 +102,6 @@ const Chart = ({ ticker }) => {
             .orders;
         let data = response.data.candles[0];
         setTickerData(data);
-        console.log(data);
         const renderedData = dataRenderer(data, orders);
         setOrdersMarker(
           user.importAccounts[user.activeAccount].ordersWithMetrics[index]
@@ -115,7 +113,6 @@ const Chart = ({ ticker }) => {
         setLoad(true);
       })
       .catch((error) => {
-        console.log("NOT ABLE TO DISPLAY CHART");
         setLoad(false);
       });
   };

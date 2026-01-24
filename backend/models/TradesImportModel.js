@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 // const ImportSchema = new mongoose.Schema({
 //   // accountName: { type: String, required: true, unique: true },
@@ -15,5 +15,5 @@ const TradesImportSchema = new mongoose.Schema({
 
 
 
-
-module.exports = mongoose.model('Import', TradesImportSchema)
+const TradesImport = mongoose.model('Import', TradesImportSchema)
+export default TradesImport

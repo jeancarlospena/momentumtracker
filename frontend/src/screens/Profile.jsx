@@ -24,14 +24,14 @@ const Profile = () => {
           >
             My Profile
           </span>
-          <span
+          {/* <span
             className={`profile-nav-button ${
               selected === "accounts" && "selected-profile-nav"
             }`}
             onClick={() => navClickHandler("accounts")}
           >
             Trading Accounts
-          </span>
+          </span> */}
         </div>
 
         {selected === "accounts" && <AccountsManager />}

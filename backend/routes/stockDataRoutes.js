@@ -1,10 +1,10 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 
-const { saveData, getData } = require('../controllers/stockDataController.js')
+import { saveData, getData } from '../controllers/stockDataController.js'
 
 router.post('/', saveData)
 
 router.get('/:ticker', getData)
 
-module.exports = router
+export default router

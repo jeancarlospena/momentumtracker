@@ -1,19 +1,33 @@
-const User = require('../models/UserModel.js')
-const generateToken = require('../utils/generateToken.js')
-const asyncHandler = require("../middleware/asyncHandler.js")
+import User from '../models/UserModel.js'
+import Account from '../models/AccountModel.js'
+import Trade from '../models/TradeModel.js'
+import generateToken from '../utils/generateToken.js'
+import asyncHandler from "../middleware/asyncHandler.js"
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
-  const user = await User.login(email, password)
+  const user = await (User.login(email, password))
+  const accounts = await Account.find({ userId: user._id }).sort({ createdAt: -1 });
+  if (accounts.length > 0) {
+    const accountId = user.primaryAccount !== '' ? user.primaryAccount : accounts[0]._id
+    const trades = await (Trade.find({ accountId }).sort({ "orders.0.date": -1 }))
+    user.importAccounts = { [accountId]: trades.length ? trades : [] }
+  } else {
+    user.importAccounts = {}
+  }
+  user.accounts = accounts
+  const safeUser = user.toObject();
+  delete safeUser.password
+  delete safeUser.paypalPayments
   generateToken(res, user._id)
-  res.status(200).json({ firstName: user.firstName, email: user.email, imports: user.imports, importAccounts: user.importAccounts, primaryAccount: user.primaryAccount })
+  // res.status(200).json({ firstName: user.firstName, email: user.email, imports: user.imports, importAccounts: user.importAccounts, primaryAccount: user.primaryAccount })
+  res.status(200).json({ user: safeUser, accounts })
 })
 
 const signupUser = asyncHandler(async (req, res) => {
   const { firstName, email, password } = req.body
   const user = await User.signup(firstName, email, password)
 
-  // console.log(user)
   generateToken(res, user._id)
   res.status(200).json({ firstName: user.firstName, email: user.email, importAccounts: user.importAccounts, primaryAccount: user.primaryAccount })
 })
@@ -29,7 +43,6 @@ const updateImportsData = asyncHandler(async (req, res) => {
     throw new Error('No data to import')
   }
   const updatedImport = await User.findByIdAndUpdate(req.user._id, { importAccounts: { ...req.user.importAccounts, [primaryAccount]: importData } }, { new: true }).select('-password')
-  console.log(updatedImport)
   res.status(200).json(updatedImport)
 })
 
@@ -59,14 +72,23 @@ const changePrimaryAccount = asyncHandler(async (req, res) => {
   res.status(200).json(newPrimaryAccount)
 })
 
-const verifyUser = (req, res) => {
-  res.status(200).json(req.user)
+const verifyUser = async (req, res) => {
+  const accounts = await Account.find({ userId: req.user._id }).sort({ createdAt: -1 });
+  if (accounts.length) {
+    const accountId = req.user.primaryAccount !== '' ? req.user.primaryAccount : accounts[0]._id
+    const trades = await (Trade.find({ accountId }).sort({ "orders.0.date": -1 }))
+    req.user.importAccounts = { [accountId]: trades.length ? trades : [] }
+  } else {
+    req.user.importAccounts = {}
+  }
+
+  res.status(200).json({ user: req.user, accounts })
 }
 
 const testingScript = async (req, res) => {
   const foundUser = await User.findById(req.user._id)
-  // console.log(foundUser)
+  // (foundUser)
   res.status(200).json(foundUser)
 }
 
-module.exports = { loginUser, signupUser, logoutUser, verifyUser, updateImportsData, createImportAccount, testingScript, deleteImportAccount, changePrimaryAccount }
+export { loginUser, signupUser, logoutUser, verifyUser, updateImportsData, createImportAccount, testingScript, deleteImportAccount, changePrimaryAccount }

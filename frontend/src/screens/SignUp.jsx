@@ -35,7 +35,8 @@ const SignUp = () => {
         },
       })
         .then((response) => {
-          dispatch({ type: "LOGIN", payload: response.data });
+          const userResponse = { ...response.data, importAccounts: {} };
+          dispatch({ type: "LOGIN", payload: userResponse });
           navigate("/dashboard");
         })
         .catch((error) => setError(error.response.data.error));

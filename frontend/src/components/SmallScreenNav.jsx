@@ -10,17 +10,7 @@ const SmallScreenNav = () => {
   const [expandedNav, setExpandedNav] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
-  // const logOutHandler = () => {
-  //   axios({
-  //     url: "/api/auth/logout",
-  //     method: "post",
-  //   })
-  //     .then((response) => {
-  //       dispatch({ type: "LOGOUT" });
-  //       navigate("/");
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
+
   return (
     <div className="small-nav-blocker">
       {/* Overlay (only when menu is open) */}

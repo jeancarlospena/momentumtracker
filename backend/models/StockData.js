@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+
 
 const StockSchema = new mongoose.Schema({
   ticker: String,
@@ -6,4 +7,5 @@ const StockSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('Stock', StockSchema)
+const Stock = mongoose.model('Stock', StockSchema)
+export default Stock

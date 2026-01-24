@@ -10,11 +10,13 @@ const TradesDisplay = ({
   searchedSymbol,
   setMetrics,
 }) => {
-  const { user } = useAuthContext();
-
-  // console.log(
-  //   user.importAccounts?.[user.activeAccount].ordersWithMetrics[0].orders.at(-1)
-  // );
+  const { user, loadedTrades } = useAuthContext();
+  // const [tableRows, setTableRows] = useState([]);
+  // useEffect(() => {
+  //   console.log("hitter1");
+  //   console.log(loadedTrades[user.activeAccount]);
+  //   console.log("hitter2");
+  // }, [loadedTrades]);
   const symbolLength = searchedSymbol.length;
   const symbolComparison = (ticker) => {
     if (symbolLength > ticker.length) return true;
@@ -37,86 +39,96 @@ const TradesDisplay = ({
     winPercentage: 0,
   };
 
-  const tableRows = user.importAccounts?.[user.activeAccount]?.ordersWithMetrics
-    ?.map((orderWithMetrics, i) => {
-      const orderOpenDate = new Date(orderWithMetrics.orders[0].date);
+  // const tableRows = user.importAccounts?.[user.activeAccount]?.ordersWithMetrics
+  // useEffect(() => {
+  let tableRows = [];
+  if (
+    user.importAccounts[user.activeAccount] &&
+    user.importAccounts[user.activeAccount].length > 0
+  ) {
+    tableRows = user.importAccounts[user.activeAccount]
+      .map((orderWithMetrics, i) => {
+        const orderOpenDate = new Date(orderWithMetrics.orders[0].date);
 
-      const orderStatus =
-        orderWithMetrics.outStandingPosition !== 0
-          ? "open"
-          : orderWithMetrics.PNL < 0
-          ? "loss"
-          : "won";
+        const orderStatus =
+          orderWithMetrics.outStandingPosition !== 0
+            ? "open"
+            : orderWithMetrics.PNL < 0
+            ? "loss"
+            : "won";
 
-      const filterResult =
-        displayOrderResult !== "all" && orderStatus !== displayOrderResult;
-      const filterStartDate = orderOpenDate < startDate;
-      const filterEndDate = orderOpenDate > endDate;
-      const filterSide =
-        selectedOrderSide === "all"
-          ? false
-          : orderWithMetrics.position !== selectedOrderSide;
+        const filterResult =
+          displayOrderResult !== "all" && orderStatus !== displayOrderResult;
+        const filterStartDate = orderOpenDate < startDate;
+        const filterEndDate = orderOpenDate > endDate;
+        const filterSide =
+          selectedOrderSide === "all"
+            ? false
+            : orderWithMetrics.position !== selectedOrderSide;
 
-      const filterSymbol = symbolComparison(orderWithMetrics.ticker);
+        const filterSymbol = symbolComparison(orderWithMetrics.ticker);
 
-      if (
-        filterResult ||
-        filterStartDate ||
-        filterEndDate ||
-        filterSide ||
-        filterSymbol
-      ) {
-        return null; // skip rendering this item
-      }
-
-      // Accumulate performance metrics
-      if (orderStatus === "loss" || orderStatus === "won") {
-        performanceTracker.cumulativePNL += orderWithMetrics.PNL;
-
-        if (orderWithMetrics.PNL <= 0) {
-          performanceTracker.losses += 1;
-          performanceTracker.profitLoss += orderWithMetrics.PNL;
-        } else {
-          performanceTracker.wins += 1;
-          performanceTracker.profitGained += orderWithMetrics.PNL;
+        if (
+          filterResult ||
+          filterStartDate ||
+          filterEndDate ||
+          filterSide ||
+          filterSymbol
+        ) {
+          return null; // skip rendering this item
         }
-      }
 
-      const dateFormatted = orderWithMetrics.orders[0].date
-        .split("T")[0]
-        .split("-");
+        // Accumulate performance metrics
+        if (orderStatus === "loss" || orderStatus === "won") {
+          performanceTracker.cumulativePNL += orderWithMetrics.PNL;
 
-      return (
-        <Link
-          key={orderWithMetrics.tradeIndex}
-          className="table-row"
-          to={`/order/${orderWithMetrics.tradeIndex}`}
-        >
-          <div className="table-cell">
-            {orderStatus === "open" ? (
-              <span className="status-tag open">OPEN</span>
-            ) : orderStatus === "loss" ? (
-              <span className="status-tag loss">LOSS</span>
-            ) : (
-              <span className="status-tag won">WON</span>
-            )}
-          </div>
-          <div className="table-cell">{orderWithMetrics.ticker}</div>
-          <div className="table-cell">
-            {`${dateFormatted[1]}/${dateFormatted[2]}/${dateFormatted[0]}`}
-          </div>
-          <div className="table-cell">
-            {orderWithMetrics.position.toUpperCase()}
-          </div>
-          <div className="table-cell">
-            {orderWithMetrics.PNL < 0
-              ? `$-${Math.abs(orderWithMetrics.PNL).toFixed(2)}`
-              : `$${orderWithMetrics.PNL.toFixed(2)}`}
-          </div>
-        </Link>
-      );
-    })
-    .filter(Boolean); // Remove skipped (null) entries
+          if (orderWithMetrics.PNL <= 0) {
+            performanceTracker.losses += 1;
+            performanceTracker.profitLoss += orderWithMetrics.PNL;
+          } else {
+            performanceTracker.wins += 1;
+            performanceTracker.profitGained += orderWithMetrics.PNL;
+          }
+        }
+
+        const dateFormatted = orderWithMetrics.orders[0].date
+          .split("T")[0]
+          .split("-");
+
+        return (
+          <Link
+            key={`trade${i}`}
+            className="table-row table-row-odd"
+            to={`/order/${orderWithMetrics._id}`}
+          >
+            <div className="table-cell">
+              {orderStatus === "open" ? (
+                <span className="status-tag open">OPEN</span>
+              ) : orderStatus === "loss" ? (
+                <span className="status-tag loss">LOSS</span>
+              ) : (
+                <span className="status-tag won">WON</span>
+              )}
+            </div>
+            <div className="table-cell">{orderWithMetrics.ticker}</div>
+            <div className="table-cell">
+              {`${dateFormatted[1]}/${dateFormatted[2]}/${dateFormatted[0]}`}
+            </div>
+            <div className="table-cell">
+              {orderWithMetrics.position.toUpperCase()}
+            </div>
+            <div className="table-cell">
+              {orderWithMetrics.PNL < 0
+                ? `$-${Math.abs(orderWithMetrics.PNL).toFixed(2)}`
+                : `$${orderWithMetrics.PNL.toFixed(2)}`}
+            </div>
+          </Link>
+        );
+      })
+      .filter(Boolean); // Remove skipped (null) entries
+  }
+  // }
+  // }, [loadedTrades]);
   if (performanceTracker.losses > 0) {
     performanceTracker.averageLosses = (
       performanceTracker.profitLoss / performanceTracker.losses

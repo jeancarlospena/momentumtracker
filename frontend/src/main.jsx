@@ -19,6 +19,9 @@ import "./styling/sidenavigator.css";
 import "./styling/activebar.css";
 import "./styling/frequentlyasked.css";
 import "./styling/pricing.css";
+import "./styling/accountsubscription.css";
+import "./styling/loading.css";
+import "./styling/createaccount.css";
 
 // import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { AuthContextProvider } from "./context/AuthContext.jsx";

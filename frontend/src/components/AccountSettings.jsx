@@ -7,15 +7,12 @@ const AccountSettings = ({ editName, setEditing }) => {
   const [updatedAccountName, setUpdatedAccountName] = useState("");
   const updateAccountHandler = (e) => {
     e.preventDefault();
-    console.log(" it was a hitterrr");
     axios
       .post("api/accounts/renameaccount", {
         editName,
         updatedAccountName,
       })
       .then((response) => {
-        console.log(response.data);
-
         dispatch({ type: "LOGIN", payload: response.data });
         setEditing(false);
       });

@@ -1,10 +1,10 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 
-const { requireAuth, requireAdmin } = require('../middleware/requireAuth.js')
+import { requireAuth, requireAdmin } from '../middleware/requireAuth.js'
 
-// const { loginUser, signupUser, logoutUser, verifyUser } = require('../controllers/authController.js')
-const { loginUser, signupUser, logoutUser, verifyUser } = require('../controllers/authController.js')
+// import { loginUser, signupUser, logoutUser, verifyUser }from '../controllers/authController.js'
+import { loginUser, signupUser, logoutUser, verifyUser } from '../controllers/authController.js'
 
 router.post('/login', loginUser)
 
@@ -16,4 +16,4 @@ router.post('/verify', requireAuth, verifyUser)
 
 
 
-module.exports = router
+export default router

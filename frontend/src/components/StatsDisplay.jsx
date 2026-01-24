@@ -2,7 +2,6 @@ import { useAuthContext } from "../hooks/useAuthContext.jsx";
 
 const StatsDisplay = ({ metrics }) => {
   const { user } = useAuthContext();
-  // console.log(metrics);
   return (
     <div>
       {!user?.activeAccount?.unAveilable &&

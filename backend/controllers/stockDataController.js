@@ -1,5 +1,5 @@
-const Stock = require('../models/StockData.js')
-const asyncHandler = require("../middleware/asyncHandler.js")
+import Stock from '../models/StockData.js'
+import asyncHandler from "../middleware/asyncHandler.js"
 
 const saveData = asyncHandler(async (req, res) => {
   const { ticker, candles } = req.body
@@ -19,4 +19,4 @@ const getData = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { saveData, getData }
+export { saveData, getData }

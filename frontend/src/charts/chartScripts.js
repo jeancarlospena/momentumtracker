@@ -51,7 +51,6 @@ export const dataRenderer = (data, orders, drag = 0) => {
   const renderNewCandlesByDrag = Math.floor(drag / 80) * 16
 
   const screenSection = Math.floor(drag / 80) * -80
-  console.log(screenSection)
   let low = 99999999;
   let high = 0;
   const dateKeys = Object.keys(data);
@@ -73,11 +72,7 @@ export const dataRenderer = (data, orders, drag = 0) => {
   // } else {
   //   dataKeysArray = dateKeys.slice(0, 170);
   // }
-  // console.log(dataKeysArray)
-  // console.log(data[`${dateKeys[0]}`])
 
-
-  // console.log(data['2024-03-01'])
   let compressed = {};
   dataKeysArray.map((date) => {
     const datesLow = parseFloat(data[`${date}`]["low"]);
@@ -90,8 +85,7 @@ export const dataRenderer = (data, orders, drag = 0) => {
       high = datesHigh;
     }
   });
-  // console.log(Object.keys(compressed).length)
-  // console.log(data)
+
 
   return { compressed, high, low, screenSection }
 }

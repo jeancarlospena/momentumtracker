@@ -15,14 +15,14 @@ const SideNavigator = () => {
         dispatch({ type: "LOGOUT" });
         navigate("/calendar");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {});
   };
 
   return (
     <div className="side-navigator">
       <div className="logo-section">
         <Link to={"/dashboard"}>
-          <img className="logged-logo" src="../images/quantsky.svg" alt="" />
+          <img className="logged-logo" src="../images/darkso.svg" alt="" />
         </Link>
       </div>
       <div className="side-nav-menu">
@@ -35,6 +35,15 @@ const SideNavigator = () => {
           </NavLink>
           <NavLink className="nav-link" to={"/calendar"}>
             calendar
+          </NavLink>
+          <NavLink className="nav-link" to={"/import-trades"}>
+            accounts management
+          </NavLink>
+          {/* <NavLink className="nav-link" to={"/signals"}>
+            signals
+          </NavLink> */}
+          <NavLink className="nav-link" to={"/subscription"}>
+            subscription
           </NavLink>
         </div>
 

@@ -1,9 +1,9 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 
-const { requireAuth } = require('../middleware/requireAuth.js')
+import { requireAuth } from '../middleware/requireAuth.js'
 
-const { updateImportsData, createImportAccount, deleteImportAccount, changePrimaryAccount, renameAccount } = require('../controllers/accountsController.js')
+import { updateImportsData, createImportAccount, deleteImportAccount, changePrimaryAccount, renameAccount } from '../controllers/accountsController.js'
 
 
 
@@ -19,4 +19,4 @@ router.post('/renameaccount', requireAuth, renameAccount)
 
 
 
-module.exports = router
+export default router

@@ -4,9 +4,9 @@
   flex-wrap: wrap;
   margin-bottom: 40px;
   width: 100%;
-   background-color: rgb(245, 245, 245);
    border-radius: 10px;
    padding: 10px 0;
+    background-color: var(--cell-back-color);
 }
 
 .stats-section{

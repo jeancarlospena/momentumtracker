@@ -5,5 +5,4 @@ const asyncHandler = (controller) => async (req, res, next) => {
     return next(error)
   }
 }
-
-module.exports = asyncHandler
+export default asyncHandler

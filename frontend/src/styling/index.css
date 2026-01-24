@@ -13,9 +13,27 @@
   /* --white-dark-text: #f5f5f0 */
   --white-dark-text: rgb(235, 228, 228);
   --gen-back-light: rgb(243, 243, 243);
+  /* --gen-back-light: rgb(241, 241, 241);
+  --gen-back-light: #eeeff2; */
   --cell-back-color: rgb(231, 230, 230);
   /* --highlight-color: #ae1bd7; */
+  --top-margin-from-header: 220px;
   font-size: 16px; 
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.link-to-import{
+  color: rgb(5, 143, 189);
+}
+
+
+.col{
+  display: flex;
+  flex-direction: column;
 }
 
 *{

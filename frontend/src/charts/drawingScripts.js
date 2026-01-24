@@ -1,6 +1,5 @@
 export const drawHorizontalLines = (context, width, board) => {
   // context.setLineDash([1, 3]);
-  // console.log(topCopy, topCopy)
   let pixelTracker = board.pixelConversion
   for (let i = 1; i < board.numberOfLines; i += 1) {
     // draw a red line
@@ -20,7 +19,6 @@ export const drawHorizontalLines = (context, width, board) => {
 
 export const drawVerticalLines = (context, height, data, drag, lastDrag) => {
   let startPoint = 4
-  // console.log(startPoint)
   if (drag > 3) {
 
     startPoint -= Math.floor(drag / 80) * 80

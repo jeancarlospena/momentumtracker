@@ -1,5 +1,5 @@
 .faq-body{
-  margin-top: 180px;
+  margin-top: var(--top-margin-from-header);
  color: var(--dark-text);
 }
 

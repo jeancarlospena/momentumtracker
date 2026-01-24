@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="61.885212mm"
+   height="73.087029mm"
+   viewBox="0 0 61.885212 73.087029"
+   version="1.1"
+   id="svg1"
+   inkscape:export-filename="light so.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="61.885212"
+       height="73.087029"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-16.415814,-82.493369)">
+    <path
+       d="m 55.352493,105.11365 v 9.09386 1.00538 7.76547 1.0057 8.97638 1.00538 7.85678 1.00602 4.89499 H 39.364676 v -4.89499 h -8.49627 v 8.09242 l 4.659025,4.65936 h 23.661978 l 4.659354,-4.65936 v -8.09242 -1.00602 -7.85678 -1.00538 -8.97638 -1.0057 -7.76547 -1.00538 -9.09386 z"
+       style="font-size:144.257px;line-height:1.25;font-family:Winner;-inkscape-font-specification:'Winner, Normal';font-variant-ligatures:none;direction:rtl;fill:#d6d3d3;fill-opacity:1;stroke-width:0.475824"
+       id="path9" />
+    <path
+       d="m 35.527431,82.493366 -4.659025,4.65935 v 8.092746 1.005375 7.857113 1.0057 9.09386 1.00538 7.76547 1.0057 8.97638 h 8.49627 v -8.97638 -1.0057 -7.76547 -1.00538 -9.09386 -1.0057 -7.857113 -1.005375 -4.895314 h 15.987817 v 4.895314 h 8.49627 v -8.092746 l -4.659354,-4.65935 z"
+       style="font-size:144.257px;line-height:1.25;font-family:Winner;-inkscape-font-specification:'Winner, Normal';font-variant-ligatures:none;direction:rtl;fill:#d6d3d3;fill-opacity:1;stroke-width:0.475824"
+       id="path6" />
+    <path
+       d="M 54.347118,115.21289 H 40.370051 v 7.76547 h 13.977067 c 0,-2.58849 0,-5.17698 0,-7.76547 z"
+       style="font-size:144.257px;line-height:1.25;font-family:Winner;-inkscape-font-specification:'Winner, Normal';font-variant-ligatures:none;direction:rtl;fill:#d6d3d3;fill-opacity:1;stroke-width:0.475824"
+       id="path11" />
+    <path
+       d="m 64.85479,115.21289 v 7.76547 h 4.949964 v 10.98746 H 64.85479 v 7.85678 h 8.786886 l 4.659347,-4.65903 v -17.29133 l -4.659347,-4.65935 z"
+       style="font-size:144.257px;line-height:1.25;font-family:Winner;-inkscape-font-specification:'Winner, Normal';font-variant-ligatures:none;direction:rtl;fill:#d6d3d3;fill-opacity:1;stroke-width:0.475824"
+       id="path10" />
+    <path
+       d="m 16.415814,126.20263 v 10.96094 l 4.659349,4.65903 h 8.787216 1.006027 8.49627 1.005375 13.977067 c 0,-2.61894 0,-5.23786 0,-7.85678 h -13.977067 -1.005375 -8.49627 -1.006027 -4.949972 v -7.76319 z"
+       style="font-size:144.257px;line-height:1.25;font-family:Winner;-inkscape-font-specification:'Winner, Normal';font-variant-ligatures:none;direction:rtl;fill:#d6d3d3;fill-opacity:1;stroke-width:0.475824"
+       id="path8" />
+    <path
+       d="m 40.370051,96.250837 v 7.857113 h 13.977067 1.005375 8.49627 1.006027 4.949964 v 7.76318 h 8.496269 v -10.96095 l -4.659347,-4.659343 h -8.786886 -1.006027 -8.49627 -1.005375 z"
+       style="font-size:144.257px;line-height:1.25;font-family:Winner;-inkscape-font-specification:'Winner, Normal';font-variant-ligatures:none;direction:rtl;fill:#d6d3d3;fill-opacity:1;stroke-width:0.475824"
+       id="path7" />
+    <path
+       d="m 29.862379,122.97836 v -7.76547 h -4.949972 v -11.10494 h 4.949972 v -7.857113 h -8.787216 l -4.659349,4.659343 v 17.40883 l 4.659349,4.65935 z"
+       style="font-size:144.257px;line-height:1.25;font-family:Winner;-inkscape-font-specification:'Winner, Normal';font-variant-ligatures:none;direction:rtl;fill:#d6d3d3;fill-opacity:1;stroke-width:0.475824"
+       id="path5" />
+  </g>
+</svg>

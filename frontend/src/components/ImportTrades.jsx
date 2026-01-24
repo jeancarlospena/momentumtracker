@@ -12,7 +12,7 @@ import { useAuthContext } from "../hooks/useAuthContext.jsx";
 
 const ImportTrades = () => {
   const { user, dispatch } = useAuthContext();
-  // console.log(user.primaryAccount);
+  // (user.primaryAccount);
   const [importedTrades, setImportedTrades] = useState([]);
   const [disabledButton, setDisabledButton] = useState(true);
   const [fileName, setFileName] = useState("");
@@ -62,7 +62,6 @@ const ImportTrades = () => {
       },
     });
   };
-  // console.log(user.importAccounts.sdfg.oldestOpenTradeIndex);
   const handleClick = () => {
     let completeOrders;
 
@@ -88,7 +87,6 @@ const ImportTrades = () => {
       }
     }
     const ordersWithMetrics = metricsCalculator(completeOrders);
-    // console.log(ordersWithMetrics);
     const completeData = {
       ...ordersWithMetrics,
       earliestDate: user.importAccounts[user.activeAccount].empty
@@ -110,13 +108,8 @@ const ImportTrades = () => {
         // setImportedTrades([]);
         // setDisabledButton(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {});
   };
-  // console.log(user);
-  // console.log(
-  //   user.importAccounts["Sample Account"].earliestDate <
-  //     user.importAccounts["Sample Account"].latestDate
-  // );
 
   const accountChange = (e) => {
     dispatch({ type: "SWAP_ACCOUNT", payload: e.target.value });
@@ -140,7 +133,6 @@ const ImportTrades = () => {
         </div>
         <div className="import-section">
           <h2 className="basic-title">Import:</h2>
-
           <input
             type="file"
             className="file-input"

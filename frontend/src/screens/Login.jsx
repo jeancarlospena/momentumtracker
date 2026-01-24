@@ -6,7 +6,7 @@ import { useAuthContext } from "../hooks/useAuthContext.jsx";
 const Login = () => {
   const navigate = useNavigate();
 
-  const { dispatch } = useAuthContext();
+  const { dispatch, accountDispatch } = useAuthContext();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,10 +24,24 @@ const Login = () => {
       },
     })
       .then((response) => {
-        dispatch({ type: "LOGIN", payload: response.data });
+        // console.log(response.data);
+        const userData = response.data.user;
+        const userAccounts = response.data.accounts;
+        if (userData.primaryAccount === "" && userAccounts.length > 0) {
+          userData.activeAccount = userAccounts[0]._id;
+        }
+        dispatch({ type: "LOGIN", payload: userData });
+        accountDispatch({
+          type: "INITIAL_LOAD",
+          payload: userAccounts,
+        });
         navigate("/dashboard");
       })
-      .catch((error) => setError(error.response.data.error));
+      .catch((error) => {
+        {
+        }
+        setError(error.response.data.error);
+      });
   };
   return (
     <form className="log-form auth-form-space" onSubmit={submitHandler}>

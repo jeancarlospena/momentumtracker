@@ -67,15 +67,6 @@ const ProfileManager = () => {
           />
 
           <input
-            placeholder="Email"
-            className="input"
-            type="text"
-            value={email}
-            autoComplete="off"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <input
             placeholder="Password"
             className="input"
             type="password"

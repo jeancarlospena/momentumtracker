@@ -1,7 +1,7 @@
 .footer-section{
   display: flex;
   flex-direction: column;
-  margin: 70px auto 0;
+  margin: 100px auto 0;
 text-align: center;
 padding: 60px;
 background-color: var(--gen-back-light);
@@ -28,15 +28,27 @@ background-color: var(--gen-back-light);
 }
 
 .footer-logo{
-  width: 180px;
+  width: 50px;
+}
+
+.youtube-btn{
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  align-items: center;
+  color: black;
 }
 
 .left-footer{
   height: 100px;
-  width: 250px;
+  /* width: 250px; */
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  align-self: flex-start;
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+  align-items: center;
+  gap: 30px;
 }
 
 .footer-links-section{
@@ -95,5 +107,12 @@ color: rgb(91, 26, 111);
   }
   .bottom-footer span{
     margin-bottom: 15px;
+  }
+  .left-footer{
+    align-items: center;
+    justify-content: start;
+    width: 80%;
+    max-width: 400px;
+    /* gap: 0; */
   }
 }

@@ -1,10 +1,10 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 
-const { updateProfile } = require('../controllers/profileController.js')
-const { requireAuth } = require('../middleware/requireAuth.js')
+import { updateProfile } from '../controllers/profileController.js'
+import { requireAuth } from '../middleware/requireAuth.js'
 
 
 router.post('/update', requireAuth, updateProfile)
 
-module.exports = router
+export default router

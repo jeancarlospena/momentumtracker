@@ -1,0 +1,25 @@
+.spinner-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  
+}
+
+.spinner{
+  margin: 0 auto;
+  width: 120px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    /* Starts the rotation at 0 degrees */
+    transform: rotate(0deg); 
+  }
+  100% {
+    /* Rotates a full 360 degrees */
+    transform: rotate(360deg); 
+  }
+}

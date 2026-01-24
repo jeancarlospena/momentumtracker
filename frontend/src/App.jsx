@@ -1,6 +1,8 @@
 import { useState, Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext.jsx";
+import Footer from "./components/Footer.jsx";
+import Loading from "./components/Loading.js";
 
 // import Header from "./components/Header.jsx";
 // import SignUp from "./screens/SignUp.jsx";
@@ -17,6 +19,8 @@ import { useAuthContext } from "./hooks/useAuthContext.jsx";
 // import Chart2 from "./charts2/Chart2.jsx";
 // import SideNavigator from "./components/SideNavigator.jsx";
 
+// import Loading from "./components/Loading.js";
+
 // Public (unauthenticated) routes
 const Header = lazy(() => import("./components/Header.jsx"));
 const SignUp = lazy(() => import("./screens/SignUp.jsx"));
@@ -30,19 +34,21 @@ const OrderBreakdown = lazy(() => import("./screens/OrderBreakdown.jsx"));
 const Profile = lazy(() => import("./screens/Profile.jsx"));
 const Calendar = lazy(() => import("./screens/Calendar.jsx"));
 const TradesInDay = lazy(() => import("./screens/TradesInDay.jsx"));
+const Signals = lazy(() => import("./screens/Signals.jsx"));
 const AccountSubscription = lazy(() =>
   import("./screens/AccountSubscription.jsx")
 );
 const Chart2 = lazy(() => import("./charts2/Chart2.jsx"));
 const SideNavigator = lazy(() => import("./components/SideNavigator.jsx"));
 const Blanc = lazy(() => import("./components/Blanc.jsx"));
+const TradesImport = lazy(() => import("./screens/TradesImport.jsx"));
 
 function App() {
   const [count, setCount] = useState(0);
   const { user, authLoaded } = useAuthContext();
-  // console.log(user);
+  // (user);
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <BrowserRouter>
         <div>
           <div>
@@ -61,6 +67,7 @@ function App() {
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </>
                 </Routes>
+                <Footer />
               </div>
             )}
             {user && authLoaded && (
@@ -73,7 +80,7 @@ function App() {
                         <>
                           {" "}
                           <Route
-                            path="/order/:index"
+                            path="/order/:orderid"
                             element={<OrderBreakdown />}
                           />
                           <Route path="/dashboard" element={<UserMain />} />
@@ -82,25 +89,21 @@ function App() {
                             path="/tradesinday/:date"
                             element={<TradesInDay />}
                           />
+                          <Route path="/loading" element={<Loading />} />
                           <Route
                             path="/subscription"
                             element={<AccountSubscription />}
                           />
+                          <Route
+                            path="/import-trades"
+                            element={<TradesImport />}
+                          />
+                          <Route path="/signals" element={<Signals />} />
                           <Route path="/c2" element={<Chart2 />} />
                         </>
                       )}
 
                       <Route path="*" element={<Profile />} />
-
-                      {/* commented out. dont display navigation if user is logged in instead display sidenavigator*/}
-                      {/* {!user && authLoaded && (
-                <>
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="*" element={<Home />} />
-                </>
-              )} */}
-                      <Route path="*" element={<Blanc />} />
                     </Routes>
                   </div>
                 </div>

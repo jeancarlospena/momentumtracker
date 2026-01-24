@@ -9,7 +9,7 @@
 }
 
 .auth-form-space{
-  margin-top: 180px;
+  margin-top: var(--top-margin-from-header);
 }
 
 .input{

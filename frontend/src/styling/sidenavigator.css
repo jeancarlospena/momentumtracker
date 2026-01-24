@@ -94,8 +94,9 @@ justify-content: space-between;
 
 
 .logged-logo{
-  width: 160px;
-
+  display: flex;
+  width: 30px;
+  margin: 0 auto;
 }
 
 .logo-section{

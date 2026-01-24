@@ -1,17 +1,25 @@
-import React from "react";
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
-import { Link } from "react-router-dom";
-import ImportTrades from "./ImportTrades.jsx";
+import { getTrades } from "../scripts/tradesFetcher.js";
 
 const ActiveAccount = () => {
-  const { user, dispatch } = useAuthContext();
+  const { user, dispatch, accountState } = useAuthContext();
 
-  const accountChange = (e) => {
-    dispatch({ type: "SWAP_ACCOUNT", payload: e.target.value });
+  const accountChange = async (e) => {
+    const selectedAccount = e.target.value;
+    if (user.importAccounts[selectedAccount]) {
+      dispatch({ type: "SWAP_ACCOUNT", payload: selectedAccount });
+    } else {
+      const response = await getTrades(selectedAccount);
+      dispatch({
+        type: "IMPORT_TRADES",
+        payload: { trades: response, account: selectedAccount },
+      });
+      dispatch({ type: "SWAP_ACCOUNT", payload: selectedAccount });
+    }
   };
+
   return (
     <>
-      {" "}
       {user && !user.activeAccount?.unAveilable && (
         <div className="active-bar top-spacer">
           <div className="account-selection">
@@ -23,12 +31,16 @@ const ActiveAccount = () => {
               name=""
               id=""
             >
-              {Object.keys(user.importAccounts).map((accountName, ind) => {
-                return <option key={ind}>{accountName}</option>;
+              {accountState.map((account, ind) => {
+                return (
+                  <option key={account._id} value={account._id}>
+                    {account.accountName}
+                  </option>
+                );
               })}
             </select>
           </div>
-          <ImportTrades />
+          {/* <ImportTrades /> */}
           {/* <Link to="/import" className="link-btn highlight-btn">
             Import Trades
           </Link> */}

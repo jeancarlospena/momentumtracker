@@ -1,0 +1,35 @@
+.create-new-account{
+  display: flex;
+  flex-direction: column;
+  width: 230px;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.trading-accounts-list{
+  margin-top: 16px;
+
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+
+.account-buttons-section{
+  align-self: right;
+
+}
+
+.account-action{
+  padding: 12px ;
+  justify-content: space-between;
+}
+
+.account-action:not(:last-child){
+  border-bottom: 1px solid rgb(155, 155, 155);
+}
+
+.create-account-input, .create-account-button{
+  border-radius: 5px;
+  padding: 10px 8px;
+  border: 1px solid black;
+}

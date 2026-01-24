@@ -1,11 +1,10 @@
-const User = require('../models/UserModel.js')
-const asyncHandler = require("../middleware/asyncHandler.js")
+import User from '../models/UserModel.js'
+import asyncHandler from "../middleware/asyncHandler.js"
 
 
 
 const updateImportsData = asyncHandler(async (req, res) => {
   const { importData, primaryAccount } = req.body
-  console.log(importData)
   if (!importData) {
     throw new Error('No data to import')
   }
@@ -54,5 +53,4 @@ const renameAccount = asyncHandler(async (req, res) => {
   res.status(200).json(updated)
 })
 
-
-module.exports = { updateImportsData, createImportAccount, deleteImportAccount, changePrimaryAccount, renameAccount }
+export { updateImportsData, createImportAccount, deleteImportAccount, changePrimaryAccount, renameAccount }

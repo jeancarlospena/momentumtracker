@@ -5,6 +5,11 @@
   display: none;
 }
 
+.logo-text{
+  color: #d6d3d3;
+  font-size: 20px;
+}
+
 .main-navigator{
 
   display: flex;
@@ -133,7 +138,7 @@ h1{
 .logo{
   padding: 10px 20px;
   border-radius: 20px;
-  width: 160px;
+  width: 100px;
 
 }
 .nav-sandwich{

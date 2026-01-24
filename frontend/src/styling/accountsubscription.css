@@ -1,0 +1,59 @@
+.payment-section{
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: blue; */
+}
+
+/* .payment-section  {
+  width: 40%;
+} */
+
+.select-program-section{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  text-align: center;
+}
+.select-program-section > h2{
+  margin-bottom: 14px;
+}
+
+.select-program{
+  transition: .5s;
+  border: 1px solid black;
+  /* background-color: white; */
+  margin-top: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 20px;
+  /* width: 40%; */
+}
+
+.select-program-top{
+  display: flex;
+}
+
+
+.paypal-buttons *{
+  width: 100%;
+}
+
+.paypal-buttons{
+  /* margin-top: 20px; */
+  width: 100%;
+  margin: 20px auto;
+  max-width: 400px;
+}
+
+.select-program-description{
+  text-align: center;
+  margin-top: 6px;
+}
+.selected-plan{
+  background-color: rgb(43, 43, 43);
+  /* background-color: var(--cell-back-color); */
+  color: white;
+}

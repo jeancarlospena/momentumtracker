@@ -1,6 +1,6 @@
-const User = require('../models/UserModel.js')
-const asyncHandler = require("../middleware/asyncHandler.js")
-const bcrypt = require('bcrypt')
+import User from '../models/UserModel.js'
+import asyncHandler from "../middleware/asyncHandler.js"
+import bcrypt from 'bcrypt'
 
 
 
@@ -8,7 +8,6 @@ const updateProfile = asyncHandler(async (req, res) => {
   // const { updatedInformation } = req.body
 
   // const updatedImport = await User.findByIdAndUpdate(req.user._id, { importAccounts: { ...req.user.importAccounts, [primaryAccount]: importData } }, { new: true }).select('-password')
-  // console.log(updatedImport)
   // res.status(200).json(updatedImport)
   const { firstName, email, password } = req.body
   const updatedProfielInfo = {}
@@ -31,4 +30,4 @@ const updateProfile = asyncHandler(async (req, res) => {
 
 
 
-module.exports = { updateProfile }
+export { updateProfile }

@@ -529,5 +529,4 @@ const starterImportsData = {
   "earliestDate": "2024-02-20T14:31:57.000Z",
   "latestDate": "2024-03-01T17:05:19.000Z"
 }
-
-module.exports = starterImportsData
+export default starterImportsData
