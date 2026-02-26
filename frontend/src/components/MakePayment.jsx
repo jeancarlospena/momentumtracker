@@ -15,7 +15,7 @@ export default function MakePayment() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ program }),
-      }
+      },
     );
     const data = await response.json();
 
@@ -47,10 +47,10 @@ export default function MakePayment() {
             onClick={() => setProgram("dedicated")}
           >
             <div className="select-program-top">
-              <h2 className="center-text">Dedicated Trader $189</h2>
+              <h2 className="center-text">Dedicated Trader $129</h2>
             </div>
             <p className="select-program-description">
-              Signals for <b>3 Months!</b>
+              Signals for <b>4 Months!</b>
             </p>
           </button>
           <button
@@ -60,7 +60,7 @@ export default function MakePayment() {
             onClick={() => setProgram("exclusive")}
           >
             <div className="select-program-top">
-              <h2 className="center-text">Exclusive Trader $649</h2>
+              <h2 className="center-text">Exclusive Trader $349</h2>
             </div>
             <p className="select-program-description">
               Signals for <b>1 Year!</b>

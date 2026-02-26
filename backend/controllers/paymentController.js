@@ -20,7 +20,7 @@ const client = new Client({
 const ordersController = new OrdersController(client);
 
 export const createOrder = async (req, res) => {
-  const programPrice = req.body.program === 'exclusive' ? '649' : '189'
+  const programPrice = req.body.program === 'exclusive' ? '349' : '129'
   const collect = {
     body: {
       intent: 'CAPTURE',
@@ -81,7 +81,7 @@ export const captureOrder = async (req, res) => {
     }
     const user = await User.findById(req.user._id);
     user.paypalPayments.push(paymentInformation)
-    const subscriptionDays = subscriptionPlan === 'Exclusive' ? 366 : 92
+    const subscriptionDays = subscriptionPlan === 'Exclusive' ? 366 : 122
     const generatedInvite = await generateTelegramInviteLink()
     user.subscription = {
       planLevel: subscriptionPlan,

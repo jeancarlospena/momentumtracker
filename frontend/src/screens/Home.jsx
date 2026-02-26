@@ -1,16 +1,20 @@
-import { Link } from "react-router-dom";
-import Footer from "../components/Footer.jsx";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import PricingSection from "../components/Pricing-2.jsx";
 
 const Home = () => {
   const [mainLoaded, setMainLoaded] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const img = new Image();
     img.src = "../images/business-shakeDark2.jpg";
     img.onload = () => setMainLoaded(true);
   }, []);
+
+  const handleSignUpNavigate = () => {
+    navigate("/signup");
+  };
   return (
     <div
       className={`preloadSection ${mainLoaded ? "loaded" : ""} landing-page`}
@@ -184,6 +188,15 @@ const Home = () => {
                 </div>
               </div>
               <img className="side-photo" src="../images/investor.jpg" alt="" />
+            </div>
+            <h3 className="title-h3 pricing-title-h3">Our Plans</h3>
+
+            <PricingSection />
+            <div
+              onClick={() => handleSignUpNavigate()}
+              className="start-here-btn"
+            >
+              Start Here
             </div>
           </div>
         </div>

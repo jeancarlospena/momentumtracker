@@ -3,6 +3,7 @@ import Pricing from "../components/Pricing.jsx";
 import MakePayment from "../components/MakePayment.jsx";
 import { useEffect, useState } from "react";
 import SubscribedUser from "../components/SubscribedUser.jsx";
+import PricingSection from "../components/Pricing-2.jsx";
 
 export default function PayPalButton() {
   const { user } = useAuthContext();
@@ -23,7 +24,7 @@ export default function PayPalButton() {
       ) : (
         <>
           {" "}
-          <Pricing />
+          <PricingSection />
           <MakePayment />
         </>
       )}

@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext.jsx";
 import { inputFocus } from "../scripts/inputFocus.js";
 import Pricing from "../components/Pricing.jsx";
+import PricingSection from "../components/Pricing-2.jsx";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -48,10 +49,13 @@ const SignUp = () => {
   //     inputToRef.current.focus();
   //   }
   // };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
   return (
     <div className="sign-up-content">
       <div className="pricing-container">
-        <Pricing />
+        <PricingSection />
       </div>
       <form className="log-form auth-form-space" onSubmit={submitHandler}>
         <input

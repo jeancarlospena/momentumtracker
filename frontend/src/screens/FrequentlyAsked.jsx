@@ -32,7 +32,7 @@ const FrequentlyAsked = () => {
   useEffect(() => {
     const generatedData = faqData.map((data, ind) => {
       return (
-        <div className="faq-section" onClick={() => setActiveQ(ind)}>
+        <div key={ind} className="faq-section" onClick={() => setActiveQ(ind)}>
           <h2>{data.q}</h2>
           <p className={ind === activeQ ? "active-faq" : ""}>{data.a}</p>
         </div>
