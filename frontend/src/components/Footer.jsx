@@ -56,7 +56,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="bottom-footer">
-          <span>© 2025 SignalOverwatch.com LLC. All rights reserved.</span>
+          <span>© 2026 SignalOverwatch.com LLC. All rights reserved.</span>
           <span>
             SignalOverwatch.com LLC (“SignalOverwatch.com”) is a software as a
             service provider and financial education company.

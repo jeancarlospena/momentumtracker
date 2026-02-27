@@ -5,6 +5,7 @@
   --box-outline: rgb(126, 126, 126);
   --highlight-color: #2e820a;
   --highlight-color: #58c981;
+  --highlight-color: rgb(110, 26, 26);
   --outline-green: rgb(91, 131, 91);
   --background-green: #a8f985;
   --outline-red: rgb(105, 69, 69);
@@ -17,7 +18,7 @@
   --gen-back-light: #eeeff2; */
   --cell-back-color: rgb(231, 230, 230);
   /* --highlight-color: #ae1bd7; */
-  --top-margin-from-header: 220px;
+  --top-margin-from-header: 200px;
   font-size: 16px; 
 }
 

@@ -87,7 +87,7 @@
   padding: 20px;
   /* border-radius: 12px; */
   gap:6px;
-  background-color: rgb(117, 9, 9);
+  background-color: var(--highlight-color);
   color: var(--white-dark-text);
 }
 
